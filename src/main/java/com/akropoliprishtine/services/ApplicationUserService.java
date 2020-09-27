@@ -15,7 +15,7 @@ import java.util.List;
 import static java.util.Collections.emptyList;
 
 @Service
-public class ApplicationUserService implements UserDetailsService {
+public class ApplicationUserService {
     @Autowired
     UserRepository userRepository;
 
@@ -25,14 +25,18 @@ public class ApplicationUserService implements UserDetailsService {
     public ApplicationUserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    
+    
+    public ApplicationUser loadUserByUsernameAndPassword(String username, String password) throws UsernameNotFoundException {
         ApplicationUser applicationUser = userRepository.findByUsername(username);
-        if (applicationUser == null) {
+        if (applicationUser == null || !checkPassword(applicationUser, password)) {
             throw new UsernameNotFoundException(username);
         }
-        return new User(applicationUser.getUsername(), applicationUser.getPassword(), emptyList());
+        return applicationUser;
+    }
+
+    public ApplicationUser loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userRepository.findByUsername(username);
     }
 
     public List<ApplicationUser> getUsers() {
@@ -53,6 +57,10 @@ public class ApplicationUserService implements UserDetailsService {
 
     public void deleteUser(ApplicationUser applicationUser) {
         this.userRepository.delete(applicationUser);
+    }
+
+    private boolean checkPassword(ApplicationUser applicationUser, String password) {
+        return passwordEncoder.matches(password, applicationUser.getPassword());
     }
 
 }

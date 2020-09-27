@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+import com.akropoliprishtine.entities.ApplicationUser;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -49,10 +50,11 @@ public class JwtTokenUtil implements Serializable {
     }
 
     //generate token for user
-    public String generateToken(UserDetails userDetails) {
+    public String generateToken(ApplicationUser user) {
         Map<String, Object> claims = new HashMap<>();
-        claims.put("test", "asdf");
-        return doGenerateToken(claims, userDetails.getUsername());
+        claims.put("username", user.getUsername());
+        claims.put("role", user.getRole());
+        return doGenerateToken(claims, user.getUsername());
     }
 
     //while creating the token -

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/account_user")
+@RequestMapping("/p1/account_user")
 public class ApplicationUserController {
     @Autowired
     private ApplicationUserService applicationUserService;
