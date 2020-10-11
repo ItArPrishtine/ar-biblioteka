@@ -28,7 +28,7 @@ public class AuthenticationController {
     @Autowired
     private ApplicationUserService userService;
 
-    @RequestMapping(value = "/p1/authenticate", method = RequestMethod.POST)
+    @PostMapping(value = "/p1/authenticate")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
 
         authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());

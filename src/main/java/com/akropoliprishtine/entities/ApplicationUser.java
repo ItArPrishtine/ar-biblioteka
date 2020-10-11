@@ -15,6 +15,18 @@ public class ApplicationUser {
     @Column(unique=true)
     private String username;
 
+    @Column()
+    private String firstName;
+
+    @Column()
+    private String lastName;
+
+    @Column()
+    private String dateOfBirth;
+
+    @Column()
+    private String description;
+
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(name = "password")
     private String password;
@@ -41,6 +53,38 @@ public class ApplicationUser {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getPassword() {

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/p1/account_user")
+@RequestMapping("/account_user")
 public class ApplicationUserController {
     @Autowired
     private ApplicationUserService applicationUserService;
@@ -18,7 +18,7 @@ public class ApplicationUserController {
         return this.applicationUserService.createUser(applicationUser);
     }
 
-    @GetMapping("all")
+    @GetMapping("list")
     public List<ApplicationUser> getUsers() {
         return this.applicationUserService.getUsers();
     }
