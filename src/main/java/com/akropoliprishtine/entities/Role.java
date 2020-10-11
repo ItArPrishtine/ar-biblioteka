@@ -13,9 +13,6 @@ public class Role {
 
     private String description;
 
-    @OneToOne(mappedBy = "role")
-    private ApplicationUser applicationUser;
-
     public Long getId() {
         return id;
     }
@@ -38,13 +35,5 @@ public class Role {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public ApplicationUser getUsers() {
-        return applicationUser;
-    }
-
-    public void setUser(ApplicationUser applicationUser) {
-        this.applicationUser = applicationUser;
     }
 }
