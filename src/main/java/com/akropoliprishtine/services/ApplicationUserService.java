@@ -44,7 +44,7 @@ public class ApplicationUserService {
     }
 
     public ApplicationUser createUser(ApplicationUser applicationUser) {
-        applicationUser.setPassword(passwordEncoder.encode(applicationUser.getPassword()));
+//        applicationUser.setPassword(passwordEncoder.encode(applicationUser.getPassword()));
         return this.userRepository.save(applicationUser);
     }
 

@@ -12,19 +12,19 @@ public class ApplicationUser {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique=true)
+    @Column(unique=true, nullable = false)
     private String username;
 
-    @Column()
+    @Column(nullable = false)
     private String firstName;
 
-    @Column()
+    @Column(nullable = false)
     private String lastName;
 
-    @Column()
+    @Column(nullable = false)
     private String dateOfBirth;
 
-    @Column()
+    @Column(nullable = false)
     private String description;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
@@ -36,7 +36,7 @@ public class ApplicationUser {
     private String passwordConfirm;
 
     @OneToOne
-    @JoinColumn(name = "roleId")
+    @JoinColumn(name = "roleId", nullable = false)
     private Role role;
 
     public Long getId() {
