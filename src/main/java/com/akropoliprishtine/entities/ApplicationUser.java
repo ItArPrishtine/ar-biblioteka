@@ -1,9 +1,9 @@
 package com.akropoliprishtine.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
+
 
 @Entity(name = "account_users")
 @Table(name = "account_users")
