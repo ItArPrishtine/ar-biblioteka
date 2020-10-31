@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "book_book")
+@Table(name = "book_book", uniqueConstraints = @UniqueConstraint(columnNames = {"name", "categoryId"}))
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,11 +30,10 @@ public class Book {
     @OneToOne
     private Category category;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String imageUrl;
 
-    @DateTimeFormat(pattern = "yyyy")
-    private Date publicationYear;
+    private String publicationYear;
 
     public Long getId() {
         return id;
@@ -90,5 +89,13 @@ public class Book {
 
     public void setAuthor(Author author) {
         this.author = author;
+    }
+
+    public String getPublicationYear() {
+        return publicationYear;
+    }
+
+    public void setPublicationYear(String publicationYear) {
+        this.publicationYear = publicationYear;
     }
 }

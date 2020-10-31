@@ -3,7 +3,8 @@ package com.akropoliprishtine.entities.book;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "book_category")
+@Table(name = "book_category", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
+
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

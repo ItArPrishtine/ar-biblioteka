@@ -4,7 +4,8 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "book_author")
+@Table(name = "book_author", uniqueConstraints = @UniqueConstraint(columnNames = {"name", "lastName"}))
+
 public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,7 +17,7 @@ public class Author {
     @Column(nullable = false)
     private String lastName;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String dateOfBirth;
 
     private String dateOfDeath;
