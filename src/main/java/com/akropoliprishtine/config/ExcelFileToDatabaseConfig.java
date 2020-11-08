@@ -78,7 +78,7 @@ public class ExcelFileToDatabaseConfig {
         for (RegjistriDTO regjistriDTO : registerList) {
 
             Author author = new Author();
-            author.setName(regjistriDTO.getEmriAutorit());
+            author.setFirstName(regjistriDTO.getEmriAutorit());
             author.setLastName("");
             author = saveAuthor(author, existedAuthors);
 
@@ -150,7 +150,7 @@ public class ExcelFileToDatabaseConfig {
 
     public Author authorExists(List<Author> list, Author author){
         return list.stream().filter(item ->
-                item.getName().equalsIgnoreCase(author.getName())
+                item.getFirstName().equalsIgnoreCase(author.getFirstName())
                 && item.getLastName().equalsIgnoreCase(author.getLastName())
         ).findAny().orElse(null);
     }

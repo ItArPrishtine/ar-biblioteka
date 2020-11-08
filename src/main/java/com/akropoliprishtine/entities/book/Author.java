@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "book_author", uniqueConstraints = @UniqueConstraint(columnNames = {"name", "lastName"}))
+@Table(name = "book_author", uniqueConstraints = @UniqueConstraint(columnNames = {"firstName", "lastName"}))
 
 public class Author {
     @Id
@@ -12,7 +12,7 @@ public class Author {
     private Long id;
 
     @Column(nullable = false)
-    private String name;
+    private String firstName;
 
     @Column(nullable = false)
     private String lastName;
@@ -20,7 +20,14 @@ public class Author {
     @Column(nullable = true)
     private String dateOfBirth;
 
+    @Column(nullable = true)
     private String dateOfDeath;
+
+    @Column(nullable = true)
+    private String description;
+
+    @Column(nullable = true)
+    private String imageUrl;
 
     public Long getId() {
         return id;
@@ -30,12 +37,12 @@ public class Author {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getLastName() {
@@ -60,5 +67,21 @@ public class Author {
 
     public void setDateOfDeath(String dateOfDeath) {
         this.dateOfDeath = dateOfDeath;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }
