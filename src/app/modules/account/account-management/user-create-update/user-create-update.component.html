@@ -1,0 +1,54 @@
+<div class="form" *ngIf="formGroup">
+  <div class="title modal-title">
+    <p>Create user</p>
+
+    <hr>
+  </div>
+
+  <form [formGroup]="formGroup" class="form">
+    <div class="form-input">
+      <mat-form-field>
+        <mat-label>Username</mat-label>
+        <input matInput type="text" formControlName="username" placeholder="Username" />
+      </mat-form-field>
+    </div>
+
+    <div class="form-input">
+      <mat-form-field>
+        <mat-label>Emri</mat-label>
+        <input matInput type="text" formControlName="firstName" placeholder="First Name" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Mbiemri</mat-label>
+        <input matInput type="text" formControlName="lastName" placeholder="Last Name" />
+      </mat-form-field>
+
+
+      <mat-form-field>
+        <mat-label>Roles</mat-label>
+        <mat-select formControlName="role">
+          <mat-option *ngFor="let role of roles" value="{{role.id}}">{{role.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Data e Lindjes</mat-label>
+        <input matInput type="text" formControlName="dateOfBirth" placeholder="Data e Lindjes"  [matDatepicker]="picker" />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Pershkrim i shkurter</mat-label>
+        <input matInput type="text" formControlName="description" placeholder="Pershkrim i shkurter" />
+      </mat-form-field>
+    </div>
+
+
+    <div class="button buttons-plc">
+      <button mat-raised-button (click)="closeDialog()">Mbyll</button>
+      <button mat-raised-button (click)="createOrUpdateUser()" color="primary">Shto</button>
+    </div>
+  </form>
+</div>

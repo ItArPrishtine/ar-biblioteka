@@ -1,0 +1,48 @@
+<div class="table">
+  <div class="table-title-holder">
+    <div class="table-title table-title__button">
+      <div class="title">
+        <p>Lista e Usere-ve</p>
+      </div>
+      <div class="button">
+        <button (click)="openCreateUserModal()" mat-raised-button color="accent">Create User</button>
+      </div>
+    </div>
+    <table mat-table [dataSource]="dataSource">
+      <!-- Position Column -->
+      <ng-container matColumnDef="firstName">
+        <th style="width: 20%" mat-header-cell *matHeaderCellDef> Emri </th>
+        <td style="width: 20%" mat-cell *matCellDef="let element"> {{element.firstName}} </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="lastName">
+        <th style="width: 20%" mat-header-cell *matHeaderCellDef> Mbiemri </th>
+        <td style="width: 20%" mat-cell *matCellDef="let element"> {{element.lastName}} </td>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="email">
+        <th style="width: 20%" mat-header-cell *matHeaderCellDef> Emaili </th>
+        <td style="width: 20%" mat-cell *matCellDef="let element"> {{element.username}} </td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="dateOfBirth">
+        <th style="width: 20%" mat-header-cell *matHeaderCellDef> Data e Lindjes </th>
+        <td style="width: 20%" mat-cell *matCellDef="let element"> {{element.dateOfBirth | date}} </td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="role">
+        <th style="width: 20%" mat-header-cell *matHeaderCellDef> Roli </th>
+        <td style="width: 20%" mat-cell *matCellDef="let element"> {{element.role?.name}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+  </div>
+
+</div>
