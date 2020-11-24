@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthenticationService} from "../../../shared/services/auth/authentication.service";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {LoginModel} from "../../../shared/models/auth/login.model";
-import {TokenService} from "../../../shared/services/auth/token.service";
-import {Router} from "@angular/router";
-import {RouterUrls} from "../../../shared/constants/RouterUrls";
+import {AuthenticationService} from '../../../shared/services/auth/authentication.service';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {LoginModel} from '../../../shared/models/auth/login.model';
+import {TokenService} from '../../../shared/services/auth/token.service';
+import {Router} from '@angular/router';
+import {RouterUrls} from '../../../shared/constants/RouterUrls';
+import {IMAGEURLS} from '../../../shared/constants/GeneralConstant';
 
 @Component({
   selector: 'app-login',
@@ -13,6 +14,7 @@ import {RouterUrls} from "../../../shared/constants/RouterUrls";
 })
 export class LoginComponent implements OnInit {
   formGroup: FormGroup;
+  logoUrl = IMAGEURLS.LOGO;
 
   constructor(private authService: AuthenticationService,
               private router: Router,

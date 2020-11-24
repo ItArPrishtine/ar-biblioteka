@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from "@angular/router";
-import {RouterUrls} from "../../../shared/constants/RouterUrls";
+import {Router} from '@angular/router';
+import {RouterUrls} from '../../../shared/constants/RouterUrls';
+import {IMAGEURLS} from '../../../shared/constants/GeneralConstant';
 
 @Component({
   selector: 'app-header',
@@ -8,7 +9,7 @@ import {RouterUrls} from "../../../shared/constants/RouterUrls";
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-
+  logoUrl = IMAGEURLS.LOGO;
   constructor(private router: Router) { }
 
   ngOnInit(): void {

@@ -4,6 +4,7 @@ import {AuthorService} from "../../../../../shared/services/biblioteka/author.se
 import {AuthorModel} from "../../../../../shared/models/book/author.model";
 import {AuthorFormComponent} from "../author-form/author-form.component";
 import {MatDialog} from "@angular/material/dialog";
+import {IMAGEURLS} from "../../../../../shared/constants/GeneralConstant";
 
 @Component({
   selector: 'app-author-details',
@@ -12,6 +13,7 @@ import {MatDialog} from "@angular/material/dialog";
 })
 export class AuthorDetailsComponent implements OnInit {
   author: AuthorModel;
+  avatarImage = IMAGEURLS.AVATAR;
 
   constructor(private activeRoute: ActivatedRoute,
               private dialog: MatDialog,

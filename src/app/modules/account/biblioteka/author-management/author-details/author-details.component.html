@@ -4,7 +4,7 @@
   <div class="left-right">
     <div class="left-side">
       <img *ngIf="author.imageUrl" src="{{author.imageUrl.split('src')[1]}}" />
-      <img *ngIf="!author.imageUrl" src="/assets/images/img_avatar.png" />
+      <img *ngIf="!author.imageUrl" src="{{avatarImage}}" />
     </div>
 
     <div class="right-side">
@@ -45,7 +45,7 @@
     <div class="book-card" *ngFor="let x of [1,2,3,4,5,6,7,8,9]">
       <div class="img-title">
         <div class="img">
-          <img src="/assets/images/img_avatar.png" />
+          <img src="{{avatarImage}}" />
         </div>
         <div class="title-desc">
           <p class="book-title">Title</p>
