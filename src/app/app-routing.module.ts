@@ -19,12 +19,12 @@ const routes: Routes = [
       {
         path: RouterUrls.AUTHENTICATE.BASE_MODULE,
         loadChildren: () => import('./modules/authenticate/authenticate.module').then(mod => mod.AuthenticateModule),
-        // canActivate: [ AuthenticateGuard ]
+        canActivate: [ AuthenticateGuard ]
       },
       {
         path: RouterUrls.ACCOUNT.BASE_MODULE,
-        loadChildren: () => import('./modules/account/account.module').then(mod => mod.AccountModule)
-        // canActivate: [ AccountGuard ]
+        loadChildren: () => import('./modules/account/account.module').then(mod => mod.AccountModule),
+        canActivate: [ AccountGuard ]
       }
     ]
   }

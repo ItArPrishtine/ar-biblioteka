@@ -1,6 +1,6 @@
 <div class="author-card">
   <div class="image">
-    <img src="{{author.imageUrl}}" />
+    <img *ngIf="author.imageUrl" src="{{author.imageUrl ? author.imageUrl.toString().split('src')[1] : ''}}" />
   </div>
 
   <div class="title-desc">
@@ -9,7 +9,7 @@
     </div>
     <div class="desc">
       <p>
-        {{author.description}}
+        {{author.description ? author.description.substring(0 , 230) + ' ...' : 'No description added'}}
       </p>
     </div>
   </div>

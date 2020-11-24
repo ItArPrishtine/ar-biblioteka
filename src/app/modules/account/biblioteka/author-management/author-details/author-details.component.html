@@ -3,7 +3,7 @@
 
   <div class="left-right">
     <div class="left-side">
-      <img *ngIf="author.imageUrl" src="{{author.imageUrl}}" />
+      <img *ngIf="author.imageUrl" src="{{author.imageUrl.split('src')[1]}}" />
       <img *ngIf="!author.imageUrl" src="/assets/images/img_avatar.png" />
     </div>
 

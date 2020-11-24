@@ -17,13 +17,5 @@ export class AuthorCardComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.detailsUrl);
-    this.sanitizeImageUrl();
   }
-
-  sanitizeImageUrl() {
-    if (this.author.imageUrl) {
-      this.author.imageUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.author.imageUrl);
-    }
-  }
-
 }
