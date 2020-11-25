@@ -16,6 +16,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 @RestController
 public class AuthenticationController {
@@ -31,10 +32,23 @@ public class AuthenticationController {
     @PostMapping(value = "/p1/authenticate")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
 
-        authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
+        String usernameOrEmail = authenticationRequest.getUsername();
+        Pattern pattern = Pattern.compile("[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}");
+
+        ApplicationUser userByEmail;
+        String username;
+
+        if (pattern.matcher(usernameOrEmail).matches()) {
+            userByEmail = userService.findByEmail(usernameOrEmail);
+            username = userByEmail.getUsername();
+            authenticate(userByEmail.getUsername(), authenticationRequest.getPassword());
+        } else {
+            username = authenticationRequest.getUsername();
+            authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
+        }
 
         ApplicationUser user = userService.loadUserByUsernameAndPassword(
-                authenticationRequest.getUsername(),
+                username,
                 authenticationRequest.getPassword());
 
         final String token = jwtTokenUtil.generateToken(user);

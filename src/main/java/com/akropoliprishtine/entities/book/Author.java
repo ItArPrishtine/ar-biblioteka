@@ -23,7 +23,7 @@ public class Author {
     @Column(nullable = true)
     private String dateOfDeath;
 
-    @Column(nullable = true)
+    @Column(nullable = true, length = 20000)
     private String description;
 
     @Column(nullable = true)

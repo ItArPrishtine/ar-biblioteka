@@ -53,8 +53,7 @@ public class ExcelFileToDatabaseConfig {
         List<Edition> existedEditions = editionService.getEditions();
         List<Book> booksToAdd = new ArrayList<>();
 
-        Workbook workbook = WorkbookFactory.create(new File("" +
-                "C:\\Users\\PC\\Desktop\\projects\\akropoli-prishtine\\akropoli-prishtine\\src\\main\\resources\\regjistri.xlsx"));
+        Workbook workbook = WorkbookFactory.create(new File("/home/guest/empty/ar-prishtine/src/main/resources/regjistri.xlsx"));
 
         // Getting the Sheet at index zero
         Sheet sheet = workbook.getSheetAt(0);

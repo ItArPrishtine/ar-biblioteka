@@ -1,7 +1,10 @@
 package com.akropoliprishtine.services;
 
 import com.akropoliprishtine.entities.ApplicationUser;
+import com.akropoliprishtine.entities.Role;
 import com.akropoliprishtine.repositories.UserRepository;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,8 +25,12 @@ public class ApplicationUserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public ApplicationUserService(UserRepository userRepository) {
+    ObjectMapper objectMapper;
+
+    public ApplicationUserService(UserRepository userRepository,
+                                  ObjectMapper objectMapper) {
         this.userRepository = userRepository;
+        this.objectMapper = objectMapper;
     }
     
     
@@ -35,6 +42,10 @@ public class ApplicationUserService {
         return applicationUser;
     }
 
+    public ApplicationUser findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
     public ApplicationUser loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findByUsername(username);
     }
@@ -43,7 +54,16 @@ public class ApplicationUserService {
         return this.userRepository.findAll();
     }
 
-    public ApplicationUser createUser(ApplicationUser applicationUser) {
+    public ApplicationUser createUser(JsonNode jsonNode) {
+        ApplicationUser applicationUser = new ApplicationUser();
+        applicationUser.setFirstName(jsonNode.get("firstName").textValue());
+        applicationUser.setLastName(jsonNode.get("lastName").textValue());
+        applicationUser.setEmail(jsonNode.get("email").textValue());
+        applicationUser.setDateOfBirth(jsonNode.get("dateOfBirth").textValue());
+        applicationUser.setDescription(jsonNode.get("description").textValue());
+        applicationUser.setRole(objectMapper.convertValue(jsonNode.get("role"), Role.class));
+        applicationUser.setUsername(applicationUser.getFirstName() + applicationUser.getLastName());
+
 //        applicationUser.setPassword(passwordEncoder.encode(applicationUser.getPassword()));
         return this.userRepository.save(applicationUser);
     }

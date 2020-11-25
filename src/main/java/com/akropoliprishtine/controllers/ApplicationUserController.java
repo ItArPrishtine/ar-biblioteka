@@ -2,6 +2,7 @@ package com.akropoliprishtine.controllers;
 
 import com.akropoliprishtine.entities.ApplicationUser;
 import com.akropoliprishtine.services.ApplicationUserService;
+import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,7 +15,7 @@ public class ApplicationUserController {
     private ApplicationUserService applicationUserService;
 
     @PostMapping("create")
-    public ApplicationUser createUser(@RequestBody ApplicationUser applicationUser) {
+    public ApplicationUser createUser(@RequestBody JsonNode applicationUser) {
         return this.applicationUserService.createUser(applicationUser);
     }
 
@@ -32,4 +33,5 @@ public class ApplicationUserController {
     public void deleteUser(@RequestBody ApplicationUser applicationUser) {
         this.applicationUserService.deleteUser(applicationUser);
     }
+
 }

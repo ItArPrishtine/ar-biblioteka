@@ -92,25 +92,6 @@
 			<plugin>
 				<groupId>org.flywaydb</groupId>
 				<artifactId>flyway-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>migrate</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<driver>org.postgresql.Driver</driver>
-					<url>jdbc:postgresql://localhost:5432/akropoli</url>
-					<user>it</user>
-					<password>itsekretaria</password>
-					<baselineOnMigrate>true</baselineOnMigrate>
-					<schemas>public</schemas>
-					<locations>
-						<location>classpath:/db/migrations</location>
-					</locations>
-				</configuration>
 			</plugin>
 		</plugins>
 	</build>

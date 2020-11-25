@@ -15,6 +15,9 @@ public class ApplicationUser {
     @Column(unique=true, nullable = false)
     private String username;
 
+    @Column(unique=true, nullable = false)
+    private String email;
+
     @Column(nullable = false)
     private String firstName;
 
@@ -109,5 +112,13 @@ public class ApplicationUser {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
