@@ -1,5 +1,10 @@
 <div class="author-details" *ngIf="author">
-  <button mat-raised-button color="accent" (click)="updateAuthor()">Ndrysho Autorin</button>
+  <div class="button">
+    <div class="d-flex">
+      <button mat-raised-button color="warn" (click)="deleteAuthor()">Fshij Autorin</button>
+      <button mat-raised-button color="accent" (click)="updateAuthor()">Ndrysho Autorin</button>
+    </div>
+  </div>
 
   <div class="left-right">
     <div class="left-side">
@@ -42,14 +47,14 @@
       <p>Librat me te lexuara</p>
     </div>
 
-    <div class="book-card" *ngFor="let x of [1,2,3,4,5,6,7,8,9]">
+    <div class="book-card" *ngFor="let book of books">
       <div class="img-title">
         <div class="img">
-          <img src="{{avatarImage}}" />
+          <img src="{{bookImage}}" />
         </div>
         <div class="title-desc">
-          <p class="book-title">Title</p>
-          <p class="desc">Desc</p>
+          <p class="book-title">{{book.name}}</p>
+          <p class="desc">{{book.description}}</p>
         </div>
       </div>
     </div>

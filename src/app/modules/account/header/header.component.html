@@ -10,14 +10,19 @@
 
   <div class="right-side">
     <nav>
-      <a href="#">Bilbioteka</a>
+      <a [matMenuTriggerFor]="menu">Bilbioteka</a>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item routerLink="{{authorsUrl}}">Autoret</button>
+        <button mat-menu-item routerLink="{{bibliotekaUrl}}">Librat</button>
+      </mat-menu>
+
       <a href="#" class="selected">Ekonomia</a>
       <a href="#">Integrimi</a>
     </nav>
 
     <div class="profile-avatar">
       <div class="open-menu">
-        <p>Agon Haxhani</p>
+        <p>{{tokenData.username}}</p>
         <div class="image" [matMenuTriggerFor]="menu" style='background-image: url("/assets/images/img_avatar.png")'></div>
       </div>
       <mat-menu #menu="matMenu">

@@ -1,6 +1,6 @@
 <div class="author-card">
   <div class="image">
-    <img *ngIf="author.imageUrl" src="{{author.imageUrl ? author.imageUrl.toString().split('src')[1] : ''}}" />
+    <img src="{{author.imageUrl ? author.imageUrl.toString().split('src')[1] : authorImage}}" />
   </div>
 
   <div class="title-desc">

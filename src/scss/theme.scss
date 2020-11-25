@@ -2,7 +2,7 @@
 @include mat-core();
 
 $akropoli-pr-ui-primary: mat-palette($mat-green, 800);
-$akropoli-pr-ui-accent: mat-palette($mat-deep-purple, 700);
+$akropoli-pr-ui-accent: mat-palette($mat-blue, 700);
 $akropoli-pr-ui-warn: mat-palette($mat-red);
 
 $akropoli-pr-ui-theme: mat-light-theme($akropoli-pr-ui-primary, $akropoli-pr-ui-accent, $akropoli-pr-ui-warn);

@@ -8,8 +8,8 @@
   <form [formGroup]="formGroup" class="form">
     <div class="form-input">
       <mat-form-field>
-        <mat-label>Username</mat-label>
-        <input matInput type="text" formControlName="username" placeholder="Username" />
+        <mat-label>Email</mat-label>
+        <input matInput type="text" formControlName="email" placeholder="Email" />
       </mat-form-field>
     </div>
 
@@ -47,7 +47,7 @@
 
 
     <div class="button buttons-plc">
-      <button mat-raised-button (click)="closeDialog()">Mbyll</button>
+      <button class="mr-1" mat-raised-button (click)="closeDialog()">Mbyll</button>
       <button mat-raised-button (click)="createOrUpdateUser()" color="primary">Shto</button>
     </div>
   </form>

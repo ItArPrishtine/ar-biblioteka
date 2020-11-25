@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   api: 'http://localhost:8080/api',
-  baseHref: 'https://itarprishtine.github.io/akropoli-pr-ui'
+  baseHref: ''
 };
 
 /*

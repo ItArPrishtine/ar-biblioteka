@@ -32,18 +32,18 @@ export class UserCreateUpdateComponent implements OnInit {
         this.roles = result;
         this.initForm();
       }
-    )
+    );
   }
 
   initForm() {
     this.formGroup = new FormGroup({
-      username: new FormControl(''),
+      email: new FormControl(''),
       firstName: new FormControl(''),
       lastName: new FormControl(''),
       role: new FormControl(''),
       dateOfBirth: new FormControl(''),
       description: new FormControl(''),
-    })
+    });
   }
 
   createOrUpdateUser() {
@@ -55,7 +55,7 @@ export class UserCreateUpdateComponent implements OnInit {
     const role: RoleModel = new RoleModel();
     role.id = values.role;
 
-    this.user.username = values.username;
+    this.user.email = values.email;
     this.user.firstName = values.firstName;
     this.user.lastName = values.lastName;
     this.user.dateOfBirth = values.dateOfBirth;

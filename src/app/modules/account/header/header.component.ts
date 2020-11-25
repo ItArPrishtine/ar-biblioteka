@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {RouterUrls} from '../../../shared/constants/RouterUrls';
 import {IMAGEURLS} from '../../../shared/constants/GeneralConstant';
+import {TokenService} from '../../../shared/services/auth/token.service';
 
 @Component({
   selector: 'app-header',
@@ -10,7 +11,13 @@ import {IMAGEURLS} from '../../../shared/constants/GeneralConstant';
 })
 export class HeaderComponent implements OnInit {
   logoUrl = IMAGEURLS.LOGO;
-  constructor(private router: Router) { }
+  tokenData: any;
+  bibliotekaUrl = RouterUrls.ACCOUNT.BASE_MODULE + '/' + RouterUrls.BIBLIOTEKA.BASE_MODULE;
+  authorsUrl = RouterUrls.BIBLIOTEKA.BASE_MODULE + '/' + RouterUrls.BIBLIOTEKA.AUTHOR;
+
+  constructor(private router: Router, private tokenService: TokenService) {
+    this.tokenData = tokenService.getData();
+  }
 
   ngOnInit(): void {
   }

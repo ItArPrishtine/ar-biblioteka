@@ -1,0 +1,8 @@
+<div class="delete-holder">
+  <p>Are you sure you want to delete this {{elementToDelete}}</p>
+
+  <div class="buttons d-flex justify-content-end mt-4">
+    <button mat-button class="mr-2" (click)="dialogRef.close()">No</button>
+    <button color="warn" mat-raised-button (click)="deleteElement()">Yes</button>
+  </div>
+</div>

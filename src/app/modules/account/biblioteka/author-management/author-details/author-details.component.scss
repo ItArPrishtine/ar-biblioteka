@@ -11,11 +11,16 @@
   border: 1px solid #dbdbdb;
   width: 100%;
   position: relative;
+  text-align: justify;
 
-  button {
+  .button {
     position: absolute;
     right: 10px;
     top: 10px;
+
+    button:first-of-type {
+      margin-right: 10px;
+    }
   }
 
   .left-right {

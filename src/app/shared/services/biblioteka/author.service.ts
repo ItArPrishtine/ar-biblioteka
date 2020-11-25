@@ -12,6 +12,10 @@ export class AuthorService {
     return this.http.post(RequestUrls.BOOK.AUTHOR.CREATE, author);
   }
 
+  deleteAuthor(authorId: string) {
+    return this.http.delete(RequestUrls.BOOK.AUTHOR.DELETE + `/${authorId}`);
+  }
+
   updateAuthor(author: any) {
     return this.http.put(RequestUrls.BOOK.AUTHOR.UPDATE, author);
   }
@@ -22,5 +26,9 @@ export class AuthorService {
 
   getAuthorById(id: string) {
     return this.http.get<AuthorModel>(RequestUrls.BOOK.AUTHOR.DETAILS + `/${id}`);
+  }
+
+  getAuthorBooks(id: string) {
+    return this.http.get<any>(RequestUrls.BOOK.BOOK.BY_AUTHOR + `/${id}`);
   }
 }
