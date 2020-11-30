@@ -6,8 +6,11 @@ import com.akropoliprishtine.entities.book.Book;
 import com.akropoliprishtine.repositories.RoleRepository;
 import com.akropoliprishtine.repositories.book.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,6 +34,14 @@ public class BookService {
 
     public List<Book> getBooks() {
         return this.bookRepository.findAll();
+    }
+
+    public Page<Book> getBooksPage(Pageable pageable) {
+        return this.bookRepository.findAll(pageable);
+    }
+
+    public Optional<Book> getBooksDetails(Long id) {
+        return this.bookRepository.findById(id);
     }
 
     public List<Book> getBooksByAuthor(String authorId) {

@@ -4,6 +4,9 @@ import com.akropoliprishtine.entities.book.Author;
 import com.akropoliprishtine.services.book.AuthorService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -37,8 +40,11 @@ public class AuthorController {
     }
 
     @GetMapping("list")
-    public List<Author> getAuthors() {
-        return this.authorService.getAuthors();
+    public Page<Author> getAuthors(@RequestParam(defaultValue = "0") Integer pageNumber,
+                                   @RequestParam(defaultValue = "20") Integer pageSize) {
+
+        Pageable paging = PageRequest.of(pageNumber, pageSize);
+        return this.authorService.getAuthorsPage(paging);
     }
 
     @PutMapping("update")
