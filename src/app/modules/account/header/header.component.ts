@@ -12,8 +12,8 @@ import {TokenService} from '../../../shared/services/auth/token.service';
 export class HeaderComponent implements OnInit {
   logoUrl = IMAGEURLS.LOGO;
   tokenData: any;
-  bibliotekaUrl = RouterUrls.ACCOUNT.BASE_MODULE + '/' + RouterUrls.BIBLIOTEKA.BASE_MODULE;
   authorsUrl = RouterUrls.BIBLIOTEKA.BASE_MODULE + '/' + RouterUrls.BIBLIOTEKA.AUTHOR;
+  booksUrl = RouterUrls.BIBLIOTEKA.BASE_MODULE + '/' + RouterUrls.BIBLIOTEKA.BOOK;
 
   constructor(private router: Router, private tokenService: TokenService) {
     this.tokenData = tokenService.getData();

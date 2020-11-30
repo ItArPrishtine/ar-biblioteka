@@ -1,7 +1,7 @@
 import {ChangeDetectorRef, Component} from '@angular/core';
-import {UserService} from "../../../../shared/services/account/user.service";
-import {UserCreateUpdateComponent} from "../user-create-update/user-create-update.component";
-import {MatDialog} from "@angular/material/dialog";
+import {UserService} from '../../../../shared/services/account/user.service';
+import {UserCreateUpdateComponent} from '../user-create-update/user-create-update.component';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-user-list',

@@ -1,10 +1,10 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {FormControl, FormGroup} from "@angular/forms";
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {AccountUserModel} from "../../../../shared/models/account/account-user.model";
-import {UserService} from "../../../../shared/services/account/user.service";
-import {RoleService} from "../../../../shared/services/account/role.service";
-import {RoleModel} from "../../../../shared/models/account/role.model";
+import {FormControl, FormGroup} from '@angular/forms';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {AccountUserModel} from '../../../../shared/models/account/account-user.model';
+import {UserService} from '../../../../shared/services/account/user.service';
+import {RoleService} from '../../../../shared/services/account/role.service';
+import {RoleModel} from '../../../../shared/models/account/role.model';
 
 @Component({
   selector: 'app-user-create-update',

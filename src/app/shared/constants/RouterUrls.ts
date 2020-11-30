@@ -15,5 +15,7 @@ export const RouterUrls = {
     BASE_MODULE: 'biblioteka',
     AUTHOR: 'manage-authors',
     AUTHORDETAILS: 'author-details',
+    BOOK: 'manage-books',
+    BOOK_DETAILS: 'book-details',
   }
 };

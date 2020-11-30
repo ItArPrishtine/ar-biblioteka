@@ -1,8 +1,8 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {AuthorService} from "../../../../../shared/services/biblioteka/author.service";
-import {AuthorModel} from "../../../../../shared/models/book/author.model";
+import {AuthorService} from '../../../../../shared/services/biblioteka/author.service';
+import {AuthorModel} from '../../../../../shared/models/book/author.model';
 
 @Component({
   selector: 'app-author-form',

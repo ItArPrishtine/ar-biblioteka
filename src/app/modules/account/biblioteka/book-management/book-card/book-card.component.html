@@ -1,0 +1,23 @@
+<div class="product-card-space">
+  <div class="product-card">
+    <div class="product-card-image">
+      <a routerLink="{{detailsUrl + '/' + book.id}}">
+        <img src="{{bookImage}}"/>
+      </a>
+    </div>
+    <div class="product-desc">
+      <div class="product-title"  matTooltip="{{book.name}}" matTooltipPosition="above">
+        <a routerLink="{{detailsUrl + '/' + book.id}}">{{book.name}}</a>
+      </div>
+
+      <a [routerLink]="authorDetailsUrl + '/' + book.author.id" class="product-author">
+        <p>{{book.author.firstName + ' ' + book.author.lastName}}</p>
+      </a>
+
+      <div class="product-price">
+        <p *ngIf="!book.publicationYear.includes('.')">{{book.publicationYear}}</p>
+        <p *ngIf="book.publicationYear.includes('.')">{{book.publicationYear.split('.')[0]}}</p>
+      </div>
+    </div>
+  </div>
+</div>

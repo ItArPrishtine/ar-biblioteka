@@ -15,8 +15,15 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
-import {AuthorService} from "../../../shared/services/biblioteka/author.service";
+import {AuthorService} from '../../../shared/services/biblioteka/author.service';
 import { AuthorDetailsComponent } from './author-management/author-details/author-details.component';
+import { BookManagementComponent } from './book-management/book-management.component';
+import { BookListComponent } from './book-management/book-list/book-list.component';
+import { BookCardComponent } from './book-management/book-card/book-card.component';
+import { BookDetailsComponent } from './book-management/book-details/book-details.component';
+import { BookFormComponent } from './book-management/book-form/book-form.component';
+import {BookService} from "../../../shared/services/biblioteka/book.service";
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 @NgModule({
   declarations: [
@@ -25,7 +32,12 @@ import { AuthorDetailsComponent } from './author-management/author-details/autho
     AuthorListComponent,
     AuthorFormComponent,
     AuthorCardComponent,
-    AuthorDetailsComponent
+    AuthorDetailsComponent,
+    BookManagementComponent,
+    BookListComponent,
+    BookCardComponent,
+    BookDetailsComponent,
+    BookFormComponent
   ],
   imports: [
     CommonModule,
@@ -39,9 +51,11 @@ import { AuthorDetailsComponent } from './author-management/author-details/autho
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatTooltipModule,
   ],
   providers: [
-    AuthorService
+    AuthorService,
+    BookService
   ],
   entryComponents: [
     AuthorFormComponent

@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
-import {AppComponent} from "./app.component";
-import {RouterUrls} from "./shared/constants/RouterUrls";
-import {AuthenticateGuard} from "./shared/guards/authenticate.guard";
-import {AccountGuard} from "./shared/guards/account.guard";
+import {AppComponent} from './app.component';
+import {RouterUrls} from './shared/constants/RouterUrls';
+import {AuthenticateGuard} from './shared/guards/authenticate.guard';
+import {AccountGuard} from './shared/guards/account.guard';
 
 
 const routes: Routes = [

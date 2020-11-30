@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
-import {AuthorService} from "../../../../../shared/services/biblioteka/author.service";
-import {AuthorModel} from "../../../../../shared/models/book/author.model";
-import {AuthorFormComponent} from "../author-form/author-form.component";
-import {MatDialog} from "@angular/material/dialog";
-import {IMAGEURLS} from "../../../../../shared/constants/GeneralConstant";
-import {DeleteFormComponent} from "../../../shared/delete-form/delete-form.component";
-import {RouterUrls} from "../../../../../shared/constants/RouterUrls";
+import {ActivatedRoute, Router} from '@angular/router';
+import {AuthorService} from '../../../../../shared/services/biblioteka/author.service';
+import {AuthorModel} from '../../../../../shared/models/book/author.model';
+import {AuthorFormComponent} from '../author-form/author-form.component';
+import {MatDialog} from '@angular/material/dialog';
+import {IMAGEURLS} from '../../../../../shared/constants/GeneralConstant';
+import {DeleteFormComponent} from '../../../shared/delete-form/delete-form.component';
+import {RouterUrls} from '../../../../../shared/constants/RouterUrls';
 
 @Component({
   selector: 'app-author-details',

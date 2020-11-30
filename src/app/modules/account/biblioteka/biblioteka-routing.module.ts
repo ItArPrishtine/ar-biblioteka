@@ -3,7 +3,9 @@ import {Routes, RouterModule} from '@angular/router';
 import {BibliotekaComponent} from './biblioteka.component';
 import {RouterUrls} from '../../../shared/constants/RouterUrls';
 import {AuthorManagementComponent} from './author-management/author-management.component';
-import {AuthorDetailsComponent} from "./author-management/author-details/author-details.component";
+import {AuthorDetailsComponent} from './author-management/author-details/author-details.component';
+import {BookManagementComponent} from "./book-management/book-management.component";
+import {BookDetailsComponent} from "./book-management/book-details/book-details.component";
 
 const routes: Routes = [
   {
@@ -12,7 +14,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: RouterUrls.BIBLIOTEKA.AUTHOR,
+        redirectTo: RouterUrls.BIBLIOTEKA.BOOK,
         pathMatch: 'full'
       },
       {
@@ -22,6 +24,14 @@ const routes: Routes = [
       {
         path: RouterUrls.BIBLIOTEKA.AUTHORDETAILS + '/:id',
         component: AuthorDetailsComponent
+      },
+      {
+        path: RouterUrls.BIBLIOTEKA.BOOK,
+        component: BookManagementComponent
+      },
+      {
+        path: RouterUrls.BIBLIOTEKA.BOOK_DETAILS + '/:id',
+        component: BookDetailsComponent
       }
     ]
   },

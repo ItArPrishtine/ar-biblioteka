@@ -1,12 +1,12 @@
-<div class="author-list">
-  <div class="table-title table-title__button title">
+<div class='author-list'>
+  <div class='table-title table-title__button title'>
     <p>Autoret</p>
     <div class="button">
       <button mat-raised-button color="accent" (click)="createAuthor()">Krijo Autore</button>
     </div>
   </div>
 
-  <div class="card-list">
+  <div class="card-list" #cardList>
     <div class="card" *ngFor="let author of authors">
       <app-author-card [author]="author"></app-author-card>
     </div>

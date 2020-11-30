@@ -1,6 +1,6 @@
-import jwt_decode from "jwt-decode";
-import {Injectable} from "@angular/core";
-import {GeneralConstant} from "../../constants/GeneralConstant";
+import jwt_decode from 'jwt-decode';
+import {Injectable} from '@angular/core';
+import {GeneralConstant} from '../../constants/GeneralConstant';
 
 @Injectable()
 export class TokenService {

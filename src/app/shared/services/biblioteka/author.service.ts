@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpRequest} from '@angular/common/http';
-import { RequestUrls } from "../../constants/RequestUrls";
-import {AuthorModel} from "../../models/book/author.model";
+import { RequestUrls } from '../../constants/RequestUrls';
+import {AuthorModel} from '../../models/book/author.model';
+import {ResponsePageModel} from '../../models/shared/ResponsePage.model';
 
 @Injectable()
 export class AuthorService {
@@ -20,8 +21,8 @@ export class AuthorService {
     return this.http.put(RequestUrls.BOOK.AUTHOR.UPDATE, author);
   }
 
-  getAuthors() {
-    return this.http.get<AuthorModel>(RequestUrls.BOOK.AUTHOR.GET_LIST);
+  getAuthors(pageNumber?: number, pageSize?: number) {
+    return this.http.get<ResponsePageModel<AuthorModel>>(`${RequestUrls.BOOK.AUTHOR.GET_LIST}?pageNumber=${pageNumber}&pageSize=${pageSize}`);
   }
 
   getAuthorById(id: string) {

@@ -1,4 +1,4 @@
-import {environment} from "../../../environments/environment";
+import {environment} from '../../../environments/environment';
 
 export const RequestUrls = {
   AUTHENTICATION: {
@@ -24,7 +24,9 @@ export const RequestUrls = {
       DETAILS: environment.api + '/book_author/details',
     },
     BOOK: {
-      BY_AUTHOR: environment.api + '/book_book/author'
+      BY_AUTHOR: environment.api + '/book_book/author',
+      GET_LIST: environment.api + '/book_book/list',
+      DETAILS: environment.api + '/book_book/details',
     }
   },
 };
