@@ -29,6 +29,11 @@ public class AuthenticationController {
     @Autowired
     private ApplicationUserService userService;
 
+    @GetMapping("/p1/testheroku")
+    public String testHeroku() {
+        return "App is deplyed successfully!!";
+    }
+
     @PostMapping(value = "/p1/authenticate")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
 
