@@ -48,4 +48,12 @@ public class BookService {
         Optional<Author> author = authorService.getAuthorDetails(Long.parseLong(authorId));
         return this.bookRepository.findBooksByAuthor(author);
     }
+
+    public Book save(Book book) {
+        return this.bookRepository.save(book);
+    }
+
+    public void delete(Long bookId) {
+        this.bookRepository.deleteById(bookId);
+    }
 }

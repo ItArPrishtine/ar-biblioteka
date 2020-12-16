@@ -2,6 +2,7 @@ package com.akropoliprishtine.entities.book;
 
 
 import com.akropoliprishtine.entities.ApplicationUser;
+import com.akropoliprishtine.enums.BorrowRequestStatus;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -21,6 +22,12 @@ public class BorrowRequest {
     @JoinColumn(name="bookId", nullable = false)
     @OneToOne
     private Book book;
+
+    @Column(nullable = false)
+    private Date borrowFrom;
+
+    @Column(nullable = false)
+    private BorrowRequestStatus borrowRequestStatus;
 
     public Long getId() {
         return id;
@@ -44,5 +51,21 @@ public class BorrowRequest {
 
     public void setBook(Book book) {
         this.book = book;
+    }
+
+    public Date getBorrowFrom() {
+        return borrowFrom;
+    }
+
+    public void setBorrowFrom(Date borrowFrom) {
+        this.borrowFrom = borrowFrom;
+    }
+
+    public BorrowRequestStatus getBorrowRequestStatus() {
+        return borrowRequestStatus;
+    }
+
+    public void setBorrowRequestStatus(BorrowRequestStatus borrowRequestStatus) {
+        this.borrowRequestStatus = borrowRequestStatus;
     }
 }

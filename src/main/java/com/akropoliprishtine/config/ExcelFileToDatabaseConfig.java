@@ -3,7 +3,6 @@
 //import com.akropoliprishtine.entities.book.*;
 //import com.akropoliprishtine.services.book.AuthorService;
 //import com.akropoliprishtine.services.book.BookService;
-//import com.akropoliprishtine.services.book.CategoryService;
 //import com.akropoliprishtine.services.book.EditionService;
 //import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 //import org.apache.poi.ss.formula.functions.T;
@@ -26,20 +25,15 @@
 //    BookService bookService;
 //
 //    @Autowired
-//    CategoryService categoryService;
-//
-//    @Autowired
 //    EditionService editionService;
 //
 //    @Autowired
 //    AuthorService authorService;
 //
 //    public ExcelFileToDatabaseConfig(BookService bookService,
-//                                     CategoryService categoryService,
 //                                     EditionService editionService,
 //                                     AuthorService authorService)  {
 //        this.bookService = bookService;
-//        this.categoryService = categoryService;
 //        this.editionService = editionService;
 //        this.authorService = authorService;
 //    }
@@ -48,7 +42,6 @@
 //    @Transactional
 //    public void readData() throws IOException, InvalidFormatException {
 //        List<Book> existedBooks = bookService.getBooks();
-//        List<Category> existedCategories = categoryService.getCategories();
 //        List<Author> existedAuthors = authorService.getAuthors();
 //        List<Edition> existedEditions = editionService.getEditions();
 //        List<Book> booksToAdd = new ArrayList<>();
@@ -81,10 +74,6 @@
 //            author.setLastName("");
 //            author = saveAuthor(author, existedAuthors);
 //
-//            Category category = new Category();
-//            category.setName(regjistriDTO.getKategoria());
-//            category = saveCategory(category, existedCategories);
-//
 //            Edition edition = new Edition();
 //            edition.setName(regjistriDTO.getShtepiaBotuese());
 //            edition = saveEdition(edition, existedEditions);
@@ -92,7 +81,7 @@
 //            Book book = new Book();
 //            book.setName(regjistriDTO.getTitulli());
 //            book.setPublicationYear(regjistriDTO.getVitiProdhimit());
-//            book.setCategory(category);
+//            book.setCategory(regjistriDTO.getKategoria());
 //            book.setAuthor(author);
 //            book.setEdition(edition);
 //
@@ -102,17 +91,6 @@
 //        bookService.saveBooks(booksToAdd);
 //    }
 //
-//    private Category saveCategory(Category category, List<Category> existedCategories) {
-//        Category existedCategory = categoryExists(existedCategories, category);
-//
-//        if (existedCategory != null) {
-//            return existedCategory;
-//        } else {
-//            Category savedCategory = this.categoryService.saveCategory(category);
-//            existedCategories.add(savedCategory);
-//            return savedCategory;
-//        }
-//    }
 //
 //    private Author saveAuthor(Author author, List<Author> existedAuthors) {
 //        Author existedAuthor = authorExists(existedAuthors, author);

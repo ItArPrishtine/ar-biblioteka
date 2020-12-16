@@ -39,6 +39,11 @@ public class AuthorController {
         return this.authorService.saveAuthor(authorToSave);
     }
 
+    @GetMapping()
+    public List<Author> getAuthors() {
+        return this.authorService.getAuthors();
+    }
+
     @GetMapping("list")
     public Page<Author> getAuthors(@RequestParam(defaultValue = "0") Integer pageNumber,
                                    @RequestParam(defaultValue = "20") Integer pageSize) {

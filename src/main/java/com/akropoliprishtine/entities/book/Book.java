@@ -1,12 +1,10 @@
 package com.akropoliprishtine.entities.book;
 
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
-@Table(name = "book_book", uniqueConstraints = @UniqueConstraint(columnNames = {"name", "categoryId"}))
+@Table(name = "book_book", uniqueConstraints = @UniqueConstraint(columnNames = {"name", "category"}))
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,9 +24,8 @@ public class Book {
     @OneToOne
     private Edition edition;
 
-    @JoinColumn(name = "categoryId", nullable = false)
-    @OneToOne
-    private Category category;
+    @Column()
+    private String category;
 
     @Column(nullable = true)
     private String imageUrl;
@@ -67,11 +64,11 @@ public class Book {
         this.imageUrl = imageUrl;
     }
 
-    public Category getCategory() {
+    public String getCategory() {
         return category;
     }
 
-    public void setCategory(Category category) {
+    public void setCategory(String category) {
         this.category = category;
     }
 
