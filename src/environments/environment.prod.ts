@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  api: 'http://localhost:8080/api',
+  api: 'https://ar-prishtine.herokuapp.com/api',
   baseHref: 'https://itarprishtine.github.io/akropoli-pr-ui'
 };
