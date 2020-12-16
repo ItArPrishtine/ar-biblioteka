@@ -1,1 +1,64 @@
-<p>book-form works!</p>
+<div class="form" *ngIf="formGroup">
+  <div class="title modal-title">
+    <p>{{bookId ? 'Ndrysho Liber' : 'Krijo Liber'}}</p>
+    <hr>
+  </div>
+
+  <form (submit)="createOrUpdateBook()" [formGroup]="formGroup" class="form">
+    <div class="form-group">
+      <label for="file">File</label>
+      <input
+        formControlName="file"
+        id="file"
+        type="file"
+        class="form-control"
+        (change)="onFileChange($event)">
+      <div *ngIf="f.file.touched && f.file.invalid" class="alert alert-danger">
+        <div *ngIf="f.file.errors.required">File is required.</div>
+      </div>
+    </div>
+
+    <img [src]="imageSrc" *ngIf="imageSrc">
+
+    <div class="form-input">
+      <mat-form-field>
+        <mat-label>Titulli</mat-label>
+        <input matInput type="text" formControlName="name" placeholder="Titulli" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Autori</mat-label>
+        <mat-select formControlName="author">
+          <mat-option *ngFor="let author of authors" value="{{author.id}}">{{author.firstName}} {{author.lastName}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Shtepia Botuese</mat-label>
+        <mat-select formControlName="edition">
+          <mat-option *ngFor="let edition of editions" value="{{edition.id}}">{{edition.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Kategoria</mat-label>
+        <input matInput type="text" formControlName="category" placeholder="Kategoria" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Viti i publikimit</mat-label>
+        <input matInput type="text" formControlName="publicationYear" placeholder="Viti i Publikimit" />
+      </mat-form-field>
+
+
+      <div class="form-input">
+        <textarea matInput matTextareaAutosize="false" type="text" formControlName="description" placeholder="Pershkrim"></textarea>
+      </div>
+    </div>
+
+    <div class="button buttons-plc">
+      <button mat-raised-button type="button" (click)="closeDialog()">Mbyll</button>
+      <button mat-raised-button color="primary">Ruaj</button>
+    </div>
+  </form>
+</div>

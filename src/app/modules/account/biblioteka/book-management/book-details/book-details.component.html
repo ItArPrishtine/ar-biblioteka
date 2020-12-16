@@ -1,48 +1,60 @@
-<div class="product-details">
+<div class="product-details" *ngIf="book">
+  <div class='button'>
+    <div class='d-flex'>
+      <button mat-raised-button color='warn' (click)='deleteBook()'>Fshij Librin</button>
+      <button mat-raised-button color='accent' (click)='updateBook()'>Ndrysho Librin</button>
+    </div>
+  </div>
+
   <div class="inline-flex">
     <div class="product">
       <div class="details">
         <div class="image">
-          <img src="{{bookImage}}" />
+          <img src="{{book.imageUrl ? book.imageUrl : bookImage}}" />
         </div>
-        <div class="descriptions">
-          <div class="title">
-            <p>{{book.name}}</p>
+
+        <div class="description-actions">
+          <div class="description-plc">
+            <div class="title">
+              <p>{{book.name}}</p>
+            </div>
+
+            <a routerLink="{{authorDetailsUrl + '/' + book.author.id}}" class="author">
+              <p>{{book.author.firstName + ' ' + book.author.lastName}}</p>
+            </a>
+
+            <div class="publication-edition">
+              <p>{{book.edition.name}}</p>
+              <p *ngIf="!book.publicationYear.includes('.')">: {{book.publicationYear}}</p>
+              <p *ngIf="book.publicationYear.includes('.')">: {{book.publicationYear.split('.')[0]}}</p>
+            </div>
+
+            <div class="description scrollbar-design">
+              <p *ngIf="!book.description">
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an un known printer took a galley of type and scrambled it to make a type specimen book. It has survi ved not only five centuries, but also the leap into electronic typesetting, remaining essentially u nchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an un known printer took a galley of type and scrambled it to make a type specimen book. It has survi ved not only five centuries, but also the leap into electronic typesetting, remaining essentially u nchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an un known printer took a galley of type and scrambled it to make a type specimen book. It has survi ved not only five centuries, but also the leap into electronic typesetting, remaining essentially u nchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+              </p>
+
+              <p *ngIf="book.description">
+                {{book.description}}
+              </p>
+            </div>
           </div>
+          <div class="books-action__bottom">
+            <div class="reviews">
+              <span class="material-icons checked">star_rate</span>
+              <span class="material-icons checked">star_rate</span>
+              <span class="material-icons checked">star_rate</span>
+              <span class="material-icons">star_rate</span>
+              <span class="material-icons">star_rate</span>
+            </div>
 
-          <a routerLink="{{authorDetailsUrl + '/' + book.author.id}}" class="author">
-            <p>{{book.author.firstName + ' ' + book.author.lastName}}</p>
-          </a>
-
-          <div class="publication-edition">
-            <p>{{book.edition.name}}</p>
-            <p *ngIf="!book.publicationYear.includes('.')">: {{book.publicationYear}}</p>
-            <p *ngIf="book.publicationYear.includes('.')">: {{book.publicationYear.split('.')[0]}}</p>
-          </div>
-
-          <div class="description scrollbar-design">
-            <p *ngIf="!book.description">
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an un known printer took a galley of type and scrambled it to make a type specimen book. It has survi ved not only five centuries, but also the leap into electronic typesetting, remaining essentially u nchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an un known printer took a galley of type and scrambled it to make a type specimen book. It has survi ved not only five centuries, but also the leap into electronic typesetting, remaining essentially u nchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an un known printer took a galley of type and scrambled it to make a type specimen book. It has survi ved not only five centuries, but also the leap into electronic typesetting, remaining essentially u nchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-            </p>
-
-            <p *ngIf="book.description">
-              {{book.description}}
-            </p>
-          </div>
-
-          <div class="reviews">
-            <span class="material-icons checked">star_rate</span>
-            <span class="material-icons checked">star_rate</span>
-            <span class="material-icons checked">star_rate</span>
-            <span class="material-icons">star_rate</span>
-            <span class="material-icons">star_rate</span>
-          </div>
-
-          <div class="order">
-            <button mat-raised-button color="accent">Order Now</button>
+            <div class="order">
+              <button mat-raised-button color="accent" (click)="borrowRequest()">Kerkese per lexim</button>
+            </div>
           </div>
         </div>
       </div>
+
       <div class="comments">
         <div class="comments-title">
           <p>Reader Comments</p>

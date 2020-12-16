@@ -1,3 +1,14 @@
 <div class="products-list">
-  <app-book-card *ngFor="let book of books" [book]="book"></app-book-card>
+  <div class='table-title table-title__button title'>
+    <p>Librat</p>
+    <div class="button">
+      <button mat-raised-button color="accent" (click)="createBook()">Shto Liber</button>
+    </div>
+  </div>
+
+  <div class="card-list" #cardList>
+    <div class="card" *ngFor="let book of books">
+      <app-book-card [book]="book"></app-book-card>
+    </div>
+  </div>
 </div>

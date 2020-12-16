@@ -21,8 +21,12 @@ export class AuthorService {
     return this.http.put(RequestUrls.BOOK.AUTHOR.UPDATE, author);
   }
 
+  getAllAuthors() {
+    return this.http.get<AuthorModel[]>(`${RequestUrls.BOOK.AUTHOR.GET_LIST}`);
+  }
+
   getAuthors(pageNumber?: number, pageSize?: number) {
-    return this.http.get<ResponsePageModel<AuthorModel>>(`${RequestUrls.BOOK.AUTHOR.GET_LIST}?pageNumber=${pageNumber}&pageSize=${pageSize}`);
+    return this.http.get<ResponsePageModel<AuthorModel>>(`${RequestUrls.BOOK.AUTHOR.GET_PAGING_LIST}?pageNumber=${pageNumber}&pageSize=${pageSize}`);
   }
 
   getAuthorById(id: string) {

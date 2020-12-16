@@ -1,0 +1,19 @@
+form {
+  max-height: 750px;
+  overflow-y: auto;
+
+  form {
+    overflow-y: hidden;
+  }
+}
+.buttons-plc {
+  margin-top: 15px;
+
+  button:first-of-type {
+    margin-right: 10px;
+  }
+}
+
+img {
+  width: 250px;
+}

@@ -2,7 +2,7 @@
   <div class="product-card">
     <div class="product-card-image">
       <a routerLink="{{detailsUrl + '/' + book.id}}">
-        <img src="{{bookImage}}"/>
+        <img src="{{book.imageUrl ? book.imageUrl : bookImage}}"/>
       </a>
     </div>
     <div class="product-desc">

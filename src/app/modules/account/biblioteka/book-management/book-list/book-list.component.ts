@@ -2,6 +2,7 @@ import {Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/c
 import {MatDialog} from '@angular/material/dialog';
 import {BookService} from '../../../../../shared/services/biblioteka/book.service';
 import {BookModel} from '../../../../../shared/models/book/book.model';
+import {BookFormComponent} from "../book-form/book-form.component";
 
 @Component({
   selector: 'app-book-list',
@@ -46,6 +47,10 @@ export class BookListComponent implements OnInit {
       this.pageNumber++;
       this.getBooks();
     }
+  }
+
+  createBook() {
+    this.dialog.open(BookFormComponent);
   }
 
 }

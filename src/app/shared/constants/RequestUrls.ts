@@ -17,16 +17,25 @@ export const RequestUrls = {
 
   BOOK: {
     AUTHOR: {
-      GET_LIST: environment.api + '/book_author/list',
+      GET_LIST: environment.api + '/book_author',
+      GET_PAGING_LIST: environment.api + '/book_author/list',
       CREATE: environment.api + '/book_author/create',
       UPDATE: environment.api + '/book_author/update',
       DELETE: environment.api + '/book_author/delete',
       DETAILS: environment.api + '/book_author/details',
     },
     BOOK: {
+      BASE: environment.api + '/book_book/',
       BY_AUTHOR: environment.api + '/book_book/author',
-      GET_LIST: environment.api + '/book_book/list',
-      DETAILS: environment.api + '/book_book/details',
+    },
+    CATEGORY: {
+      BASE: environment.api + '/book_category'
+    },
+    EDITION: {
+      BASE: environment.api + '/book_edition'
+    },
+    BORROW: {
+      REQUEST: environment.api + '/book_borrow_request/'
     }
   },
 };

@@ -1,6 +1,17 @@
 .product-details {
   padding: 50px;
 
+  .button {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+
+    button:first-of-type {
+      margin-right: 10px;
+    }
+  }
+
   .details {
     position: relative;
     background-color: #fff;
@@ -12,8 +23,12 @@
     -moz-box-shadow: 0 0 17px -10px rgba(0,0,0,0.75);
     box-shadow: 0 0 17px -10px rgba(0,0,0,0.75);
 
-    .descriptions {
+    .description-actions {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
       margin: 30px;
+      width: 100%;
     }
 
     .description {
@@ -74,7 +89,6 @@
 
   .reviews {
     display: flex;
-    align-items: center;
 
     p {
       margin: 0 10px 0 0;
@@ -93,12 +107,6 @@
     img {
       width: 100%;
     }
-  }
-
-  .order {
-    position: absolute;
-    right: 20px;
-    bottom: 20px;
   }
 
 
@@ -146,6 +154,12 @@
 
   label {
     font-size: 14px;
+  }
+
+  .books-action__bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 }
 

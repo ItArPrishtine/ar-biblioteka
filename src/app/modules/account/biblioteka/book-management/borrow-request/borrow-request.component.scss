@@ -1,0 +1,24 @@
+@import '~src/scss/theme';
+
+p {
+  font-weight: 500;
+  font-size: 20px;
+
+  span {
+    color: $orange;
+  }
+}
+
+form {
+  padding-top: 20px;
+}
+
+.buttons-plc {
+  margin-top: 15px;
+  width: 100%;
+  text-align: right;
+
+  button:first-of-type {
+    margin-right: 10px;
+  }
+}

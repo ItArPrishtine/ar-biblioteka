@@ -23,13 +23,13 @@ export class AuthorFormComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.authorId) {
-      this.getauthorDetails();
+      this.getAuthorDetails();
     } else {
       this.initForm();
     }
   }
 
-  getauthorDetails() {
+  getAuthorDetails() {
     if (this.authorId) {
       this.authorService.getAuthorById(this.authorId).subscribe(result => {
         this.author = result;
@@ -69,7 +69,6 @@ export class AuthorFormComponent implements OnInit {
 
     formData.append('file', this.imageFile);
 
-    debugger;
     if (this.authorId) {
       authorModel.id = parseInt(this.authorId);
 

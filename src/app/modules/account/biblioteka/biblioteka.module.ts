@@ -24,6 +24,7 @@ import { BookDetailsComponent } from './book-management/book-details/book-detail
 import { BookFormComponent } from './book-management/book-form/book-form.component';
 import {BookService} from "../../../shared/services/biblioteka/book.service";
 import {MatTooltipModule} from "@angular/material/tooltip";
+import { BorrowRequestComponent } from './book-management/borrow-request/borrow-request.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import {MatTooltipModule} from "@angular/material/tooltip";
     BookListComponent,
     BookCardComponent,
     BookDetailsComponent,
-    BookFormComponent
+    BookFormComponent,
+    BorrowRequestComponent
   ],
   imports: [
     CommonModule,
@@ -58,7 +60,8 @@ import {MatTooltipModule} from "@angular/material/tooltip";
     BookService
   ],
   entryComponents: [
-    AuthorFormComponent
+    AuthorFormComponent,
+    BorrowRequestComponent
   ]
 })
 export class BibliotekaModule {
