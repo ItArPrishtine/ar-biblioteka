@@ -16,8 +16,9 @@ import {RouterUrls} from '../../../../../shared/constants/RouterUrls';
 export class AuthorDetailsComponent implements OnInit {
   author: AuthorModel;
   books: any[];
-  avatarImage = IMAGEURLS.AVATAR;
+  avatarImage = IMAGEURLS.AUTHOR_AVATAR;
   bookImage = IMAGEURLS.BOOK;
+  booksUrl = '/' + RouterUrls.ACCOUNT.BASE_MODULE + '/' + RouterUrls.BIBLIOTEKA.BASE_MODULE + '/' + RouterUrls.BIBLIOTEKA.BOOK_DETAILS;
 
   constructor(private activeRoute: ActivatedRoute,
               private dialog: MatDialog,
@@ -51,6 +52,14 @@ export class AuthorDetailsComponent implements OnInit {
   updateAuthor() {
     const dialogRef = this.dialog.open(AuthorFormComponent);
     dialogRef.componentInstance.authorId = this.author.id.toString();
+
+    dialogRef.afterClosed().subscribe(
+      result => {
+        if (result) {
+          this.author = result;
+        }
+      }
+    );
   }
 
   deleteThisAuthor() {

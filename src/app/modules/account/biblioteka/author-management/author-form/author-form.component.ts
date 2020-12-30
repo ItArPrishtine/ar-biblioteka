@@ -3,6 +3,8 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {AuthorService} from '../../../../../shared/services/biblioteka/author.service';
 import {AuthorModel} from '../../../../../shared/models/book/author.model';
+import {finalize} from "rxjs/operators";
+import {CustomSnackbarService} from "../../../../../shared/services/snackbar-service.service";
 
 @Component({
   selector: 'app-author-form',
@@ -13,13 +15,15 @@ export class AuthorFormComponent implements OnInit {
   formGroup: FormGroup;
   imageSrc: string;
   imageFile: any;
-  author: AuthorModel;
+  author: any;
   authorId: string;
+  loading = false;
 
   constructor(public dialogRef: MatDialogRef<AuthorFormComponent>,
               public authorService: AuthorService,
-              @Inject(MAT_DIALOG_DATA) public data: any
-  ) { }
+              @Inject(MAT_DIALOG_DATA) public data: any,
+              private snackBarService: CustomSnackbarService) {
+  }
 
   ngOnInit(): void {
     if (this.authorId) {
@@ -54,6 +58,7 @@ export class AuthorFormComponent implements OnInit {
   createOrUpdateAuthor() {
     const formData: FormData = new FormData();
     const authorModel = new AuthorModel();
+    this.loading = true;
 
     if (!this.formGroup.valid) {
       return;
@@ -74,22 +79,37 @@ export class AuthorFormComponent implements OnInit {
 
       formData.append('author', JSON.stringify(authorModel));
 
-      this.authorService.updateAuthor(formData).subscribe(
-        result => this.closeDialog(),
-        error => console.log(error)
-      );
+      this.authorService.updateAuthor(formData)
+        .pipe(finalize(() => this.loading = false))
+        .subscribe(
+          (result) => {
+            this.author = result;
+            this.closeDialog();
+            this.snackBarService.success('Autori u editua me sukses');
+          },
+          () => {
+            this.snackBarService.success('Gabim gjate editimit te autorit');
+          }
+        );
     } else {
       formData.append('author', JSON.stringify(authorModel));
 
-      this.authorService.createAuthor(formData).subscribe(
-        result => this.closeDialog(),
-        error => console.log(error)
-      );
+      this.authorService.createAuthor(formData)
+        .pipe(finalize(() => this.loading = false))
+        .subscribe(
+          () => {
+            this.closeDialog();
+            this.snackBarService.success('Autori u krijua me sukses');
+          },
+          () => {
+            this.snackBarService.success('Gabim gjate krijimit te autorit');
+          }
+        );
     }
   }
 
   closeDialog() {
-    this.dialogRef.close();
+    this.dialogRef.close(this.author);
   }
 
   onFileChange(event) {
@@ -106,7 +126,7 @@ export class AuthorFormComponent implements OnInit {
     }
   }
 
-  get f(){
+  get f() {
     return this.formGroup.controls;
   }
 

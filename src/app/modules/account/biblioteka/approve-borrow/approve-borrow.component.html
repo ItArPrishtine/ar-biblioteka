@@ -1,0 +1,17 @@
+<div class="delete-holder" *ngIf="elementToApprove">
+  <p>Aprovoni kerkesen e <strong>{{elementToApprove.applicationUser.firstName}}</strong> per librin <span>{{elementToApprove.book.name}}</span></p>
+
+  <form [formGroup]="formGroup" (submit)="borrowBook()">
+    <mat-form-field>
+      <mat-label>Limiti i huazimit</mat-label>
+      <input matInput type="text" formControlName="borrowDate" placeholder="Limiti i huazimit" [matDatepicker]="picker" [min]="minDate" />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <div class="button buttons-plc">
+      <button mat-raised-button type="button" (click)="dialogRef.close()">Mbyll</button>
+      <app-button-spinner text='Aprovo Kerkesen' color="primary" [loading]="loading"></app-button-spinner>
+    </div>
+  </form>
+</div>

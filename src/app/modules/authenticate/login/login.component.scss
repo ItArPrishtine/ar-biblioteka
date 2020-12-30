@@ -1,4 +1,10 @@
+:host {
+  display: flex;
+  flex: 1;
+}
+
 .login-form {
+  margin: 0 auto;
   width: 500px;
   border-radius: 3px;
   background-color: #fff;
@@ -25,4 +31,11 @@ form {
     img {
       width: 200px;
     }
+}
+
+@media screen and (max-width: 800px) {
+  .login-form, :host {
+    width: 100%;
+    height: 100%;
+  }
 }

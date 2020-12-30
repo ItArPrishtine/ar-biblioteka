@@ -7,8 +7,8 @@ export const RequestUrls = {
 
   ACCOUNT: {
     USERS: {
-      GET_LIST: environment.api + '/account_user/list',
-      CREATE: environment.api + '/account_user/create'
+      BASE_API: environment.api + '/account_user/',
+      CHANGE_PASSWORD: environment.api + '/account_user/change_password',
     },
     ROLES: {
       GET_LIST: environment.api + '/account_role/list',
@@ -28,14 +28,15 @@ export const RequestUrls = {
       BASE: environment.api + '/book_book/',
       BY_AUTHOR: environment.api + '/book_book/author',
     },
-    CATEGORY: {
-      BASE: environment.api + '/book_category'
-    },
     EDITION: {
       BASE: environment.api + '/book_edition'
     },
     BORROW: {
-      REQUEST: environment.api + '/book_borrow_request/'
+      REQUEST: environment.api + '/book_borrow_request/',
+      CANCEL: environment.api + '/book_borrow_request/cancel',
+      REJECT: environment.api + '/book_borrow_request/reject',
+      CANCEL_NEW_REQUEST: environment.api + '/book_borrow_request/cancel/new_request',
+      BORROW: environment.api + '/book_borrow/',
     }
   },
 };

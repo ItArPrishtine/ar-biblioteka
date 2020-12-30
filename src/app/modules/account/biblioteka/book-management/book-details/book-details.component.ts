@@ -5,7 +5,6 @@ import {BookService} from '../../../../../shared/services/biblioteka/book.servic
 import {BookModel} from '../../../../../shared/models/book/book.model';
 import {IMAGEURLS} from "../../../../../shared/constants/GeneralConstant";
 import {RouterUrls} from "../../../../../shared/constants/RouterUrls";
-import {AuthorFormComponent} from "../../author-management/author-form/author-form.component";
 import {BookFormComponent} from "../book-form/book-form.component";
 import {BorrowRequestComponent} from "../borrow-request/borrow-request.component";
 
@@ -39,6 +38,14 @@ export class BookDetailsComponent implements OnInit {
   updateBook() {
     const dialogRef = this.dialog.open(BookFormComponent);
     dialogRef.componentInstance.bookId = this.book.id.toString();
+
+    dialogRef.afterClosed().subscribe(
+      result => {
+        if (result) {
+          this.book = result;
+        }
+      }
+    );
   }
 
   deleteBook() {

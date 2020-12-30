@@ -1,6 +1,8 @@
 <div class="author-card">
   <div class="image">
-    <img src="{{author.imageUrl ? author.imageUrl.toString().split('src')[1] : authorImage}}" />
+    <a routerLink="{{detailsUrl + '/' + author.id}}">
+      <img src="{{author.imageUrl ? author.imageUrl.toString().split('src')[1] : authorImage}}" />
+    </a>
   </div>
 
   <div class="title-desc">

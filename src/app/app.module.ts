@@ -10,17 +10,19 @@ import {TokenService} from './shared/services/auth/token.service';
 import {AccountGuard} from './shared/guards/account.guard';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {HttpInterceptorService} from './shared/services/http-interceptor.service';
+import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
     RouterModule,
     HttpClientModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatSnackBarModule,
   ],
   providers: [
     AuthenticateGuard,

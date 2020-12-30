@@ -1,0 +1,10 @@
+<div class="delete-holder" *ngIf="elementToReject">
+  <p>Deshironi ta anuloni kerkesen e <strong>{{elementToReject.applicationUser.firstName}}</strong> per librin <span>{{elementToReject.book.name}}</span></p>
+
+  <div>
+    <div class="button buttons-plc">
+      <button mat-raised-button type="button" (click)="dialogRef.close()">Mbyll</button>
+      <app-button-spinner (click)="rejectBook()" text='Anulo Kerkesen' color="warn" [loading]="loading"></app-button-spinner>
+    </div>
+  </div>
+</div>

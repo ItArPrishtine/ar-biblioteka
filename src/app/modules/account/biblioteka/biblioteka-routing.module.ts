@@ -6,6 +6,7 @@ import {AuthorManagementComponent} from './author-management/author-management.c
 import {AuthorDetailsComponent} from './author-management/author-details/author-details.component';
 import {BookManagementComponent} from "./book-management/book-management.component";
 import {BookDetailsComponent} from "./book-management/book-details/book-details.component";
+import {BorrowRequestsManagementComponent} from "./borrow-requests-management/borrow-requests-management.component";
 
 const routes: Routes = [
   {
@@ -32,6 +33,10 @@ const routes: Routes = [
       {
         path: RouterUrls.BIBLIOTEKA.BOOK_DETAILS + '/:id',
         component: BookDetailsComponent
+      },
+      {
+        path: RouterUrls.BIBLIOTEKA.BORROW_REQUESTS,
+        component: BorrowRequestsManagementComponent
       }
     ]
   },

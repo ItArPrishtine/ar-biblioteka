@@ -1,19 +1,28 @@
-<div class="borrow-container">
+<div class="borrow-container" *ngIf="!borrowedBook || (borrowedBook && borrowedBook.borrowRequestStatus != requestStatus.REQUESTED)">
   <div class="title">
-    <p>Deshiron te besh kerkese per leximin e librit <span>{{book.name}}</span></p>
+    <p>Deshiron te besh kerkese per leximin e librit <span>{{book.name}} ?</span></p>
   </div>
 
-  <form [formGroup]="formGroup">
+  <form [formGroup]="formGroup" (submit)="requestForBook()">
     <mat-form-field>
       <mat-label>Dita e huazimit</mat-label>
-      <input matInput type="text" formControlName="borrowDate" placeholder="Dita e huazimit"  [matDatepicker]="picker" />
+      <input matInput type="text" formControlName="borrowDate" placeholder="Dita e huazimit" [matDatepicker]="picker" [min]="minDate" />
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
 
     <div class="button buttons-plc">
       <button mat-raised-button type="button" (click)="dialogRef.close()">Mbyll</button>
-      <button mat-raised-button color="primary" (click)="requestForBook()">Bej Kerkesen</button>
+      <app-button-spinner text='Bej Kerkesen' color="primary" [loading]="loading"></app-button-spinner>
     </div>
   </form>
 </div>
+
+<div class="borrow-container" *ngIf="borrowedBook && borrowedBook.borrowRequestStatus == requestStatus.REQUESTED">
+  <p>Ju veqse e keni nje kerkese te hapur per huazimin e librit <span>{{borrowedBook.book.name}}</span></p>
+  <div class="buttons-plc">
+    <app-button-spinner (click)="cancelRequest()" text='Anulo Kerkesen paraprake' color="primary" [loading]="cancelRequestLoading"></app-button-spinner>
+<!--    <app-button-spinner (click)="cancelAndNewRequest()" text='Zevendeso kerkesen me kete liber' color="accent" [loading]="cancelNewRequestLoading"></app-button-spinner>-->
+  </div>
+</div>
+

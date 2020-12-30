@@ -5,7 +5,7 @@
         <p>Lista e Usere-ve</p>
       </div>
       <div class="button">
-        <button (click)="openCreateUserModal()" mat-raised-button color="accent">Create User</button>
+        <button (click)="openCreateUserModal()" mat-raised-button color="accent">Shto user</button>
       </div>
     </div>
     <table mat-table [dataSource]="dataSource">
@@ -37,6 +37,18 @@
       <ng-container matColumnDef="role">
         <th style="width: 20%" mat-header-cell *matHeaderCellDef> Roli </th>
         <td style="width: 20%" mat-cell *matCellDef="let element"> {{element.role?.name}} </td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="action">
+        <th style="width: 20%" mat-header-cell *matHeaderCellDef></th>
+        <td style="width: 20%" mat-cell *matCellDef="let element">
+          <button mat-button [matMenuTriggerFor]="menu"><span class="material-icons">more_vert</span></button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="updateUser(element)">Ndrysho</button>
+            <button mat-menu-item (click)="deleteUser(element)">Fshij</button>
+          </mat-menu>
+        </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

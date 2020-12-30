@@ -5,6 +5,7 @@ import {ResponsePageModel} from '../../models/shared/ResponsePage.model';
 import {BookModel} from '../../models/book/book.model';
 import {AuthorModel} from "../../models/book/author.model";
 import {BorrowRequestModel} from "../../models/book/borrow-request.model";
+import {Observable} from "rxjs";
 
 @Injectable()
 export class BookService {
@@ -24,7 +25,7 @@ export class BookService {
   }
 
   createBook(book: any) {
-    return this.http.post(RequestUrls.BOOK.BOOK.BASE, book);
+    return this.http.post<BookModel>(RequestUrls.BOOK.BOOK.BASE, book);
   }
 
   deleteBook(bookId: string) {
@@ -32,10 +33,6 @@ export class BookService {
   }
 
   updateBook(book: any) {
-    return this.http.put(RequestUrls.BOOK.BOOK.BASE, book);
-  }
-
-  borrowRequest(borrowRequest: BorrowRequestModel) {
-    return this.http.post(RequestUrls.BOOK.BORROW.REQUEST, borrowRequest);
+    return this.http.put<BookModel>(RequestUrls.BOOK.BOOK.BASE, book);
   }
 }

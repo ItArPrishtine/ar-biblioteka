@@ -15,11 +15,15 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {RoleService} from '../../../shared/services/account/role.service';
 import {MatSelectModule} from '@angular/material/select';
+import {ButtonSpinnerModule} from "../../../shared/components/button-spinner/button-spinner.module";
+import {MatMenuModule} from "@angular/material/menu";
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
     UserListComponent,
-    UserCreateUpdateComponent
+    UserCreateUpdateComponent,
+    ResetPasswordComponent
   ],
   imports: [
     CommonModule,
@@ -33,7 +37,9 @@ import {MatSelectModule} from '@angular/material/select';
     MatDialogModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatSelectModule
+    MatSelectModule,
+    ButtonSpinnerModule,
+    MatMenuModule
   ],
   providers: [
     UserService,

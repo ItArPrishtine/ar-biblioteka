@@ -14,10 +14,8 @@
       <mat-menu #bibliotekaMenu="matMenu">
         <button mat-menu-item routerLink="{{authorsUrl}}">Autoret</button>
         <button mat-menu-item routerLink="{{booksUrl}}">Librat</button>
+        <button mat-menu-item routerLink="{{manageBorrowRequest}}">Menaxho Kerkesat</button>
       </mat-menu>
-
-      <a href="#" class="selected">Ekonomia</a>
-      <a href="#">Integrimi</a>
     </nav>
 
     <div class="profile-avatar">
@@ -26,7 +24,7 @@
         <div class="image" [matMenuTriggerFor]="menu" style='background-image: url("/assets/images/img_avatar.png")'></div>
       </div>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item>Profili im</button>
+        <button [routerLink]="resetPassword" mat-menu-item>Ndrysho Passwordin</button>
         <button mat-menu-item (click)="logOut()">Dil</button>
       </mat-menu>
     </div>

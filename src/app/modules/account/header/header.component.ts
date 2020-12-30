@@ -14,6 +14,8 @@ export class HeaderComponent implements OnInit {
   tokenData: any;
   authorsUrl = RouterUrls.BIBLIOTEKA.BASE_MODULE + '/' + RouterUrls.BIBLIOTEKA.AUTHOR;
   booksUrl = RouterUrls.BIBLIOTEKA.BASE_MODULE + '/' + RouterUrls.BIBLIOTEKA.BOOK;
+  manageBorrowRequest = RouterUrls.BIBLIOTEKA.BASE_MODULE + '/' + RouterUrls.BIBLIOTEKA.BORROW_REQUESTS;
+  resetPassword = RouterUrls.ACCOUNT.MANAGE + '/' + RouterUrls.ACCOUNT.RESET_PASSWORD;
 
   constructor(private router: Router, private tokenService: TokenService) {
     this.tokenData = tokenService.getData();

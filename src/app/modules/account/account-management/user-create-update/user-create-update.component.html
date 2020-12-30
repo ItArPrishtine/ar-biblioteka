@@ -1,11 +1,10 @@
 <div class="form" *ngIf="formGroup">
   <div class="title modal-title">
-    <p>Create user</p>
-
+    <p>Shto user</p>
     <hr>
   </div>
 
-  <form [formGroup]="formGroup" class="form">
+  <form [formGroup]="formGroup" class="form" (submit)="createOrUpdateUser()">
     <div class="form-input">
       <mat-form-field>
         <mat-label>Email</mat-label>
@@ -34,7 +33,7 @@
 
       <mat-form-field>
         <mat-label>Data e Lindjes</mat-label>
-        <input matInput type="text" formControlName="dateOfBirth" placeholder="Data e Lindjes"  [matDatepicker]="picker" />
+        <input matInput type="text" formControlName="dateOfBirth" placeholder="Data e Lindjes" [matDatepicker]="picker" [max]='maxBirthdayDate' />
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
@@ -45,10 +44,9 @@
       </mat-form-field>
     </div>
 
-
     <div class="button buttons-plc">
       <button class="mr-1" mat-raised-button (click)="closeDialog()">Mbyll</button>
-      <button mat-raised-button (click)="createOrUpdateUser()" color="primary">Shto</button>
+      <app-button-spinner [text]="user.id ? 'Ndrysho' : 'Shto'" color="primary" [loading]="loading"></app-button-spinner>
     </div>
   </form>
 </div>

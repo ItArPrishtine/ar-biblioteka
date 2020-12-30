@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthenticationService} from '../../../shared/services/auth/authentication.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {LoginModel} from '../../../shared/models/auth/login.model';
@@ -6,6 +6,8 @@ import {TokenService} from '../../../shared/services/auth/token.service';
 import {Router} from '@angular/router';
 import {RouterUrls} from '../../../shared/constants/RouterUrls';
 import {IMAGEURLS} from '../../../shared/constants/GeneralConstant';
+import {finalize} from "rxjs/operators";
+import {CustomSnackbarService} from "../../../shared/services/snackbar-service.service";
 
 @Component({
   selector: 'app-login',
@@ -15,10 +17,13 @@ import {IMAGEURLS} from '../../../shared/constants/GeneralConstant';
 export class LoginComponent implements OnInit {
   formGroup: FormGroup;
   logoUrl = IMAGEURLS.LOGO;
+  loading = false;
 
   constructor(private authService: AuthenticationService,
               private router: Router,
-              private tokenService: TokenService) { }
+              private snackBarService: CustomSnackbarService,
+              private tokenService: TokenService) {
+  }
 
   ngOnInit(): void {
     this.initForm();
@@ -41,10 +46,20 @@ export class LoginComponent implements OnInit {
       password: this.formGroup.get('password').value,
     };
 
-    this.authService.authenticate(loginModel).subscribe(result => {
-      this.tokenService.saveToken(result.token);
-      this.router.navigateByUrl('/' + RouterUrls.ACCOUNT.BASE_MODULE);
-    });
+    this.loading = true;
+
+    this.authService.authenticate(loginModel)
+      .pipe(
+        finalize(() => this.loading = false)
+      )
+      .subscribe(
+        result => {
+          this.tokenService.saveToken(result.token);
+          this.router.navigateByUrl('/' + RouterUrls.ACCOUNT.BASE_MODULE);
+        },
+        error => {
+          this.snackBarService.error('Username or password is wrong')
+        });
   }
 
 }

@@ -6,6 +6,8 @@ import {AuthorService} from "../../../../../shared/services/biblioteka/author.se
 import {BookService} from "../../../../../shared/services/biblioteka/book.service";
 import {BookModel} from "../../../../../shared/models/book/book.model";
 import {EditionModel} from "../../../../../shared/models/book/edition.model";
+import {finalize} from "rxjs/operators";
+import {CustomSnackbarService} from "../../../../../shared/services/snackbar-service.service";
 
 @Component({
   selector: 'app-book-form',
@@ -20,12 +22,15 @@ export class BookFormComponent implements OnInit {
   bookId: string;
   editions = [];
   authors: AuthorModel[] = [];
+  loading = false;
 
   constructor(public dialogRef: MatDialogRef<BookFormComponent>,
               public bookService: BookService,
               public authorService: AuthorService,
-              @Inject(MAT_DIALOG_DATA) public data: any
-  ) { }
+              @Inject(MAT_DIALOG_DATA) public data: any,
+              private snackBarService: CustomSnackbarService
+  ) {
+  }
 
   ngOnInit(): void {
     this.getEditionsAndAuthors();
@@ -34,7 +39,7 @@ export class BookFormComponent implements OnInit {
   getAuthorsAndBookDetails() {
     this.authorService.getAllAuthors().subscribe(result => {
       this.authors = result;
-      if (!this.book.id) {
+      if (!this.bookId) {
         this.initForm();
         return;
       }
@@ -69,15 +74,16 @@ export class BookFormComponent implements OnInit {
       name: new FormControl(this.book ? this.book.name : ''),
       description: new FormControl(this.book ? this.book.description : ''),
       publicationYear: new FormControl(this.book ? this.book.publicationYear : ''),
-      category: new FormControl(this.book && this.book.category ? this.book.category  : ''),
+      category: new FormControl(this.book && this.book.category ? this.book.category : ''),
       edition: new FormControl(this.book && this.book.edition ? this.book.edition.id.toString() : ''),
-      author: new FormControl(this.book && this.book.author ? this.book.author.id.toString()  : ''),
+      author: new FormControl(this.book && this.book.author ? this.book.author.id.toString() : ''),
     });
 
     this.imageSrc = this.book ? this.book.imageUrl : '';
   }
 
   createOrUpdateBook() {
+    this.loading = true;
     const formData: FormData = new FormData();
     const bookModel = new BookModel();
 
@@ -105,21 +111,36 @@ export class BookFormComponent implements OnInit {
 
       formData.append('book', JSON.stringify(bookModel));
 
-      this.bookService.updateBook(formData).subscribe(
-        result => this.closeDialog(),
-        error => console.log(error)
-      );
+      this.bookService.updateBook(formData)
+        .pipe(finalize(() => this.loading = false))
+        .subscribe(
+          result => {
+            this.book = result;
+            this.snackBarService.success("Libri u ndryshua me sukses");
+            this.closeDialog()
+          },
+          error => {
+            this.snackBarService.error("Gabim gjate ndryshimit te librit");
+          }
+        );
     } else {
       formData.append('book', JSON.stringify(bookModel));
-      this.bookService.createBook(formData).subscribe(
-        result => this.closeDialog(),
-        error => console.log(error)
-      );
+      this.bookService.createBook(formData)
+        .pipe(finalize(() => this.loading = false))
+        .subscribe(
+          result => {
+            this.book = result;
+            this.snackBarService.success("Libri u shtua me sukses");
+          },
+          error => {
+            this.snackBarService.error("Gabim gjate shtimit te librit");
+          }
+        );
     }
   }
 
   closeDialog() {
-    this.dialogRef.close();
+    this.dialogRef.close(this.book);
   }
 
   onFileChange(event) {
@@ -136,7 +157,7 @@ export class BookFormComponent implements OnInit {
     }
   }
 
-  get f(){
+  get f() {
     return this.formGroup.controls;
   }
 
