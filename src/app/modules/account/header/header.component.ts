@@ -11,6 +11,7 @@ import {TokenService} from '../../../shared/services/auth/token.service';
 })
 export class HeaderComponent implements OnInit {
   logoUrl = IMAGEURLS.LOGO;
+  avatarUrl = IMAGEURLS.LOGO;
   tokenData: any;
   authorsUrl = RouterUrls.BIBLIOTEKA.BASE_MODULE + '/' + RouterUrls.BIBLIOTEKA.AUTHOR;
   booksUrl = RouterUrls.BIBLIOTEKA.BASE_MODULE + '/' + RouterUrls.BIBLIOTEKA.BOOK;
