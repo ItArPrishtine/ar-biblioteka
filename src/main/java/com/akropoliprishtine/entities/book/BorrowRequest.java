@@ -9,7 +9,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "book_borrow_request")
+@Table(name = "book_borrow_request", uniqueConstraints = @UniqueConstraint(columnNames = {"userId"}))
 public class BorrowRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

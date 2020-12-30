@@ -24,34 +24,34 @@ import java.util.Optional;
 @RequestMapping("/book_book")
 public class BookController {
 
-    private final Path root = Paths.get("/home/guest/empty/akropoli-pr-ui/src/assets/images/books");
+    private final Path booksDirectory = Paths.get("src/main/resources/images/books");
 
     @Autowired
     private BookService bookService;
 
     @PostMapping("/")
-    public Book createBook(@RequestParam("file") MultipartFile file,
+    public Book createBook(@RequestParam(value = "file", required = false) MultipartFile file,
                            @RequestParam("book") String book) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         Book bookToSave = objectMapper.readValue(book, Book.class);
 
-        Files.copy(file.getInputStream(), this.root.resolve(Objects.requireNonNull(file.getOriginalFilename())));
-        Path filePath = root.resolve(file.getOriginalFilename());
+        Files.copy(file.getInputStream(), booksDirectory.resolve(Objects.requireNonNull(file.getOriginalFilename())));
+        Path filePath = booksDirectory.resolve(file.getOriginalFilename());
         bookToSave.setImageUrl(filePath.toString());
 
         return this.bookService.save(bookToSave);
     }
 
     @PutMapping("/")
-    public Book updateBook(@RequestParam("file") MultipartFile file,
+    public Book updateBook(@RequestParam(value = "file", required = false) MultipartFile file,
                            @RequestParam("book") String book) throws IOException {
 
         ObjectMapper objectMapper = new ObjectMapper();
         Book bookToSave = objectMapper.readValue(book, Book.class);
 
         if (file != null) {
-            Files.copy(file.getInputStream(), this.root.resolve(Objects.requireNonNull(file.getOriginalFilename())));
-            Path filePath = root.resolve(file.getOriginalFilename());
+            Files.copy(file.getInputStream(), booksDirectory.resolve(Objects.requireNonNull(file.getOriginalFilename())));
+            Path filePath = booksDirectory.resolve(file.getOriginalFilename());
             bookToSave.setImageUrl(filePath.toString());
         }
         return this.bookService.save(bookToSave);

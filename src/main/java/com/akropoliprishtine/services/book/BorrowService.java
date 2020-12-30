@@ -1,17 +1,14 @@
 package com.akropoliprishtine.services.book;
 
-import com.akropoliprishtine.entities.book.Author;
-import com.akropoliprishtine.entities.book.Book;
 import com.akropoliprishtine.entities.book.Borrow;
-import com.akropoliprishtine.repositories.book.BookRepository;
+import com.akropoliprishtine.entities.book.BorrowRequest;
+import com.akropoliprishtine.enums.BorrowRequestStatus;
 import com.akropoliprishtine.repositories.book.BorrowRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class BorrowService {
@@ -19,11 +16,25 @@ public class BorrowService {
     @Autowired
     BorrowRepository borrowRepository;
 
-    public BorrowService(BorrowRepository borrowRepository) {
+    @Autowired
+    BorrowRequestService borrowRequestService;
+
+    public BorrowService(BorrowRepository borrowRepository,
+                         BorrowRequestService borrowRequestService) {
         this.borrowRepository = borrowRepository;
+        this.borrowRequestService = borrowRequestService;
     }
-    
+
+    public List<Borrow> getAll() {
+        return this.borrowRepository.findAll();
+    }
+
+    @Transactional
     public Borrow borrow(Borrow borrow) {
+        BorrowRequest borrowRequest = borrow.getBorrowRequest();
+        borrowRequest.setBorrowRequestStatus(BorrowRequestStatus.APPROVED);
+
+        this.borrowRequestService.saveBorrowRequest(borrowRequest);
         return this.borrowRepository.save(borrow);
     }
 }

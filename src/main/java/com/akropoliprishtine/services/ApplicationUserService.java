@@ -3,9 +3,12 @@ package com.akropoliprishtine.services;
 import com.akropoliprishtine.entities.ApplicationUser;
 import com.akropoliprishtine.entities.Role;
 import com.akropoliprishtine.repositories.UserRepository;
+import com.akropoliprishtine.utils.GeneralConstants;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Locale;
 
 import static java.util.Collections.emptyList;
 
@@ -24,6 +28,9 @@ public class ApplicationUserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private EmailServiceImpl emailService;
 
     ObjectMapper objectMapper;
 
@@ -62,10 +69,24 @@ public class ApplicationUserService {
         applicationUser.setDateOfBirth(jsonNode.get("dateOfBirth").textValue());
         applicationUser.setDescription(jsonNode.get("description").textValue());
         applicationUser.setRole(objectMapper.convertValue(jsonNode.get("role"), Role.class));
-        applicationUser.setUsername(applicationUser.getFirstName() + applicationUser.getLastName());
+        String username = applicationUser.getFirstName() + applicationUser.getLastName();
+        applicationUser.setUsername(username.toLowerCase());
+        applicationUser.setPassword(GeneralConstants.DEFAULT_USER_PASSWORD);
 
-//        applicationUser.setPassword(passwordEncoder.encode(applicationUser.getPassword()));
         return this.userRepository.save(applicationUser);
+// TODO        this.emailService.accountCreated(user.getEmail());
+    }
+
+    public ApplicationUser changePassword (JsonNode jsonNode) throws Exception {
+        ApplicationUser user = this.userRepository.getOne(Long.parseLong(jsonNode.get("id").toString()));
+
+        if (checkPassword(user, jsonNode.get("oldPassword").textValue())) {
+            String encodedPassword = passwordEncoder.encode(jsonNode.get("newPassword").textValue());
+            user.setPassword(encodedPassword);
+            return this.userRepository.save(user);
+        } {
+            throw new Exception("The old password is not the same");
+        }
     }
 
     public ApplicationUser updateUser(ApplicationUser applicationUser) {
@@ -75,8 +96,8 @@ public class ApplicationUserService {
         return null;
     }
 
-    public void deleteUser(ApplicationUser applicationUser) {
-        this.userRepository.delete(applicationUser);
+    public void deleteUser(Long id) {
+        this.userRepository.deleteById(id);
     }
 
     private boolean checkPassword(ApplicationUser applicationUser, String password) {

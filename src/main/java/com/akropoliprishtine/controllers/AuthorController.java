@@ -24,16 +24,16 @@ import java.util.Optional;
 public class AuthorController {
     @Autowired
     private AuthorService authorService;
-    private final Path root = Paths.get("/home/guest/empty/akropoli-pr-ui/src/assets/images/authors");
+    private final Path authorsDirectory = Paths.get("src/main/resources/images/authors");
 
     @PostMapping("create")
-    public Author createAuthor(@RequestParam("file") MultipartFile file,
+    public Author createAuthor(@RequestParam(value = "file", required = false) MultipartFile file,
                                @RequestParam("author") String author) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         Author authorToSave = objectMapper.readValue(author, Author.class);
 
-        Files.copy(file.getInputStream(), this.root.resolve(Objects.requireNonNull(file.getOriginalFilename())));
-        Path filePath = root.resolve(file.getOriginalFilename());
+        Files.copy(file.getInputStream(), this.authorsDirectory.resolve(Objects.requireNonNull(file.getOriginalFilename())));
+        Path filePath = authorsDirectory.resolve(file.getOriginalFilename());
         authorToSave.setImageUrl(filePath.toString());
 
         return this.authorService.saveAuthor(authorToSave);
@@ -53,14 +53,14 @@ public class AuthorController {
     }
 
     @PutMapping("update")
-    public Author updateAuthor(@RequestParam("file") MultipartFile file,
+    public Author updateAuthor(@RequestParam(value = "file", required = false) MultipartFile file,
                                @RequestParam("author") String author) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         Author authorToSave = objectMapper.readValue(author, Author.class);
 
         if (file != null) {
-            Files.copy(file.getInputStream(), this.root.resolve(Objects.requireNonNull(file.getOriginalFilename())));
-            Path filePath = root.resolve(file.getOriginalFilename());
+            Files.copy(file.getInputStream(), this.authorsDirectory.resolve(Objects.requireNonNull(file.getOriginalFilename())));
+            Path filePath = authorsDirectory.resolve(file.getOriginalFilename());
             authorToSave.setImageUrl(filePath.toString());
         }
         return this.authorService.saveAuthor(authorToSave);
