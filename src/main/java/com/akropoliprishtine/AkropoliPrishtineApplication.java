@@ -1,5 +1,9 @@
 package com.akropoliprishtine;
 
+import com.amazonaws.auth.AWSCredentialsProvider;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import lombok.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -23,6 +27,15 @@ public class AkropoliPrishtineApplication {
 	@Bean
 	public PasswordEncoder encoder () {
 		return new BCryptPasswordEncoder();
+	}
+
+	@Bean
+	public AmazonS3 amazonS3Client(AWSCredentialsProvider credentialsProvider) {
+		return AmazonS3ClientBuilder
+				.standard()
+				.withCredentials(credentialsProvider)
+				.withRegion("eu-central-1")
+				.build();
 	}
 
 }

@@ -34,6 +34,22 @@ spring:
         enable: true
         required: true
 
+#AWS properties
+amazonProperties:
+  endpointUrl: "https://s3.us-east-2.amazonaws.com"
+  accessKey: "AKIAQII6KD23XJJFCXXU"
+  secretKey: "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"
+  bucketName: "ar-prishtine"
+
+app.awsServices.bucketName: "ar-prishtine"
+cloud:
+  aws:
+    stack.auto: false
+    region.static: "eu-central-1"
+    credentials:
+      accessKey: "AKIAQII6KD23XJJFCXXU"
+      secretKey: "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"
+
 jwt:
   secret: javainuse
 #  jwt expiration in hours

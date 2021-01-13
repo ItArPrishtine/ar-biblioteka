@@ -32,11 +32,7 @@ public class AuthorController {
         ObjectMapper objectMapper = new ObjectMapper();
         Author authorToSave = objectMapper.readValue(author, Author.class);
 
-        Files.copy(file.getInputStream(), this.authorsDirectory.resolve(Objects.requireNonNull(file.getOriginalFilename())));
-        Path filePath = authorsDirectory.resolve(file.getOriginalFilename());
-        authorToSave.setImageUrl(filePath.toString());
-
-        return this.authorService.saveAuthor(authorToSave);
+        return this.authorService.saveAndUploadFile(authorToSave, file);
     }
 
     @GetMapping()
@@ -58,12 +54,7 @@ public class AuthorController {
         ObjectMapper objectMapper = new ObjectMapper();
         Author authorToSave = objectMapper.readValue(author, Author.class);
 
-        if (file != null) {
-            Files.copy(file.getInputStream(), this.authorsDirectory.resolve(Objects.requireNonNull(file.getOriginalFilename())));
-            Path filePath = authorsDirectory.resolve(file.getOriginalFilename());
-            authorToSave.setImageUrl(filePath.toString());
-        }
-        return this.authorService.saveAuthor(authorToSave);
+        return this.authorService.saveAndUploadFile(authorToSave, file);
     }
 
     @DeleteMapping("delete/{id}")

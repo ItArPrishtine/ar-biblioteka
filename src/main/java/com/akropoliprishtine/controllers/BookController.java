@@ -2,6 +2,7 @@ package com.akropoliprishtine.controllers;
 
 import com.akropoliprishtine.entities.book.Author;
 import com.akropoliprishtine.entities.book.Book;
+import com.akropoliprishtine.services.AmazonClient;
 import com.akropoliprishtine.services.book.BookService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,11 +36,7 @@ public class BookController {
         ObjectMapper objectMapper = new ObjectMapper();
         Book bookToSave = objectMapper.readValue(book, Book.class);
 
-        Files.copy(file.getInputStream(), booksDirectory.resolve(Objects.requireNonNull(file.getOriginalFilename())));
-        Path filePath = booksDirectory.resolve(file.getOriginalFilename());
-        bookToSave.setImageUrl(filePath.toString());
-
-        return this.bookService.save(bookToSave);
+        return this.bookService.saveAndUploadFile(bookToSave, file);
     }
 
     @PutMapping("/")
@@ -49,12 +46,7 @@ public class BookController {
         ObjectMapper objectMapper = new ObjectMapper();
         Book bookToSave = objectMapper.readValue(book, Book.class);
 
-        if (file != null) {
-            Files.copy(file.getInputStream(), booksDirectory.resolve(Objects.requireNonNull(file.getOriginalFilename())));
-            Path filePath = booksDirectory.resolve(file.getOriginalFilename());
-            bookToSave.setImageUrl(filePath.toString());
-        }
-        return this.bookService.save(bookToSave);
+        return this.bookService.saveAndUploadFile(bookToSave, file);
     }
 
     @GetMapping("/")
