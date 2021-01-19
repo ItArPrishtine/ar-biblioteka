@@ -1,9 +1,6 @@
 package com.akropoliprishtine.entities.book;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 @Table(name = "book_edition", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))

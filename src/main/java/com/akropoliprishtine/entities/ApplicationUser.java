@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 
-
 @Entity(name = "account_users")
 @Table(name = "account_users")
 public class ApplicationUser {

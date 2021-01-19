@@ -1,4 +1,4 @@
-package com.akropoliprishtine.controllers;
+package com.akropoliprishtine.controllers.book;
 
 import com.akropoliprishtine.entities.book.Borrow;
 import com.akropoliprishtine.services.book.BorrowService;
@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
 
 @RestController
 @RequestMapping("/book_borrow")
@@ -23,6 +22,16 @@ public class BorrowController {
     @PostMapping("/")
     public Borrow borrow(@RequestBody Borrow borrow) {
         return this.borrowService.borrow(borrow);
+    }
+
+    @PostMapping("/return")
+    public Borrow returnBorrow(@RequestBody Borrow borrow) {
+        return this.borrowService.returnBorrow(borrow);
+    }
+
+    @PostMapping("/user_borrow_exist")
+    public Borrow borrowExist(@RequestBody Borrow borrow) {
+        return this.borrowService.borrowExist(borrow);
     }
 }
 

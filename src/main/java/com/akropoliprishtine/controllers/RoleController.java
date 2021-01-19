@@ -1,8 +1,6 @@
 package com.akropoliprishtine.controllers;
 
-import com.akropoliprishtine.entities.ApplicationUser;
 import com.akropoliprishtine.entities.Role;
-import com.akropoliprishtine.services.ApplicationUserService;
 import com.akropoliprishtine.services.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

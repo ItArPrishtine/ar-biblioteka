@@ -3,8 +3,9 @@ package com.akropoliprishtine.controllers;
 import com.akropoliprishtine.entities.ApplicationUser;
 import com.akropoliprishtine.entities.JwtRequest;
 import com.akropoliprishtine.entities.JwtResponse;
+import com.akropoliprishtine.entities.book.Borrow;
 import com.akropoliprishtine.services.ApplicationUserService;
-import com.akropoliprishtine.services.JwtUserDetailsService;
+import com.akropoliprishtine.services.book.BorrowService;
 import com.akropoliprishtine.utils.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,10 +13,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.regex.Pattern;
 
 @RestController
@@ -29,6 +28,9 @@ public class AuthenticationController {
     @Autowired
     private ApplicationUserService userService;
 
+    @Autowired
+    private BorrowService borrowService;
+
     @GetMapping("/p1/testheroku")
     public String testHeroku() {
         return "App is deplyed successfully!!";
@@ -38,12 +40,12 @@ public class AuthenticationController {
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
 
         String usernameOrEmail = authenticationRequest.getUsername();
-        Pattern pattern = Pattern.compile("[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}");
+        Pattern emailPattern = Pattern.compile("[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}");
 
         ApplicationUser userByEmail;
         String username;
 
-        if (pattern.matcher(usernameOrEmail).matches()) {
+        if (emailPattern.matcher(usernameOrEmail).matches()) {
             userByEmail = userService.findByEmail(usernameOrEmail);
             username = userByEmail.getUsername();
             authenticate(userByEmail.getUsername(), authenticationRequest.getPassword());
@@ -56,7 +58,9 @@ public class AuthenticationController {
                 username,
                 authenticationRequest.getPassword());
 
-        final String token = jwtTokenUtil.generateToken(user);
+        Borrow borrow = borrowService.getBorrowedBookOfUser(user);
+
+        final String token = jwtTokenUtil.generateToken(user, borrow);
 
         return ResponseEntity.ok(new JwtResponse(token));
     }

@@ -24,7 +24,7 @@ public class Book {
     @OneToOne
     private Edition edition;
 
-    @Column()
+    @Column(name = "category", nullable = false)
     private String category;
 
     @Column(nullable = true)

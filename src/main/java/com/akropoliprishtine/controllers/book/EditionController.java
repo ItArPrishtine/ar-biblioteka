@@ -1,4 +1,4 @@
-package com.akropoliprishtine.controllers;
+package com.akropoliprishtine.controllers.book;
 
 import com.akropoliprishtine.entities.book.Edition;
 import com.akropoliprishtine.services.book.EditionService;
@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-
 
 @RestController
 @RequestMapping("/book_edition")

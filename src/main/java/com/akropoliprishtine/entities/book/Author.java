@@ -1,7 +1,6 @@
 package com.akropoliprishtine.entities.book;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 @Table(name = "book_author", uniqueConstraints = @UniqueConstraint(columnNames = {"firstName", "lastName"}))

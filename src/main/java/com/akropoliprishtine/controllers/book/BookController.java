@@ -1,31 +1,24 @@
-package com.akropoliprishtine.controllers;
+package com.akropoliprishtine.controllers.book;
 
-import com.akropoliprishtine.entities.book.Author;
+import com.akropoliprishtine.dto.BookBorrowDTO;
 import com.akropoliprishtine.entities.book.Book;
-import com.akropoliprishtine.services.AmazonClient;
 import com.akropoliprishtine.services.book.BookService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.Tuple;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 
 @RestController
 @RequestMapping("/book_book")
 public class BookController {
-
-    private final Path booksDirectory = Paths.get("src/main/resources/images/books");
 
     @Autowired
     private BookService bookService;
@@ -50,8 +43,8 @@ public class BookController {
     }
 
     @GetMapping("/")
-    public Page<Book> getBooks(@RequestParam(defaultValue = "0") Integer pageNumber,
-                               @RequestParam(defaultValue = "20") Integer pageSize) {
+    public List<BookBorrowDTO> getBooks(@RequestParam(defaultValue = "0") Integer pageNumber,
+                                        @RequestParam(defaultValue = "20") Integer pageSize) {
 
         Pageable paging = PageRequest.of(pageNumber, pageSize);
         return this.bookService.getBooksPage(paging);
@@ -70,7 +63,7 @@ public class BookController {
 
     @GetMapping("/{id}")
     public Optional<Book> getBookDetails(@PathVariable Long id) {
-        return this.bookService.getBooksDetails(id);
+        return this.bookService.getBooksById(id);
     }
 }
 

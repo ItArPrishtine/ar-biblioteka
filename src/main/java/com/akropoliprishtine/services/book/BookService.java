@@ -1,29 +1,18 @@
 package com.akropoliprishtine.services.book;
 
-import com.akropoliprishtine.entities.Role;
+import com.akropoliprishtine.dto.BookBorrowDTO;
 import com.akropoliprishtine.entities.book.Author;
 import com.akropoliprishtine.entities.book.Book;
-import com.akropoliprishtine.repositories.RoleRepository;
 import com.akropoliprishtine.repositories.book.BookRepository;
 import com.akropoliprishtine.services.AmazonClient;
-import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3Client;
-import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import com.amazonaws.services.s3.model.PutObjectRequest;
-import com.amazonaws.services.s3.model.PutObjectResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.swing.text.html.Option;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.net.URL;
+import javax.persistence.Tuple;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -55,11 +44,41 @@ public class BookService {
         return this.bookRepository.findAll();
     }
 
-    public Page<Book> getBooksPage(Pageable pageable) {
-        return this.bookRepository.findAll(pageable);
+    public List<BookBorrowDTO> getBooksPage(Pageable pageable) {
+        List<Tuple> tuples = this.bookRepository.findAll(pageable.getOffset(), pageable.getPageSize());
+        List<BookBorrowDTO> bookListDTOBorrow = new ArrayList<>();
+
+        for (Tuple tuple : tuples) {
+            BookBorrowDTO bookBorrowDTO = new BookBorrowDTO();
+            bookBorrowDTO.setId(tuple.get(0).toString());
+            bookBorrowDTO.setName(tuple.get(1).toString());
+            bookBorrowDTO.setCategory(tuple.get(2).toString());
+            bookBorrowDTO.setAuthorFirstName(tuple.get(5).toString());
+            bookBorrowDTO.setAuthorLastName(tuple.get(6).toString());
+            bookBorrowDTO.setAuthorId(tuple.get(7).toString());
+
+            if (tuple.get(3) != null) {
+                bookBorrowDTO.setImageUrl(tuple.get(3).toString());
+            } else {
+                bookBorrowDTO.setImageUrl("");
+            }
+            if (tuple.get(4) != null) {
+                bookBorrowDTO.setPublicationYear(tuple.get(4).toString());
+            } else {
+                bookBorrowDTO.setPublicationYear("");
+            }
+            if (tuple.get(8) != null) {
+                bookBorrowDTO.setBorrowStatus(tuple.get(8).toString());
+            } else {
+                bookBorrowDTO.setBorrowStatus("");
+            }
+
+            bookListDTOBorrow.add(bookBorrowDTO);
+        }
+        return bookListDTOBorrow;
     }
 
-    public Optional<Book> getBooksDetails(Long id) {
+    public Optional<Book> getBooksById(Long id) {
         return this.bookRepository.findById(id);
     }
 

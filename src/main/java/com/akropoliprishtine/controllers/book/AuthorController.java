@@ -1,4 +1,4 @@
-package com.akropoliprishtine.controllers;
+package com.akropoliprishtine.controllers.book;
 
 import com.akropoliprishtine.entities.book.Author;
 import com.akropoliprishtine.services.book.AuthorService;
@@ -11,11 +11,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 

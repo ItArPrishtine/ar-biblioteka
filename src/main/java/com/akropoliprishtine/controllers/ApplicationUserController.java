@@ -4,7 +4,6 @@ import com.akropoliprishtine.entities.ApplicationUser;
 import com.akropoliprishtine.services.ApplicationUserService;
 import com.akropoliprishtine.utils.JwtTokenUtil;
 import com.fasterxml.jackson.databind.JsonNode;
-import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
