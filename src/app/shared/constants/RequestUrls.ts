@@ -28,6 +28,10 @@ export const RequestUrls = {
       BASE: environment.api + '/book_book/',
       BY_AUTHOR: environment.api + '/book_book/author',
     },
+    COMMENT: {
+      BASE: environment.api + '/book_comment/',
+      BY_BOOK: environment.api + '/book_comment/book',
+    },
     EDITION: {
       BASE: environment.api + '/book_edition'
     },
@@ -37,6 +41,8 @@ export const RequestUrls = {
       REJECT: environment.api + '/book_borrow_request/reject',
       CANCEL_NEW_REQUEST: environment.api + '/book_borrow_request/cancel/new_request',
       BORROW: environment.api + '/book_borrow/',
+      RETURN: environment.api + '/book_borrow/return',
+      BORROW_USER_EXIST: environment.api + '/book_borrow/user_borrow_exist',
     }
   },
 };

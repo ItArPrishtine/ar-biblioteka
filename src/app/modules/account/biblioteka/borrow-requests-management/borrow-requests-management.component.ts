@@ -1,31 +1,27 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CustomSnackbarService} from "../../../../shared/services/snackbar-service.service";
-import {BorrowRequestService} from "../../../../shared/services/biblioteka/borrow-request.service";
-import {UserCreateUpdateComponent} from "../../account-management/user-create-update/user-create-update.component";
-import {ApproveBorrowComponent} from "../approve-borrow/approve-borrow.component";
 import {MatDialog} from "@angular/material/dialog";
-import {BorrowRequestStatusEnum} from "../../../../shared/models/enums/BorrowRequestStatus.enum";
-import {RejectBorrowComponent} from "../reject-borrow/reject-borrow.component";
+import {BorrowService} from "../../../../shared/services/biblioteka/borrow.service";
 
 @Component({
   selector: 'app-borrow-requests-management',
   templateUrl: './borrow-requests-management.component.html',
   styleUrls: ['./borrow-requests-management.component.scss']
 })
-export class BorrowRequestsManagementComponent {
-  displayedColumns: string[] = ['username', 'borrowFrom', 'bookTitle', 'status', 'action'];
+export class BorrowRequestsManagementComponent implements OnInit {
+  displayedColumns: string[] = ['username', 'bookTitle', 'category', 'author', 'borrowUntil', 'borrowStatus'];
   dataSource: any;
-  requestStatus = BorrowRequestStatusEnum;
 
-  constructor(private borrowRequests: BorrowRequestService,
-              private snackBarService: CustomSnackbarService,
-              private dialog: MatDialog
-  ) {
-    this.getBorrowRequests();
+  constructor(private borrowService: BorrowService,
+              private snackBarService: CustomSnackbarService) {
   }
 
-  getBorrowRequests() {
-    this.borrowRequests.getBorrowRequests().subscribe(
+  ngOnInit() {
+    this.getBorrows();
+  }
+
+  getBorrows() {
+    this.borrowService.getBorrows().subscribe(
       result => {
         this.dataSource = result;
       }, () => {
@@ -34,16 +30,4 @@ export class BorrowRequestsManagementComponent {
     )
   }
 
-  approveRequest(element: any) {
-    const dialogRef = this.dialog.open(ApproveBorrowComponent);
-    dialogRef.componentInstance.elementToApprove = element;
-    dialogRef.afterClosed().subscribe(() => this.getBorrowRequests());
-  }
-
-  rejectRequest(element: any) {
-    debugger;
-    const dialogRef = this.dialog.open(RejectBorrowComponent);
-    dialogRef.componentInstance.elementToReject = element;
-    dialogRef.afterClosed().subscribe(() => this.getBorrowRequests());
-  }
 }

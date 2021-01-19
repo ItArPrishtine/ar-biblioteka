@@ -24,15 +24,13 @@ import {BookDetailsComponent} from './book-management/book-details/book-details.
 import {BookFormComponent} from './book-management/book-form/book-form.component';
 import {BookService} from "../../../shared/services/biblioteka/book.service";
 import {MatTooltipModule} from "@angular/material/tooltip";
-import {BorrowRequestComponent} from './book-management/borrow-request/borrow-request.component';
+import {BorrowComponent} from './book-management/borrow/borrow.component';
 import {ButtonSpinnerModule} from "../../../shared/components/button-spinner/button-spinner.module";
-import {BorrowRequestService} from "../../../shared/services/biblioteka/borrow-request.service";
 import { BorrowRequestsManagementComponent } from './borrow-requests-management/borrow-requests-management.component';
 import {MatMenuModule} from "@angular/material/menu";
 import {MatTableModule} from "@angular/material/table";
-import { ApproveBorrowComponent } from './approve-borrow/approve-borrow.component';
 import {BorrowService} from "../../../shared/services/biblioteka/borrow.service";
-import {RejectBorrowComponent} from "./reject-borrow/reject-borrow.component";
+import {BookCommentService} from "../../../shared/services/biblioteka/book-comment.service";
 
 @NgModule({
   declarations: [
@@ -47,10 +45,8 @@ import {RejectBorrowComponent} from "./reject-borrow/reject-borrow.component";
     BookCardComponent,
     BookDetailsComponent,
     BookFormComponent,
-    BorrowRequestComponent,
+    BorrowComponent,
     BorrowRequestsManagementComponent,
-    ApproveBorrowComponent,
-    RejectBorrowComponent
   ],
   imports: [
     CommonModule,
@@ -72,12 +68,12 @@ import {RejectBorrowComponent} from "./reject-borrow/reject-borrow.component";
   providers: [
     AuthorService,
     BookService,
-    BorrowRequestService,
-    BorrowService
+    BorrowService,
+    BookCommentService
   ],
   entryComponents: [
     AuthorFormComponent,
-    BorrowRequestComponent
+    BorrowComponent
   ]
 })
 export class BibliotekaModule {

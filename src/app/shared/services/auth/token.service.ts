@@ -1,6 +1,7 @@
 import jwt_decode from 'jwt-decode';
 import {Injectable} from '@angular/core';
 import {GeneralConstant} from '../../constants/GeneralConstant';
+import {BorrowModel} from "../../models/book/borrow.model";
 
 @Injectable()
 export class TokenService {
@@ -17,7 +18,17 @@ export class TokenService {
 
   public getData(): any {
     const token = this.geToken();
-    return jwt_decode(token);
+    if (token) {
+      return jwt_decode(token);
+    }
+    return;
+  }
+
+  public getBorrowedBook(): BorrowModel {
+    if (this.getData()) {
+      return this.getData().borrow;
+    }
+    return;
   }
 
   public isTokenExpired() {

@@ -3,6 +3,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {BookService} from '../../../../../shared/services/biblioteka/book.service';
 import {BookModel} from '../../../../../shared/models/book/book.model';
 import {BookFormComponent} from "../book-form/book-form.component";
+import {BookBorrowDTO} from "../../../../../shared/models/dto/BookBorrowDTO.model";
 
 @Component({
   selector: 'app-book-list',
@@ -11,7 +12,7 @@ import {BookFormComponent} from "../book-form/book-form.component";
 })
 export class BookListComponent implements OnInit {
 
-  books: BookModel[] = [];
+  books: BookBorrowDTO[] = [];
   pageNumber = 0;
   loading = false;
 
@@ -30,7 +31,7 @@ export class BookListComponent implements OnInit {
     this.bookService.getBooks(this.pageNumber, 30).subscribe(
       result => {
         this.loading = false;
-        this.books = this.books.concat(...result.content);
+        this.books = this.books.concat(...result);
       },
       error => {
         console.log(error);

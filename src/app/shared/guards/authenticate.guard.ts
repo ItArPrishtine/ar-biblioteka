@@ -9,6 +9,7 @@ export class AuthenticateGuard implements CanActivate {
               private router: Router) { }
 
   canActivate() {
+    debugger;
     if (!this.tokenService.isTokenExpired()) {
         return true;
     }

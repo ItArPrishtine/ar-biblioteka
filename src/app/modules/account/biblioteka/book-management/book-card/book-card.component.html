@@ -1,6 +1,11 @@
 <div class="product-card-space">
   <div class="product-card">
     <div class="product-card-image">
+      <!--  i huazuar kur e ka vleren 0-->
+      <a routerLink="{{detailsUrl + '/' + book.id}}" class="borrowed" *ngIf="book.borrowStatus == '0'">
+        I Huazuar
+      </a>
+
       <a routerLink="{{detailsUrl + '/' + book.id}}">
         <img src="{{book.imageUrl ? book.imageUrl : bookImage}}"/>
       </a>
@@ -10,8 +15,8 @@
         <a routerLink="{{detailsUrl + '/' + book.id}}">{{book.name}}</a>
       </div>
 
-      <a [routerLink]="authorDetailsUrl + '/' + book.author.id" class="product-author">
-        <p>{{book.author.firstName + ' ' + book.author.lastName}}</p>
+      <a [routerLink]="authorDetailsUrl + '/' + book.authorId" class="product-author">
+        <p>{{book.authorFirstName + ' ' + book.authorLastName}}</p>
       </a>
 
       <div class="product-price">

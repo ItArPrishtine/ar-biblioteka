@@ -1,3 +1,28 @@
+.borrowed {
+  width: 100%;
+  padding: 5px 15px;
+  background-color: #2e7d32;
+  position: absolute;
+  top: 60px;
+  left: 0;
+  right: 0;
+
+  p {
+    color: white;
+  }
+}
+
+.add-comment {
+  mat-form-field {
+    margin-top: 10px;
+  }
+
+  .button-plc {
+    width: 100%;
+    text-align: right;
+  }
+}
+
 .product-details {
   padding: 50px;
 
@@ -122,12 +147,19 @@
 
   .comment {
     background-color: #fff;
+    position: relative;
     padding: 20px;
     border-radius: 10px;
     -webkit-box-shadow: 0 0 17px -10px rgba(0,0,0,0.75);
     -moz-box-shadow: 0 0 17px -10px rgba(0,0,0,0.75);
     box-shadow: 0 0 17px -10px rgba(0,0,0,0.75);
     margin-bottom: 20px;
+
+    .delete {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+    }
   }
 
   .user-name {

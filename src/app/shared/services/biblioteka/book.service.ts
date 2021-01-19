@@ -3,9 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import { RequestUrls } from '../../constants/RequestUrls';
 import {ResponsePageModel} from '../../models/shared/ResponsePage.model';
 import {BookModel} from '../../models/book/book.model';
-import {AuthorModel} from "../../models/book/author.model";
-import {BorrowRequestModel} from "../../models/book/borrow-request.model";
-import {Observable} from "rxjs";
+import {BookBorrowDTO} from "../../models/dto/BookBorrowDTO.model";
 
 @Injectable()
 export class BookService {
@@ -13,7 +11,7 @@ export class BookService {
   constructor(private http: HttpClient) { }
 
   getBooks(pageNumber?: number, pageSize?: number) {
-    return this.http.get<ResponsePageModel<BookModel>>(`${RequestUrls.BOOK.BOOK.BASE}?pageNumber=${pageNumber}&pageSize=${pageSize}`);
+    return this.http.get<BookBorrowDTO[]>(`${RequestUrls.BOOK.BOOK.BASE}?pageNumber=${pageNumber}&pageSize=${pageSize}`);
   }
 
   getBookById(id: string) {

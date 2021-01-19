@@ -1,3 +1,7 @@
+<div class="borrowed" *ngIf="thisUserBorrowedThisBook">
+  <p>Ju vecse e keni huazuar librin {{borrowedBookOfUser.book.name}}, nese doni te huazoni tjetrin duhet ta ktheni kete
+    paraprakisht !</p>
+</div>
 <div class="product-details" *ngIf="book">
   <div class='button'>
     <div class='d-flex'>
@@ -10,13 +14,13 @@
     <div class="product">
       <div class="details">
         <div class="image">
-          <img src="{{book.imageUrl ? book.imageUrl : bookImage}}" />
+          <img src="{{book.imageUrl ? book.imageUrl : bookImage}}"/>
         </div>
 
         <div class="description-actions">
           <div class="description-plc">
             <div class="title">
-              <p>{{book.name}}</p>
+              <p>{{book.name}} - {{book.category}}</p>
             </div>
 
             <a routerLink="{{authorDetailsUrl + '/' + book.author.id}}" class="author">
@@ -31,7 +35,23 @@
 
             <div class="description scrollbar-design">
               <p *ngIf="!book.description">
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an un known printer took a galley of type and scrambled it to make a type specimen book. It has survi ved not only five centuries, but also the leap into electronic typesetting, remaining essentially u nchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an un known printer took a galley of type and scrambled it to make a type specimen book. It has survi ved not only five centuries, but also the leap into electronic typesetting, remaining essentially u nchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an un known printer took a galley of type and scrambled it to make a type specimen book. It has survi ved not only five centuries, but also the leap into electronic typesetting, remaining essentially u nchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                industry's standard dummy text ever since the 1500s, when an un known printer took a galley of type and
+                scrambled it to make a type specimen book. It has survi ved not only five centuries, but also the leap
+                into electronic typesetting, remaining essentially u nchanged. It was popularised in the 1960s with the
+                release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing
+                software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the
+                printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since
+                the 1500s, when an un known printer took a galley of type and scrambled it to make a type specimen book.
+                It has survi ved not only five centuries, but also the leap into electronic typesetting, remaining
+                essentially u nchanged. It was popularised in the 1960s with the release of Letraset sheets containing
+                Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including
+                versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                Ipsum has been the industry's standard dummy text ever since the 1500s, when an un known printer took a
+                galley of type and scrambled it to make a type specimen book. It has survi ved not only five centuries,
+                but also the leap into electronic typesetting, remaining essentially u nchanged. It was popularised in
+                the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with
+                desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
               </p>
 
               <p *ngIf="book.description">
@@ -49,7 +69,8 @@
             </div>
 
             <div class="order">
-              <button mat-raised-button color="accent" (click)="borrowRequest()">Kerkese per lexim</button>
+              <button mat-raised-button color="warn" class="mr-2" *ngIf="thisUserBorrowedThisBook" (click)="returnBook()">Kthe Librin</button>
+              <button mat-raised-button color="accent" [disabled]="borrowedBookOfUser" (click)="borrowRequest()">Huazo Librin</button>
             </div>
           </div>
         </div>
@@ -59,20 +80,51 @@
         <div class="comments-title">
           <p>Reader Comments</p>
         </div>
-        <div class="comment">
+
+        <div class="add-comment comment">
           <div class="user-name">
             <div class="image">
-              <img src="{{commentedAvatar}}" />
+              <img src="{{commentedAvatar}}"/>
             </div>
 
             <div class="name">
-              <p>Agon Haxhani</p>
+              <p>{{currentUserName}}</p>
+            </div>
+          </div>
+
+          <form [formGroup]="formGroup" (submit)="submitComment()">
+            <div class="form-input">
+              <mat-form-field>
+                <textarea matInput type="text" formControlName="comment" placeholder="Komenti juaj"></textarea>
+              </mat-form-field>
+
+            </div>
+
+            <div class="button-plc">
+              <button color="primary" mat-raised-button>Shto Komentin</button>
+            </div>
+          </form>
+        </div>
+
+
+        <div class="comment" *ngFor="let comment of comments">
+          <div class="delete">
+            <button mat-button color="warn" *ngIf="comment.applicationUser.id == currentUserId" (click)="deleteComment(comment.id)">Delete</button>
+          </div>
+
+          <div class="user-name">
+            <div class="image">
+              <img src="{{commentedAvatar}}"/>
+            </div>
+
+            <div class="name">
+              <p>{{comment.applicationUser.firstName}} {{comment.applicationUser.lastName}}</p>
             </div>
           </div>
 
           <div class="text">
             <p>
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+              {{comment.comment}}
             </p>
           </div>
         </div>
