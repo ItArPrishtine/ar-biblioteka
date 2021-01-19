@@ -29,7 +29,6 @@ export class BorrowComponent implements OnInit {
   }
 
   ngOnInit() {
-    debugger;
     this.buildBorrowModel();
     this.checkIfAnyBorrowExist();
   }
@@ -54,7 +53,7 @@ export class BorrowComponent implements OnInit {
   borrowBook() {
     this.loading = true;
 
-    this.borrowService.borrow(this.borrowExist)
+    this.borrowService.borrow(this.borrow)
       .pipe(finalize(() => {
         this.loading = false;
         this.dialogRef.close();
