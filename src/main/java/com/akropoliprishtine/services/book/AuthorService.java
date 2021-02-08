@@ -51,7 +51,7 @@ public class AuthorService {
     }
 
     public List<Author> getAuthors() {
-        return this.authorRepository.findAll();
+        return this.authorRepository.findAllOrderByName();
     }
 
     public Page<Author> getAuthorsPage(Pageable pageable) {

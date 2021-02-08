@@ -1,14 +1,17 @@
 package com.akropoliprishtine.services.book;
 
 import com.akropoliprishtine.entities.ApplicationUser;
+import com.akropoliprishtine.entities.Role;
 import com.akropoliprishtine.entities.book.Borrow;
 import com.akropoliprishtine.enums.BorrowStatus;
 import com.akropoliprishtine.repositories.book.BorrowRepository;
+import com.akropoliprishtine.services.ApplicationUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BorrowService {
@@ -16,12 +19,30 @@ public class BorrowService {
     @Autowired
     BorrowRepository borrowRepository;
 
-    public BorrowService(BorrowRepository borrowRepository) {
+    ApplicationUserService userService;
+
+    public BorrowService(BorrowRepository borrowRepository,
+                         ApplicationUserService userService) {
         this.borrowRepository = borrowRepository;
+        this.userService = userService;
     }
 
-    public List<Borrow> getAll() {
-        return this.borrowRepository.findAll();
+    public List<Borrow> getAll(BorrowStatus status, long userId) {
+        Optional<ApplicationUser> user = this.userService.getUserById(userId);
+        Role role = user.get().getRole();
+
+        if (role.getName().equals("KF")) {
+            if (status != null) {
+                return this.borrowRepository.findBorrowByBorrowStatus(status);
+            }
+            return this.borrowRepository.findAll();
+        } else {
+
+            if (status != null) {
+                return this.borrowRepository.findBorrowByBorrowStatusAndApplicationUser(status, user.get());
+            }
+            return this.borrowRepository.findAllByApplicationUser(user.get());
+        }
     }
 
     public Borrow borrow(Borrow borrow) {

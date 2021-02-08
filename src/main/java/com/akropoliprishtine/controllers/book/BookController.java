@@ -44,10 +44,13 @@ public class BookController {
 
     @GetMapping("/")
     public List<BookBorrowDTO> getBooks(@RequestParam(defaultValue = "0") Integer pageNumber,
-                                        @RequestParam(defaultValue = "20") Integer pageSize) {
+                                        @RequestParam(defaultValue = "20") Integer pageSize,
+                                        @RequestParam(defaultValue = "") String bookName,
+                                        @RequestParam(defaultValue = "") Long authorId,
+                                        @RequestParam(defaultValue = "") String category) {
 
         Pageable paging = PageRequest.of(pageNumber, pageSize);
-        return this.bookService.getBooksPage(paging);
+        return this.bookService.getBooksPage(paging, bookName, authorId, category);
     }
 
     @DeleteMapping("/{id}")

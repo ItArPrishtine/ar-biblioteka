@@ -7,19 +7,12 @@ import com.akropoliprishtine.utils.GeneralConstants;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Locale;
-
-import static java.util.Collections.emptyList;
+import java.util.Optional;
 
 @Service
 public class ApplicationUserService {
@@ -59,6 +52,10 @@ public class ApplicationUserService {
 
     public List<ApplicationUser> getUsers() {
         return this.userRepository.findAll();
+    }
+
+    public Optional<ApplicationUser> getUserById(long id) {
+        return this.userRepository.findById(id);
     }
 
     public ApplicationUser createUser(JsonNode jsonNode) {

@@ -44,8 +44,14 @@ public class BookService {
         return this.bookRepository.findAll();
     }
 
-    public List<BookBorrowDTO> getBooksPage(Pageable pageable) {
-        List<Tuple> tuples = this.bookRepository.findAll(pageable.getOffset(), pageable.getPageSize());
+    public List<BookBorrowDTO> getBooksPage(Pageable pageable, String bookName, long authorId, String category) {
+        List<Tuple> tuples;
+
+        if (authorId == 0) {
+            tuples = this.bookRepository.findAll(bookName, pageable.getOffset(), pageable.getPageSize());
+        } else {
+            tuples = this.bookRepository.findAllByAuthor(bookName, authorId, pageable.getOffset(), pageable.getPageSize());
+        }
         List<BookBorrowDTO> bookListDTOBorrow = new ArrayList<>();
 
         for (Tuple tuple : tuples) {

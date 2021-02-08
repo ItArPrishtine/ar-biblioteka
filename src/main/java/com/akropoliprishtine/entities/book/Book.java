@@ -1,9 +1,14 @@
 package com.akropoliprishtine.entities.book;
 
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "book_book", uniqueConstraints = @UniqueConstraint(columnNames = {"name", "category"}))
 public class Book {
     @Id
@@ -27,72 +32,11 @@ public class Book {
     @Column(name = "category", nullable = false)
     private String category;
 
+    @Column(name = "shelf")
+    private String shelf;
+
     @Column(nullable = true)
     private String imageUrl;
 
     private String publicationYear;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public Edition getEdition() {
-        return edition;
-    }
-
-    public void setEdition(Edition edition) {
-        this.edition = edition;
-    }
-
-    public Author getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(Author author) {
-        this.author = author;
-    }
-
-    public String getPublicationYear() {
-        return publicationYear;
-    }
-
-    public void setPublicationYear(String publicationYear) {
-        this.publicationYear = publicationYear;
-    }
 }
