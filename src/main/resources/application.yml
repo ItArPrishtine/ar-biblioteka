@@ -18,7 +18,7 @@ spring:
     initialization-mode: always
   flyway:
     baselineOnMigrate: true
-    enabled: false
+    enabled: true
     url: "jdbc:postgresql://ec2-54-217-236-206.eu-west-1.compute.amazonaws.com/dacdcj35ed6ko"
     user: "xsgaqzizelklnz"
     password: "a453a2ec428c5c949f004563556e70a5ce4fc5d736d474edfb458a1cdbc43a42"

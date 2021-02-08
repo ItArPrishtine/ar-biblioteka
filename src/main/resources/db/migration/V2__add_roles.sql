@@ -1,9 +1,8 @@
 INSERT INTO account_roles(name, description) VALUES ('KF', 'Kryetari/ja i/e Filialit');
 
-INSERT INTO account_roles(name, description) VALUES ('PGS PISHTARI', 'Pergjegjes/e i grup seketarise Pishtari');
-INSERT INTO account_roles(name, description) VALUES ('PGS AKSI', 'Pergjegjes/e i grup seketarise Aksi');
-INSERT INTO account_roles(name, description) VALUES ('PGS PENDA', 'Pergjegjes/e i grup seketarise Penda');
-
+INSERT INTO account_roles(name, description) VALUES ('PGS PISHTARI', 'Pergjegjes/e ne grup seketarine Pishtari');
+INSERT INTO account_roles(name, description) VALUES ('PGS AKSI', 'Pergjegjes/e ne grup seketarine Aksi');
+INSERT INTO account_roles(name, description) VALUES ('PGS PENDA', 'Pergjegjes/e ne grup seketarine Penda');
 
 -- Pishtari
 INSERT INTO account_roles(name, description) VALUES ('PG tek Biblioteka', 'Pergjegjes/e ne sekretarine e bibliotekes');
