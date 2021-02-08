@@ -31,6 +31,7 @@ import {MatMenuModule} from "@angular/material/menu";
 import {MatTableModule} from "@angular/material/table";
 import {BorrowService} from "../../../shared/services/biblioteka/borrow.service";
 import {BookCommentService} from "../../../shared/services/biblioteka/book-comment.service";
+import {MatIconModule} from "@angular/material/icon";
 
 @NgModule({
   declarations: [
@@ -48,23 +49,24 @@ import {BookCommentService} from "../../../shared/services/biblioteka/book-comme
     BorrowComponent,
     BorrowRequestsManagementComponent,
   ],
-  imports: [
-    CommonModule,
-    RouterModule,
-    BibliotekaRoutingModule,
-    MatButtonModule,
-    MatDialogModule,
-    MatFormFieldModule,
-    MatSelectModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatTooltipModule,
-    ButtonSpinnerModule,
-    MatMenuModule,
-    MatTableModule,
-  ],
+    imports: [
+        CommonModule,
+        RouterModule,
+        BibliotekaRoutingModule,
+        MatButtonModule,
+        MatDialogModule,
+        MatFormFieldModule,
+        MatSelectModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatTooltipModule,
+        ButtonSpinnerModule,
+        MatMenuModule,
+        MatTableModule,
+        MatIconModule,
+    ],
   providers: [
     AuthorService,
     BookService,

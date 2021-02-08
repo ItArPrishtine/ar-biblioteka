@@ -20,8 +20,7 @@
       </a>
 
       <div class="product-price">
-        <p *ngIf="!book.publicationYear.includes('.')">{{book.publicationYear}}</p>
-        <p *ngIf="book.publicationYear.includes('.')">{{book.publicationYear.split('.')[0]}}</p>
+        <p>{{book.category}}</p>
       </div>
     </div>
   </div>

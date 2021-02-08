@@ -1,7 +1,7 @@
-<div class="borrowed" *ngIf="thisUserBorrowedThisBook">
-  <p>Ju vecse e keni huazuar librin {{borrowedBookOfUser.book.name}}, nese doni te huazoni tjetrin duhet ta ktheni kete
-    paraprakisht !</p>
+<div class="borrowed" *ngIf="borrowedBookOfUser">
+  <p>Ju vecse e keni huazuar librin {{borrowedBookOfUser.book.name}}, nese doni te huazoni tjetrin duhet ta ktheni kete paraprakisht !</p>
 </div>
+
 <div class="product-details" *ngIf="book">
   <div class='button'>
     <div class='d-flex'>
@@ -20,18 +20,25 @@
         <div class="description-actions">
           <div class="description-plc">
             <div class="title">
-              <p>{{book.name}} - {{book.category}}</p>
+              <p>{{book.name}}</p>
             </div>
 
-            <a routerLink="{{authorDetailsUrl + '/' + book.author.id}}" class="author">
-              <p>{{book.author.firstName + ' ' + book.author.lastName}}</p>
-            </a>
-
-            <div class="publication-edition">
-              <p>{{book.edition.name}}</p>
-              <p *ngIf="!book.publicationYear.includes('.')">: {{book.publicationYear}}</p>
-              <p *ngIf="book.publicationYear.includes('.')">: {{book.publicationYear.split('.')[0]}}</p>
+            <div class="category">
+              <p>Kategoria: <span>{{book.category}}</span></p>
             </div>
+
+            <div class="author d-flex">
+              <p>Autori: </p>
+              <a routerLink="{{authorDetailsUrl + '/' + book.author.id}}">
+                {{book.author.firstName + ' ' + book.author.lastName}}
+              </a>
+            </div>
+
+<!--            <div class="publication-edition">-->
+<!--              <p>{{book.edition.name}}</p>-->
+<!--              <p *ngIf="!book.publicationYear.includes('.')">: {{book.publicationYear}}</p>-->
+<!--              <p *ngIf="book.publicationYear.includes('.')">: {{book.publicationYear.split('.')[0]}}</p>-->
+<!--            </div>-->
 
             <div class="description scrollbar-design">
               <p *ngIf="!book.description">
@@ -60,17 +67,17 @@
             </div>
           </div>
           <div class="books-action__bottom">
-            <div class="reviews">
-              <span class="material-icons checked">star_rate</span>
-              <span class="material-icons checked">star_rate</span>
-              <span class="material-icons checked">star_rate</span>
-              <span class="material-icons">star_rate</span>
-              <span class="material-icons">star_rate</span>
-            </div>
+<!--            <div class="reviews">-->
+<!--              <span class="material-icons checked">star_rate</span>-->
+<!--              <span class="material-icons checked">star_rate</span>-->
+<!--              <span class="material-icons checked">star_rate</span>-->
+<!--              <span class="material-icons">star_rate</span>-->
+<!--              <span class="material-icons">star_rate</span>-->
+<!--            </div>-->
 
             <div class="order">
               <button mat-raised-button color="warn" class="mr-2" *ngIf="thisUserBorrowedThisBook" (click)="returnBook()">Kthe Librin</button>
-              <button mat-raised-button color="accent" [disabled]="borrowedBookOfUser" (click)="borrowRequest()">Huazo Librin</button>
+              <button mat-raised-button color="accent" [disabled]="borrowedBook != null || borrowedBookOfUser != null" (click)="borrowRequest()">Huazo Librin</button>
             </div>
           </div>
         </div>

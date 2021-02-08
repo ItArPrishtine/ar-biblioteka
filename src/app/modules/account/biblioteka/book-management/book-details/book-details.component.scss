@@ -1,3 +1,5 @@
+@import "~src/scss/theme";
+
 .borrowed {
   width: 100%;
   padding: 5px 15px;
@@ -90,6 +92,17 @@
       }
     }
 
+    .category {
+      p {
+        font-weight: 500;
+      }
+
+      span {
+        color: orange;
+      }
+    }
+
+
     .publication-edition {
       display: flex;
 
@@ -101,9 +114,13 @@
     }
 
     .author {
-      p {
+      * {
+        font-size: 16px;
         font-weight: 500;
-        font-size: 20px;
+      }
+
+      a {
+        color: #007bff;
       }
     }
   }
@@ -164,10 +181,10 @@
 
   .user-name {
     display: flex;
-    align-items: center;
 
     img {
       width: 50px;
+      border-radius: 50%;
     }
 
     .name {

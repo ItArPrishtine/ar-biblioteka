@@ -2,9 +2,11 @@
 
 :host {
   width: 100%;
+  z-index: 9999;
 }
 
 .header-fixed {
+  z-index: 9999;
   display: flex;
   justify-content: space-between;
   padding: 0 100px;

@@ -1,12 +1,34 @@
+<div class="books-bg" [ngStyle]="{ 'background-image': 'url(' + bookBg + ')'}"></div>
+<div class="books-bg" style="background-color: #000; opacity: 0.6"></div>
+
 <div class="author-list">
   <div class='table-title table-title__button title'>
     <p>Librat</p>
-    <div class="button">
-      <button mat-raised-button color="accent" (click)="createBook()">Shto Liber</button>
+
+    <div class="button-filter">
+      <button class="list-checkbox" [ngClass]="listView ? 'list-view' : ''" (click)="toogleCheckbox()">
+        <span class="material-icons">list</span>
+      </button>
+
+      <div class="filter">
+        <div class="authors">
+          <mat-select (selectionChange)="authorSelected($event)" value="author" placeholder="Autori">
+            <mat-option value="autori">Zgjedh Autorin</mat-option>
+            <mat-option *ngFor="let author of authors" value="{{author.id}}">{{author.firstName}} {{author.lastName}}</mat-option>
+          </mat-select>
+        </div>
+        <div class="g-search">
+          <input #searchTitle placeholder="Titulli i librit" type="text" />
+          <button (click)="getBooks(false, searchTitle.value)"><mat-icon>search</mat-icon></button>
+        </div>
+      </div>
+      <div class="button">
+        <button mat-raised-button color="accent" (click)="createBook()">Shto Liber</button>
+      </div>
     </div>
   </div>
 
-  <div class="card-list" #cardList>
+  <div class="card-list" [ngClass]="listView ? 'card-list--view' : ''" #cardList>
     <div class="card" *ngFor="let book of books">
       <app-book-card [book]="book"></app-book-card>
     </div>

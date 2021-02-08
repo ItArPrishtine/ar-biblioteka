@@ -5,7 +5,7 @@ import {LoginModel} from '../../../shared/models/auth/login.model';
 import {TokenService} from '../../../shared/services/auth/token.service';
 import {Router} from '@angular/router';
 import {RouterUrls} from '../../../shared/constants/RouterUrls';
-import {IMAGEURLS} from '../../../shared/constants/GeneralConstant';
+import {GeneralConstant, IMAGEURLS} from '../../../shared/constants/GeneralConstant';
 import {finalize} from "rxjs/operators";
 import {CustomSnackbarService} from "../../../shared/services/snackbar-service.service";
 
@@ -55,6 +55,7 @@ export class LoginComponent implements OnInit {
       .subscribe(
         result => {
           this.tokenService.saveToken(result.token);
+          localStorage.setItem(GeneralConstant.LOCALSTORAGE_BORROWED_BOOK, JSON.stringify(this.tokenService.getBorrowedBook()));
           this.router.navigateByUrl('/' + RouterUrls.ACCOUNT.BASE_MODULE);
         },
         error => {

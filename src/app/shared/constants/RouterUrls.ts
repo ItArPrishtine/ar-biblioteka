@@ -16,7 +16,7 @@ export const RouterUrls = {
     BASE_MODULE: 'biblioteka',
     AUTHOR: 'manage-authors',
     AUTHORDETAILS: 'author-details',
-    BOOK: 'manage-books',
+    BOOK: 'manage-books.jpeg',
     BOOK_DETAILS: 'book-details',
     BORROW_REQUESTS: 'borrow-requests',
   }

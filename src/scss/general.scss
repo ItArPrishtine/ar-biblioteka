@@ -10,6 +10,10 @@ p, a {
   line-height: 1.4;
 }
 
+p {
+  font-size: 14px;
+}
+
 body, html {
   margin: 0;
   padding: 0;
@@ -44,5 +48,35 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
   &-snackbar-error .mat-button-wrapper {
     color: $warn;
+  }
+
+  &-search {
+    position: relative;
+
+    input {
+      border-radius: 3px;
+      border: none;
+      background-color: #eee;
+      font-size: 12px;
+      outline: none;
+      padding: 10px 5px;
+
+      &:focus {
+        border: 1px solid cornflowerblue;
+      }
+    }
+
+    button {
+      background: none;
+      outline: none;
+      position: absolute;
+      right: 0;
+      top: 4px;
+      cursor: pointer;
+
+      mat-icon {
+        color: #666;
+      }
+    }
   }
 }

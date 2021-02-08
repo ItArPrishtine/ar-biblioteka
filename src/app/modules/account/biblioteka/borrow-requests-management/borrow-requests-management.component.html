@@ -4,6 +4,12 @@
       <div class="title">
         <p>Lista e Huazimeve</p>
       </div>
+      <div class="filters">
+        <mat-select placeholder="Filtro" (selectionChange)="filter($event)">
+          <mat-option>Filtro</mat-option>
+          <mat-option value="{{filter}}" *ngFor="let filter of filters">{{filter | titlecase}}</mat-option>
+        </mat-select>
+      </div>
     </div>
     <table mat-table [dataSource]="dataSource">
       <!-- Name Column -->
@@ -39,7 +45,7 @@
       <!-- Weight Column -->
       <ng-container matColumnDef="borrowStatus">
         <th style="width: 5%" mat-header-cell *matHeaderCellDef> Statusi </th>
-        <td style="width: 5%" mat-cell *matCellDef="let element"> {{element.borrowStatus}}</td>
+        <td style="width: 5%" mat-cell *matCellDef="let element"> {{element.borrowStatus | titlecase}}</td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

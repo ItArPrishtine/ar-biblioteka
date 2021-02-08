@@ -3,7 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
 import {BookService} from '../../../../../shared/services/biblioteka/book.service';
 import {BookModel} from '../../../../../shared/models/book/book.model';
-import {IMAGEURLS} from "../../../../../shared/constants/GeneralConstant";
+import {GeneralConstant, IMAGEURLS} from "../../../../../shared/constants/GeneralConstant";
 import {RouterUrls} from "../../../../../shared/constants/RouterUrls";
 import {BookFormComponent} from "../book-form/book-form.component";
 import {BorrowComponent} from "../borrow/borrow.component";
@@ -14,6 +14,7 @@ import {BookCommentService} from "../../../../../shared/services/biblioteka/book
 import {CustomSnackbarService} from "../../../../../shared/services/snackbar-service.service";
 import {BookCommentModel} from "../../../../../shared/models/book/book-comment.model";
 import {AccountUserModel} from "../../../../../shared/models/account/account-user.model";
+import {BorrowService} from "../../../../../shared/services/biblioteka/borrow.service";
 
 @Component({
   selector: 'app-book-details',
@@ -31,6 +32,7 @@ export class BookDetailsComponent implements OnInit {
   currentUserId: number;
   formGroup: FormGroup;
   comments: BookCommentModel[] = [];
+  borrowedBook: BorrowModel;
 
   constructor(private activeRoute: ActivatedRoute,
               private dialog: MatDialog,
@@ -38,6 +40,7 @@ export class BookDetailsComponent implements OnInit {
               private tokenService: TokenService,
               private commentService: BookCommentService,
               private snackBar: CustomSnackbarService,
+              private borrowService: BorrowService,
               private bookService: BookService) { }
 
   ngOnInit(): void {
@@ -45,6 +48,12 @@ export class BookDetailsComponent implements OnInit {
     this.initCommentForm();
     this.currentUserName = this.tokenService.getData().username;
     this.currentUserId = this.tokenService.getData().id;
+
+    const borrowedLocalStorage = localStorage.getItem(GeneralConstant.LOCALSTORAGE_BORROWED_BOOK);
+
+    if (borrowedLocalStorage) {
+      this.borrowedBookOfUser = JSON.parse(localStorage.getItem(GeneralConstant.LOCALSTORAGE_BORROWED_BOOK));
+    }
   }
 
   getAllComments() {
@@ -90,9 +99,22 @@ export class BookDetailsComponent implements OnInit {
   }
 
   private getBorrowedOfUser() {
-    this.borrowedBookOfUser = this.tokenService.getBorrowedBook();
-    this.thisUserBorrowedThisBook = this.borrowedBookOfUser.applicationUser.id === this.currentUserId &&
-      this.borrowedBookOfUser.book.id === this.book.id
+    const borrowModel = new BorrowModel();
+    borrowModel.book = this.book;
+
+    this.borrowService.userBorrowExist(borrowModel)
+      .subscribe(
+        result => {
+          this.borrowedBook = result;
+
+          if (!result) {
+            this.thisUserBorrowedThisBook = false;
+            return;
+          }
+          this.thisUserBorrowedThisBook = this.borrowedBook.applicationUser.id === this.currentUserId;
+        }, error => {
+          this.snackBar.error('Gabim gjate validimit nese libri eshte i huazuar!');
+        });
   }
 
   getBookDetails() {
@@ -128,12 +150,25 @@ export class BookDetailsComponent implements OnInit {
   borrowRequest() {
     const dialogRef = this.dialog.open(BorrowComponent);
     dialogRef.componentInstance.book = this.book;
+    dialogRef.afterClosed().subscribe(
+      result => {
+        this.getBorrowedOfUser();
+      }
+    )
   }
 
   returnBook() {
     const dialogRef = this.dialog.open(BorrowComponent);
     dialogRef.componentInstance.book = this.book;
     dialogRef.componentInstance.returnBook = true;
+    dialogRef.afterClosed().subscribe(
+      result => {
+        this.getBorrowedOfUser();
+        if (result.data) {
+          this.borrowedBookOfUser = null;
+        }
+      }
+    )
   }
 
 }

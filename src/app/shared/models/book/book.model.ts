@@ -10,4 +10,5 @@ export class BookModel extends BaseModel {
   author: AuthorModel;
   edition: EditionModel;
   category: any;
+  shaft: string;
 }

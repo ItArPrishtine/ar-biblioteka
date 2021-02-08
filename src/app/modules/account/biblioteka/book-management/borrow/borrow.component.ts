@@ -8,6 +8,7 @@ import {BorrowModel} from "../../../../../shared/models/book/borrow.model";
 import {finalize} from "rxjs/operators";
 import {AccountUserModel} from "../../../../../shared/models/account/account-user.model";
 import {BorrowStatusEnum} from "../../../../../shared/models/enums/borrow-status.enum";
+import {GeneralConstant} from "../../../../../shared/constants/GeneralConstant";
 
 @Component({
   selector: 'app-borrow-request',
@@ -56,11 +57,12 @@ export class BorrowComponent implements OnInit {
     this.borrowService.borrow(this.borrow)
       .pipe(finalize(() => {
         this.loading = false;
-        this.dialogRef.close();
       }))
       .subscribe(
       result => {
         this.snackBarService.success('Libri eshte huazuar me sukses.')
+        localStorage.setItem(GeneralConstant.LOCALSTORAGE_BORROWED_BOOK, JSON.stringify(result));
+        this.dialogRef.close({data: result});
       }, error => {
         this.snackBarService.error('Gabim gjate procesit te huazimit!');
     });
@@ -72,11 +74,12 @@ export class BorrowComponent implements OnInit {
     this.borrowService.borrowReturn(this.borrowExist)
       .pipe(finalize(() => {
         this.loading = false;
-        this.dialogRef.close();
       }))
       .subscribe(
         result => {
           this.snackBarService.success('Libri eshte kthyer me sukses.')
+          localStorage.removeItem(GeneralConstant.LOCALSTORAGE_BORROWED_BOOK);
+          this.dialogRef.close({data: result});
         }, error => {
           this.snackBarService.error('Gabim gjate procesit te kthimit!');
         });
