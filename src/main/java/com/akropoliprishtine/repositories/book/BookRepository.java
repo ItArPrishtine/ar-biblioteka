@@ -25,6 +25,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
             "where lower(book.name) like CONCAT('%', ?1 ,'%') " +
             "OFFSET ?2 LIMIT ?3 ",
             nativeQuery = true)
+
     List<Tuple> findAll(String bookName, long offset, long limit);
 
     @Query(value = "SELECT book.id, book.name, book.category, book.image_url, book.publication_year, author.first_name, author.last_name, author.id as authorId, bb.borrow_status " +

@@ -24,22 +24,13 @@ public class BookController {
     private BookService bookService;
 
     @PostMapping("/")
-    public Book createBook(@RequestParam(value = "file", required = false) MultipartFile file,
-                           @RequestParam("book") String book) throws IOException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        Book bookToSave = objectMapper.readValue(book, Book.class);
-
-        return this.bookService.saveAndUploadFile(bookToSave, file);
+    public Book createBook(@RequestBody Book book) {
+        return this.bookService.save(book);
     }
 
     @PutMapping("/")
-    public Book updateBook(@RequestParam(value = "file", required = false) MultipartFile file,
-                           @RequestParam("book") String book) throws IOException {
-
-        ObjectMapper objectMapper = new ObjectMapper();
-        Book bookToSave = objectMapper.readValue(book, Book.class);
-
-        return this.bookService.saveAndUploadFile(bookToSave, file);
+    public Book updateBook(@RequestBody Book book) {
+        return this.bookService.save(book);
     }
 
     @GetMapping("/")

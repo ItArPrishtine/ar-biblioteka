@@ -3,6 +3,7 @@ package com.akropoliprishtine.services;
 import com.akropoliprishtine.entities.ApplicationUser;
 import com.akropoliprishtine.entities.Role;
 import com.akropoliprishtine.repositories.UserRepository;
+import com.akropoliprishtine.services.email.EmailServiceImpl;
 import com.akropoliprishtine.utils.GeneralConstants;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -70,8 +71,9 @@ public class ApplicationUserService {
         applicationUser.setUsername(username.toLowerCase());
         applicationUser.setPassword(GeneralConstants.DEFAULT_USER_PASSWORD);
 
-        return this.userRepository.save(applicationUser);
-// TODO        this.emailService.accountCreated(user.getEmail());
+        ApplicationUser user = this.userRepository.save(applicationUser);
+        this.emailService.accountCreated(user);
+        return user;
     }
 
     public ApplicationUser changePassword (JsonNode jsonNode) throws Exception {

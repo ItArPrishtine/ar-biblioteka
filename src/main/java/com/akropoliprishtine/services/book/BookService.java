@@ -97,25 +97,6 @@ public class BookService {
         return this.bookRepository.save(book);
     }
 
-    public Book saveAndUploadFile(Book book, MultipartFile multipartFile) {
-        String uploadedFileUrl = null;
-
-        if (multipartFile != null) {
-            uploadedFileUrl = amazonClient.uploadFileTos3bucket(multipartFile);
-            book.setImageUrl(uploadedFileUrl);
-        }
-
-        try {
-            book.setImageUrl(uploadedFileUrl);
-            return this.save(book);
-        } catch (Exception e) {
-            if (uploadedFileUrl != null) {
-                amazonClient.deleteFromS3Bucket(uploadedFileUrl);
-            }
-        }
-        return null;
-    }
-
     public void delete(Long bookId) {
         this.bookRepository.deleteById(bookId);
     }
