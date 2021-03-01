@@ -5,21 +5,6 @@
   </div>
 
   <form (submit)="createOrUpdateBook()" [formGroup]="formGroup" class="form">
-    <div class="form-group">
-      <label for="file">File</label>
-      <input
-        formControlName="file"
-        id="file"
-        type="file"
-        class="form-control"
-        (change)="onFileChange($event)">
-      <div *ngIf="f.file.touched && f.file.invalid" class="alert alert-danger">
-        <div *ngIf="f.file.errors.required">File is required.</div>
-      </div>
-    </div>
-
-    <img [src]="imageSrc" *ngIf="imageSrc">
-
     <div class="form-input">
       <mat-form-field>
         <mat-label>Titulli</mat-label>
@@ -43,6 +28,11 @@
       <mat-form-field>
         <mat-label>Kategoria</mat-label>
         <input matInput type="text" formControlName="category" placeholder="Kategoria" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Rafti</mat-label>
+        <input matInput type="text" formControlName="shelf" placeholder="Rafti" />
       </mat-form-field>
 
       <mat-form-field>

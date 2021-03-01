@@ -27,6 +27,10 @@
               <p>Kategoria: <span>{{book.category}}</span></p>
             </div>
 
+            <div class="category">
+              <p>Rafti: <span>{{book.shelf ? book.shelf : '/'}}</span></p>
+            </div>
+
             <div class="author d-flex">
               <p>Autori: </p>
               <a routerLink="{{authorDetailsUrl + '/' + book.author.id}}">

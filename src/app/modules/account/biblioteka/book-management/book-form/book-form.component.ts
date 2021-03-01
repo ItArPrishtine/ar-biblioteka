@@ -16,8 +16,6 @@ import {CustomSnackbarService} from "../../../../../shared/services/snackbar-ser
 })
 export class BookFormComponent implements OnInit {
   formGroup: FormGroup;
-  imageSrc: string;
-  imageFile: any;
   book: BookModel = new BookModel();
   bookId: string;
   editions = [];
@@ -70,21 +68,18 @@ export class BookFormComponent implements OnInit {
 
   initForm() {
     this.formGroup = new FormGroup({
-      file: new FormControl(''),
       name: new FormControl(this.book ? this.book.name : ''),
       description: new FormControl(this.book ? this.book.description : ''),
       publicationYear: new FormControl(this.book ? this.book.publicationYear : ''),
+      shelf: new FormControl(this.book ? this.book.shelf : ''),
       category: new FormControl(this.book && this.book.category ? this.book.category : ''),
       edition: new FormControl(this.book && this.book.edition ? this.book.edition.id.toString() : ''),
       author: new FormControl(this.book && this.book.author ? this.book.author.id.toString() : ''),
     });
-
-    this.imageSrc = this.book ? this.book.imageUrl : '';
   }
 
   createOrUpdateBook() {
     this.loading = true;
-    const formData: FormData = new FormData();
     const bookModel = new BookModel();
 
     if (!this.formGroup.valid) {
@@ -93,14 +88,11 @@ export class BookFormComponent implements OnInit {
 
     const values = this.formGroup.value;
 
-    // authorModel.description = values.description;
-
-    formData.append('file', this.imageFile);
-
     bookModel.name = values.name;
     bookModel.description = values.description;
     bookModel.category = values.category;
     bookModel.publicationYear = values.publicationYear;
+    bookModel.shelf = values.shelf;
     bookModel.edition = new EditionModel();
     bookModel.edition.id = values.edition;
     bookModel.author = new AuthorModel();
@@ -109,9 +101,7 @@ export class BookFormComponent implements OnInit {
     if (this.bookId) {
       bookModel.id = parseInt(this.bookId);
 
-      formData.append('book', JSON.stringify(bookModel));
-
-      this.bookService.updateBook(formData)
+      this.bookService.updateBook(bookModel)
         .pipe(finalize(() => this.loading = false))
         .subscribe(
           result => {
@@ -124,8 +114,7 @@ export class BookFormComponent implements OnInit {
           }
         );
     } else {
-      formData.append('book', JSON.stringify(bookModel));
-      this.bookService.createBook(formData)
+      this.bookService.createBook(bookModel)
         .pipe(finalize(() => this.loading = false))
         .subscribe(
           result => {
@@ -142,23 +131,4 @@ export class BookFormComponent implements OnInit {
   closeDialog() {
     this.dialogRef.close(this.book);
   }
-
-  onFileChange(event) {
-    const reader = new FileReader();
-
-    if (event.target.files && event.target.files.length) {
-      const [file] = event.target.files;
-      reader.readAsDataURL(file);
-      this.imageFile = file;
-
-      reader.onload = () => {
-        this.imageSrc = reader.result as string;
-      };
-    }
-  }
-
-  get f() {
-    return this.formGroup.controls;
-  }
-
 }

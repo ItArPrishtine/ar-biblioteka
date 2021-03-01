@@ -21,7 +21,7 @@ export class UserService {
   }
 
   deleteUSer(userId: any) {
-    return this.http.delete(RequestUrls.ACCOUNT.USERS.BASE_API + `/${userId}`);
+    return this.http.delete(RequestUrls.ACCOUNT.USERS.BASE_API + `${userId}`);
   }
 
   changePassword(passwordModel: any) {

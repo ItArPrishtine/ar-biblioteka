@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {AccountUserModel} from '../../../../shared/models/account/account-user.model';
 import {UserService} from '../../../../shared/services/account/user.service';
@@ -48,20 +48,21 @@ export class UserCreateUpdateComponent implements OnInit {
 
   initForm() {
     this.formGroup = new FormGroup({
-      email: new FormControl(this.user ? this.user.email : ''),
-      firstName: new FormControl(this.user ? this.user.firstName : ''),
-      lastName: new FormControl(this.user ? this.user.lastName : ''),
-      role: new FormControl(this.user && this.user.role ? this.user.role.id.toString() : ''),
-      dateOfBirth: new FormControl(this.user ? this.user.dateOfBirth : ''),
-      description: new FormControl(this.user ? this.user.description : ''),
+      email: new FormControl(this.user ? this.user.email : '', Validators.required),
+      firstName: new FormControl(this.user ? this.user.firstName : '', Validators.required),
+      lastName: new FormControl(this.user ? this.user.lastName : '', Validators.required),
+      role: new FormControl(this.user && this.user.role ? this.user.role.id.toString() : '', Validators.required),
+      dateOfBirth: new FormControl(this.user ? this.user.dateOfBirth : '', Validators.required),
+      description: new FormControl(this.user ? this.user.description : '', Validators.required),
     });
   }
 
   createOrUpdateUser() {
-    this.loading = true;
     if (!this.formGroup.valid) {
       return;
     }
+
+    this.loading = true;
 
     const values = this.formGroup.value;
     const role: RoleModel = new RoleModel();
