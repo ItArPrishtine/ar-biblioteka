@@ -1,6 +1,6 @@
 <div class='author-details' *ngIf='author'>
   <div class='button'>
-    <div class='d-flex'>
+    <div class='d-flex' *ngIf="currentUserRole == bibliotekaAdmin || currentUserRole == bibliotekaNd">
       <button mat-raised-button color='warn' (click)='deleteAuthor()'>Fshij Autorin</button>
       <button mat-raised-button color='accent' (click)='updateAuthor()'>Ndrysho Autorin</button>
     </div>

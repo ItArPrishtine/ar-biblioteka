@@ -10,6 +10,6 @@ export const IMAGEURLS = {
   AVATAR: environment.baseHref + '/assets/images/img_avatar.png',
   AUTHOR_AVATAR: environment.baseHref + '/assets/images/author.png',
   BOOK: environment.baseHref + '/assets/images/book.jpg',
-  BOOK_TEST: environment.baseHref + '/assets/images/educated.jpeg',
+  BOOK_TEST: environment.baseHref + '/assets/images/book-cover.jpg',
   BOOK_BACKGROUND: environment.baseHref + '/assets/images/books.jpeg'
 };

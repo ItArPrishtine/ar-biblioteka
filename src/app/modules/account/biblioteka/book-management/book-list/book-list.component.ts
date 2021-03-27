@@ -7,6 +7,8 @@ import {BookBorrowDTO} from "../../../../../shared/models/dto/BookBorrowDTO.mode
 import {AuthorService} from "../../../../../shared/services/biblioteka/author.service";
 import {AuthorModel} from "../../../../../shared/models/book/author.model";
 import {IMAGEURLS} from "../../../../../shared/constants/GeneralConstant";
+import { TokenService } from 'src/app/shared/services/auth/token.service';
+import { RolesEnum } from 'src/app/shared/models/enums/roles.enum';
 
 @Component({
   selector: 'app-book-list',
@@ -22,16 +24,21 @@ export class BookListComponent implements OnInit {
   selectedAuthor: string;
   listView = false;
   bookBg = IMAGEURLS.BOOK_BACKGROUND;
+  currentUserRole: any;
+  bibliotekaAdmin = RolesEnum.PG_BIBLIOTEKA;
+  bibliotekaNd = RolesEnum.ND_BIBLIOTEKA;
 
   @ViewChild('cardList') private cardListElement: ElementRef;
 
   constructor(private dialog: MatDialog,
               private bookService: BookService,
-              private authorService: AuthorService) { }
+              private authorService: AuthorService,
+              private tokenService: TokenService) { }
 
   ngOnInit(): void {
     this.getBooks();
     this.getAuthors()
+    this.currentUserRole = this.tokenService.getData().role.name;
   }
 
   public getBooks(onScroll?: boolean, searchTitle?: string) {

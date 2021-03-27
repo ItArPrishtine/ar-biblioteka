@@ -15,6 +15,7 @@ import {CustomSnackbarService} from "../../../../../shared/services/snackbar-ser
 import {BookCommentModel} from "../../../../../shared/models/book/book-comment.model";
 import {AccountUserModel} from "../../../../../shared/models/account/account-user.model";
 import {BorrowService} from "../../../../../shared/services/biblioteka/borrow.service";
+import { RolesEnum } from 'src/app/shared/models/enums/roles.enum';
 
 @Component({
   selector: 'app-book-details',
@@ -33,6 +34,9 @@ export class BookDetailsComponent implements OnInit {
   formGroup: FormGroup;
   comments: BookCommentModel[] = [];
   borrowedBook: BorrowModel;
+  bibliotekaAdmin = RolesEnum.PG_BIBLIOTEKA;
+  bibliotekaNd = RolesEnum.ND_BIBLIOTEKA;
+  currentUserRole: any;
 
   constructor(private activeRoute: ActivatedRoute,
               private dialog: MatDialog,
@@ -48,6 +52,7 @@ export class BookDetailsComponent implements OnInit {
     this.initCommentForm();
     this.currentUserName = this.tokenService.getData().username;
     this.currentUserId = this.tokenService.getData().id;
+    this.currentUserRole = this.tokenService.getData().role.name;
 
     const borrowedLocalStorage = localStorage.getItem(GeneralConstant.LOCALSTORAGE_BORROWED_BOOK);
 

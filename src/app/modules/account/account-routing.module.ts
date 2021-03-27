@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {AccountComponent} from './account.component';
 import {RouterUrls} from '../../shared/constants/RouterUrls';
+import { RedirectComponent } from './redirect.component';
 
 const routes: Routes = [
   {
@@ -10,8 +11,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: RouterUrls.ACCOUNT.MANAGE,
-        pathMatch: 'full'
+        component: RedirectComponent
       },
       {
         path: RouterUrls.ACCOUNT.MANAGE,

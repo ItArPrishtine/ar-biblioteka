@@ -7,6 +7,8 @@ import {MatDialog} from '@angular/material/dialog';
 import {IMAGEURLS} from '../../../../../shared/constants/GeneralConstant';
 import {DeleteFormComponent} from '../../../shared/delete-form/delete-form.component';
 import {RouterUrls} from '../../../../../shared/constants/RouterUrls';
+import { RolesEnum } from 'src/app/shared/models/enums/roles.enum';
+import { TokenService } from 'src/app/shared/services/auth/token.service';
 
 @Component({
   selector: 'app-author-details',
@@ -19,14 +21,19 @@ export class AuthorDetailsComponent implements OnInit {
   avatarImage = IMAGEURLS.AUTHOR_AVATAR;
   bookImage = IMAGEURLS.BOOK;
   booksUrl = '/' + RouterUrls.ACCOUNT.BASE_MODULE + '/' + RouterUrls.BIBLIOTEKA.BASE_MODULE + '/' + RouterUrls.BIBLIOTEKA.BOOK_DETAILS;
+  currentUserRole: any;
+  bibliotekaAdmin = RolesEnum.PG_BIBLIOTEKA;
+  bibliotekaNd = RolesEnum.ND_BIBLIOTEKA;
 
   constructor(private activeRoute: ActivatedRoute,
               private dialog: MatDialog,
               private router: Router,
-              private authorService: AuthorService) { }
+              private authorService: AuthorService,
+              private tokenService: TokenService) { }
 
   ngOnInit(): void {
     this.getauthorDetails();
+    this.currentUserRole = this.tokenService.getData().role.name;
   }
 
   getauthorDetails() {

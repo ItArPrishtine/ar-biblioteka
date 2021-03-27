@@ -3,6 +3,8 @@ import {MatDialog} from '@angular/material/dialog';
 import {AuthorFormComponent} from '../author-form/author-form.component';
 import {AuthorService} from '../../../../../shared/services/biblioteka/author.service';
 import {AuthorModel} from '../../../../../shared/models/book/author.model';
+import { RolesEnum } from 'src/app/shared/models/enums/roles.enum';
+import { TokenService } from 'src/app/shared/services/auth/token.service';
 
 @Component({
   selector: 'app-author-list',
@@ -13,14 +15,19 @@ export class AuthorListComponent implements OnInit {
   authors: AuthorModel[] = [];
   pageNumber = 0;
   loading = false;
+  currentUserRole: any;
+  bibliotekaAdmin = RolesEnum.PG_BIBLIOTEKA;
+  bibliotekaNd = RolesEnum.ND_BIBLIOTEKA;
 
   @ViewChild('cardList') private cardListElement: ElementRef;
 
   constructor(private dialog: MatDialog,
-              private authorService: AuthorService) { }
+              private authorService: AuthorService,
+              private tokenService: TokenService) { }
 
   ngOnInit(): void {
     this.getAuthors();
+    this.currentUserRole = this.tokenService.getData().role.name;
   }
 
   private getAuthors() {

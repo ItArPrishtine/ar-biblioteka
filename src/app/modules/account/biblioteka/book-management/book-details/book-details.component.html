@@ -3,9 +3,9 @@
 </div>
 
 <div class="product-details" *ngIf="book">
-  <div class='button'>
+  <div class='button'  *ngIf="currentUserRole == bibliotekaAdmin || currentUserRole == bibliotekaNd">
     <div class='d-flex'>
-      <button mat-raised-button color='warn' (click)='deleteBook()'>Fshij Librin</button>
+      <button mat-raised-button color='warn'  (click)='deleteBook()'>Fshij Librin</button>
       <button mat-raised-button color='accent' (click)='updateBook()'>Ndrysho Librin</button>
     </div>
   </div>

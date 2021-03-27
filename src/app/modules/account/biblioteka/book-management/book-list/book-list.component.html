@@ -22,7 +22,7 @@
           <button (click)="getBooks(false, searchTitle.value)"><mat-icon>search</mat-icon></button>
         </div>
       </div>
-      <div class="button">
+      <div class="button" *ngIf="currentUserRole == bibliotekaAdmin || currentUserRole == bibliotekaNd">
         <button mat-raised-button color="accent" (click)="createBook()">Shto Liber</button>
       </div>
     </div>
