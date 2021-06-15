@@ -1,8 +1,16 @@
+@import '~src/scss/theme';
+
 :host {
   display: flex;
   flex: 1;
 
   .filters {
     width: 100px;
+  }
+
+  .book-title a:hover {
+    color: $secondary;
+    font-weight: 600;
+    cursor: pointer;
   }
 }

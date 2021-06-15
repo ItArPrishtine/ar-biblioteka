@@ -21,7 +21,7 @@
       <!-- Weight Column -->
       <ng-container matColumnDef="bookTitle">
         <th style="width: 30%" mat-header-cell *matHeaderCellDef> Titulli i librit </th>
-        <td style="width: 30%" mat-cell *matCellDef="let element"> {{element.book.name}} </td>
+        <td style="width: 30%" class='book-title' mat-cell *matCellDef="let element"> <a routerLink="{{detailsUrl + '/' + element.book.id}}">{{element.book.name}}</a></td>
       </ng-container>
 
       <!-- Weight Column -->
