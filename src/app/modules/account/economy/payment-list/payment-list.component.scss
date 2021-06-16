@@ -1,0 +1,38 @@
+@import "~src/scss/theme";
+
+:host {
+    display: flex;
+    flex: 1;
+}
+
+.payment-card {
+    margin: 15px;
+    width: 300px;
+    height: 100px;
+    background: white;
+    border-radius: 5px;
+    padding: 10px;
+
+    p {
+        font-weight: 500;
+    }
+
+    .person p {
+        color: $primary;
+        font-size: 16px;
+        font-weight: 600;
+    }
+
+    span {
+        color: $primary;
+    }
+}
+
+.filter-button {
+    width: 20%;
+    justify-content: flex-end;
+
+    mat-select {
+        padding: 8px;
+    }
+}

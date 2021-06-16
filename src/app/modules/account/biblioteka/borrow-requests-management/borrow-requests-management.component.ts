@@ -3,6 +3,7 @@ import {CustomSnackbarService} from "../../../../shared/services/snackbar-servic
 import {BorrowService} from "../../../../shared/services/biblioteka/borrow.service";
 import {BorrowStatusEnum} from "../../../../shared/models/enums/borrow-status.enum";
 import {TokenService} from "../../../../shared/services/auth/token.service";
+import { GeneralConstant } from 'src/app/shared/constants/GeneralConstant';
 
 @Component({
   selector: 'app-borrow-requests-management',
@@ -13,6 +14,7 @@ export class BorrowRequestsManagementComponent implements OnInit {
   displayedColumns: string[] = ['username', 'bookTitle', 'category', 'author', 'borrowUntil', 'borrowStatus'];
   dataSource: any;
   filters = [BorrowStatusEnum.BORROWED, BorrowStatusEnum.RETURNED];
+  dateFormat = GeneralConstant.DATEFORMAT;
 
   constructor(private borrowService: BorrowService,
               private tokenService: TokenService,

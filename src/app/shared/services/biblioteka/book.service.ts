@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import { RequestUrls } from '../../constants/RequestUrls';
 import {ResponsePageModel} from '../../models/shared/ResponsePage.model';
 import {BookModel} from '../../models/book/book.model';
-import {BookBorrowDTO} from "../../models/dto/BookBorrowDTO.model";
+import {BookBorrowDTO} from '../../models/dto/BookBorrowDTO.model';
 
 @Injectable()
 export class BookService {
@@ -15,7 +15,7 @@ export class BookService {
       bookName = '';
     }
 
-    if (!authorId || authorId == 'autori') {
+    if (!authorId || authorId === 'autori') {
       authorId = '0';
     }
     return this.http.get<BookBorrowDTO[]>(`${RequestUrls.BOOK.BOOK.BASE}?pageNumber=${pageNumber}&pageSize=${pageSize}&bookName=${bookName}&authorId=${authorId}`);

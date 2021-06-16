@@ -10,6 +10,8 @@
 
   <div class="right-side">
     <nav>
+      <a routerLink="{{economyUrl}}">Ekonomia</a>
+
       <a [matMenuTriggerFor]="bibliotekaMenu">Bilbioteka</a>
       <mat-menu #bibliotekaMenu="matMenu">
         <button mat-menu-item routerLink="{{authorsUrl}}">Autoret</button>

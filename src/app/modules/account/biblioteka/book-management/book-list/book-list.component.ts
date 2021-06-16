@@ -27,6 +27,7 @@ export class BookListComponent implements OnInit {
   currentUserRole: any;
   bibliotekaAdmin = RolesEnum.PG_BIBLIOTEKA;
   bibliotekaNd = RolesEnum.ND_BIBLIOTEKA;
+  searchTitle = '';
 
   @ViewChild('cardList') private cardListElement: ElementRef;
 
@@ -37,12 +38,13 @@ export class BookListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getBooks();
-    this.getAuthors()
+    this.getAuthors();
     this.currentUserRole = this.tokenService.getData().role.name;
   }
 
   public getBooks(onScroll?: boolean, searchTitle?: string) {
     this.loading = true;
+    this.searchTitle = searchTitle;
 
     this.bookService.getBooks(this.pageNumber, 32, searchTitle, this.selectedAuthor).subscribe(
       result => {
@@ -91,7 +93,7 @@ export class BookListComponent implements OnInit {
   authorSelected(event) {
     this.selectedAuthor = event.value;
     this.pageNumber = 0;
-    this.getBooks();
+    this.getBooks(null, this.searchTitle);
   }
 
   toogleCheckbox() {
