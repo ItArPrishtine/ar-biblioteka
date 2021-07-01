@@ -6,6 +6,7 @@ import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.sendinblue.Sendinblue;
 import lombok.Value;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -18,6 +19,7 @@ import java.io.IOException;
 
 @SpringBootApplication
 @EnableConfigurationProperties
+@EnableAutoConfiguration
 @EntityScan({"com.akropoliprishtine.entities"})
 public class AkropoliPrishtineApplication {
 

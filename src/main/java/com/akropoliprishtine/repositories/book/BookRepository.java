@@ -22,18 +22,33 @@ public interface BookRepository extends JpaRepository<Book, Long> {
             "FROM book_book book " +
             "inner join book_author author on book.author_id = author.id " +
             "left join book_borrow bb on book.id = bb.book_id " +
-            "where lower(book.name) like CONCAT('%', ?1 ,'%') " +
-            "OFFSET ?2 LIMIT ?3 ",
+            "OFFSET ?1 LIMIT ?2 ",
             nativeQuery = true)
+    List<Tuple> findAll(long offset, long limit);
 
-    List<Tuple> findAll(String bookName, long offset, long limit);
 
     @Query(value = "SELECT book.id, book.name, book.category, book.image_url, book.publication_year, author.first_name, author.last_name, author.id as authorId, bb.borrow_status " +
             "FROM book_book book " +
             "inner join book_author author on book.author_id = author.id " +
             "left join book_borrow bb on book.id = bb.book_id " +
-            "where lower(book.name) like CONCAT('%', ?1 ,'%') AND author.id = ?2 " +
-            "OFFSET ?3 LIMIT ?4 ",
+            "where lower(book.name) like CONCAT('%', ?1 ,'%') ",
             nativeQuery = true)
-    List<Tuple> findAllByAuthor(String bookName, long authorId, long offset, long limit);
+    List<Tuple> findAllByBookName(String bookName);
+
+
+    @Query(value = "SELECT book.id, book.name, book.category, book.image_url, book.publication_year, author.first_name, author.last_name, author.id as authorId, bb.borrow_status " +
+            "FROM book_book book " +
+            "inner join book_author author on book.author_id = author.id " +
+            "left join book_borrow bb on book.id = bb.book_id " +
+            "where lower(book.name) like CONCAT('%', ?1 ,'%') AND author.id = ?2 ",
+            nativeQuery = true)
+    List<Tuple> findAllByAuthor(long authorId, long offset, long limit);
+
+    @Query(value = "SELECT book.id, book.name, book.category, book.image_url, book.publication_year, author.first_name, author.last_name, author.id as authorId, bb.borrow_status " +
+            "FROM book_book book " +
+            "inner join book_author author on book.author_id = author.id " +
+            "left join book_borrow bb on book.id = bb.book_id " +
+            "where lower(book.name) like CONCAT('%', ?1 ,'%') AND author.id = ?2 ",
+            nativeQuery = true)
+    List<Tuple> findAllByAuthorAndBookName(String bookName, long authorId, long offset, long limit);
 }
