@@ -8,7 +8,6 @@ import com.akropoliprishtine.services.AmazonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.Tuple;
 import java.util.ArrayList;
@@ -44,14 +43,27 @@ public class BookService {
         return this.bookRepository.findAll();
     }
 
-    public List<BookBorrowDTO> getBooksPage(Pageable pageable, String bookName, long authorId, String category) {
+    public List<BookBorrowDTO> getBooksPage(Pageable pageable, String bookName, long authorId) {
         List<Tuple> tuples;
 
-        if (authorId == 0) {
-            tuples = this.bookRepository.findAll(bookName, pageable.getOffset(), pageable.getPageSize());
+        if (authorId == 0 && bookName.isEmpty()) {
+            System.out.println("NO BOOK NO AUTHOR \n\n\n\n");
+
+            tuples = this.bookRepository.findAll(pageable.getOffset(), pageable.getPageSize());
+        } else if (authorId == 0) {
+            System.out.println("JUST BOOK \n\n\n\n");
+
+            tuples = this.bookRepository.findAllByBookName(bookName.toLowerCase());
+        } else if (bookName == null){
+            System.out.println("JUST AUTHOR \n\n\n");
+
+            tuples = this.bookRepository.findAllByAuthor(authorId, pageable.getOffset(), pageable.getPageSize());
         } else {
-            tuples = this.bookRepository.findAllByAuthor(bookName, authorId, pageable.getOffset(), pageable.getPageSize());
+            System.out.println("BOTH OF THEM\n\n\n\n");
+
+            tuples = this.bookRepository.findAllByAuthorAndBookName(bookName.toLowerCase(), authorId, pageable.getOffset(), pageable.getPageSize());
         }
+
         List<BookBorrowDTO> bookListDTOBorrow = new ArrayList<>();
 
         for (Tuple tuple : tuples) {

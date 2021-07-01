@@ -7,21 +7,31 @@ server:
   port: 8080
 
 spring:
+  sendgrid:
+    api-key: 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
   jpa:
     properties.hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
+    generate-ddl: true
     hibernate:
       ddl-auto: update
   datasource:
-    url: "jdbc:postgresql://ec2-54-217-236-206.eu-west-1.compute.amazonaws.com/dacdcj35ed6ko"
-    username: "xsgaqzizelklnz"
-    password: "a453a2ec428c5c949f004563556e70a5ce4fc5d736d474edfb458a1cdbc43a42"
+#    url: "jdbc:postgresql://ec2-54-217-236-206.eu-west-1.compute.amazonaws.com/dacdcj35ed6ko"
+#    username: "xsgaqzizelklnz"
+#    password: "a453a2ec428c5c949f004563556e70a5ce4fc5d736d474edfb458a1cdbc43a42"
+    url: "jdbc:postgresql://localhost:5432/akropoli"
+    username: "it"
+    password: "password"
+    driverClassName: org.postgresql.Driver
     initialization-mode: always
   flyway:
     baselineOnMigrate: true
     enabled: true
-    url: "jdbc:postgresql://ec2-54-217-236-206.eu-west-1.compute.amazonaws.com/dacdcj35ed6ko"
-    user: "xsgaqzizelklnz"
-    password: "a453a2ec428c5c949f004563556e70a5ce4fc5d736d474edfb458a1cdbc43a42"
+#    url: "jdbc:postgresql://ec2-54-217-236-206.eu-west-1.compute.amazonaws.com/dacdcj35ed6ko"
+#    user: "xsgaqzizelklnz"
+#    password: "a453a2ec428c5c949f004563556e70a5ce4fc5d736d474edfb458a1cdbc43a42"
+    url: "jdbc:postgresql://localhost:5432/akropoli"
+    username: "it"
+    password: "password"
   mail:
     host: "email-smtp.us-west-2.amazonaws.com"
     username: "it.arprishtine@gmail.com"
