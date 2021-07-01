@@ -38,31 +38,36 @@ public class AuthenticationController {
 
     @PostMapping(value = "/p1/authenticate")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
+        try {
 
-        String usernameOrEmail = authenticationRequest.getUsername();
-        Pattern emailPattern = Pattern.compile("[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}");
+            String usernameOrEmail = authenticationRequest.getUsername();
+            Pattern emailPattern = Pattern.compile("[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}");
 
-        ApplicationUser userByEmail;
-        String username;
+            ApplicationUser userByEmail;
+            String username;
 
-        if (emailPattern.matcher(usernameOrEmail).matches()) {
-            userByEmail = userService.findByEmail(usernameOrEmail);
-            username = userByEmail.getUsername();
-            authenticate(userByEmail.getUsername(), authenticationRequest.getPassword());
-        } else {
-            username = authenticationRequest.getUsername();
-            authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
+            if (emailPattern.matcher(usernameOrEmail).matches()) {
+                userByEmail = userService.findByEmail(usernameOrEmail);
+                username = userByEmail.getUsername();
+                authenticate(userByEmail.getUsername(), authenticationRequest.getPassword());
+            } else {
+                username = authenticationRequest.getUsername();
+                authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
+            }
+
+            ApplicationUser user = userService.loadUserByUsernameAndPassword(
+                    username,
+                    authenticationRequest.getPassword());
+
+            Borrow borrow = borrowService.getBorrowedBookOfUser(user);
+
+            final String token = jwtTokenUtil.generateToken(user, borrow);
+
+            return ResponseEntity.ok(new JwtResponse(token));
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        ApplicationUser user = userService.loadUserByUsernameAndPassword(
-                username,
-                authenticationRequest.getPassword());
-
-        Borrow borrow = borrowService.getBorrowedBookOfUser(user);
-
-        final String token = jwtTokenUtil.generateToken(user, borrow);
-
-        return ResponseEntity.ok(new JwtResponse(token));
+        return null;
     }
 
     private void authenticate(String username, String password) throws Exception {
