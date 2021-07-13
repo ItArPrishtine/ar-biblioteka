@@ -30,6 +30,9 @@ public class Borrow {
     @Column(nullable = false)
     private Date borrowUntil;
 
+    @Column(nullable = true)
+    private Date returnedDate;
+
     @Column(nullable = false)
     private BorrowStatus borrowStatus;
 }

@@ -7,6 +7,7 @@ import com.akropoliprishtine.services.email.EmailServiceImpl;
 import com.akropoliprishtine.utils.GeneralConstants;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sendgrid.SendGrid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,14 +25,16 @@ public class ApplicationUserService {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    private EmailServiceImpl emailService;
+    private SendGridService emailService;
 
     ObjectMapper objectMapper;
 
     public ApplicationUserService(UserRepository userRepository,
+                                  SendGridService emailService,
                                   ObjectMapper objectMapper) {
         this.userRepository = userRepository;
         this.objectMapper = objectMapper;
+        this.emailService = emailService;
     }
     
     
@@ -72,7 +75,7 @@ public class ApplicationUserService {
         applicationUser.setPassword(GeneralConstants.DEFAULT_USER_PASSWORD);
 
         ApplicationUser user = this.userRepository.save(applicationUser);
-        this.emailService.accountCreated(user);
+        this.emailService.sendEmailWithSendGrid(user.getEmail());
         return user;
     }
 
