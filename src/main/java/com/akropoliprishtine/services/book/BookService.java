@@ -35,7 +35,7 @@ public class BookService {
         this.authorService = authorService;
         this.amazonClient = amazonClient;
     }
-    
+
     public List<Book> saveBooks(List<Book> books) {
         return this.bookRepository.saveAll(books);
     }
@@ -52,6 +52,7 @@ public class BookService {
         } else {
             tuples = this.bookRepository.findAllByAuthor(bookName, authorId, pageable.getOffset(), pageable.getPageSize());
         }
+
         List<BookBorrowDTO> bookListDTOBorrow = new ArrayList<>();
 
         for (Tuple tuple : tuples) {
