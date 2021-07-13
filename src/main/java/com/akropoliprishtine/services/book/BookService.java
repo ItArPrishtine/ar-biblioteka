@@ -3,12 +3,12 @@ package com.akropoliprishtine.services.book;
 import com.akropoliprishtine.dto.BookBorrowDTO;
 import com.akropoliprishtine.entities.book.Author;
 import com.akropoliprishtine.entities.book.Book;
+import com.akropoliprishtine.enums.BookCategory;
 import com.akropoliprishtine.repositories.book.BookRepository;
 import com.akropoliprishtine.services.AmazonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.Tuple;
 import java.util.ArrayList;
@@ -47,10 +47,22 @@ public class BookService {
     public List<BookBorrowDTO> getBooksPage(Pageable pageable, String bookName, long authorId, String category) {
         List<Tuple> tuples;
 
-        if (authorId == 0) {
-            tuples = this.bookRepository.findAll(bookName, pageable.getOffset(), pageable.getPageSize());
-        } else {
-            tuples = this.bookRepository.findAllByAuthor(bookName, authorId, pageable.getOffset(), pageable.getPageSize());
+        if (authorId == 0 && bookName.isEmpty() && category.isEmpty()) {
+            tuples = this.bookRepository.findAll(pageable.getOffset(), pageable.getPageSize());
+        } else if (authorId == 0 && category.isEmpty()) {
+            tuples = this.bookRepository.findAllByBookName(bookName.toLowerCase(), pageable.getOffset(), pageable.getPageSize());
+        } else if (bookName == null && category.isEmpty()){
+            tuples = this.bookRepository.findAllByAuthor(authorId, pageable.getOffset(), pageable.getPageSize());
+        } else if (category != null && (authorId == 0 && bookName.isEmpty())) {
+            tuples = this.bookRepository.findAllByCategory(category, pageable.getOffset(), pageable.getPageSize());
+        } else if (category != null && bookName != null && authorId == 0) {
+            tuples = this.bookRepository.findAllByCategoryAndBookName(category, bookName.toLowerCase(), pageable.getOffset(), pageable.getPageSize());
+        } else if (category != null && bookName != null && authorId > 0) {
+            tuples = this.bookRepository.findAllByAuthorAndBookNameAndCategory(bookName.toLowerCase(), category, authorId, pageable.getOffset(), pageable.getPageSize());
+        } else if (category != null && bookName == null && authorId > 0) {
+            tuples = this.bookRepository.findAllByAuthorAndCategory(authorId, category, pageable.getOffset(), pageable.getPageSize());
+        }else {
+            tuples = this.bookRepository.findAllByAuthorAndBookName(bookName.toLowerCase(), authorId, pageable.getOffset(), pageable.getPageSize());
         }
 
         List<BookBorrowDTO> bookListDTOBorrow = new ArrayList<>();
@@ -60,22 +72,17 @@ public class BookService {
             bookBorrowDTO.setId(tuple.get(0).toString());
             bookBorrowDTO.setName(tuple.get(1).toString());
             bookBorrowDTO.setCategory(tuple.get(2).toString());
-            bookBorrowDTO.setAuthorFirstName(tuple.get(5).toString());
-            bookBorrowDTO.setAuthorLastName(tuple.get(6).toString());
-            bookBorrowDTO.setAuthorId(tuple.get(7).toString());
+            bookBorrowDTO.setAuthorFirstName(tuple.get(4).toString());
+            bookBorrowDTO.setAuthorLastName(tuple.get(5).toString());
+            bookBorrowDTO.setAuthorId(tuple.get(6).toString());
 
             if (tuple.get(3) != null) {
-                bookBorrowDTO.setImageUrl(tuple.get(3).toString());
-            } else {
-                bookBorrowDTO.setImageUrl("");
-            }
-            if (tuple.get(4) != null) {
-                bookBorrowDTO.setPublicationYear(tuple.get(4).toString());
+                bookBorrowDTO.setPublicationYear(tuple.get(3).toString());
             } else {
                 bookBorrowDTO.setPublicationYear("");
             }
-            if (tuple.get(8) != null) {
-                bookBorrowDTO.setBorrowStatus(tuple.get(8).toString());
+            if (tuple.get(7) != null) {
+                bookBorrowDTO.setBorrowStatus(tuple.get(7).toString());
             } else {
                 bookBorrowDTO.setBorrowStatus("");
             }
@@ -96,25 +103,6 @@ public class BookService {
 
     public Book save(Book book) {
         return this.bookRepository.save(book);
-    }
-
-    public Book saveAndUploadFile(Book book, MultipartFile multipartFile) {
-        String uploadedFileUrl = null;
-
-        if (multipartFile != null) {
-            uploadedFileUrl = amazonClient.uploadFileTos3bucket(multipartFile);
-            book.setImageUrl(uploadedFileUrl);
-        }
-
-        try {
-            book.setImageUrl(uploadedFileUrl);
-            return this.save(book);
-        } catch (Exception e) {
-            if (uploadedFileUrl != null) {
-                amazonClient.deleteFromS3Bucket(uploadedFileUrl);
-            }
-        }
-        return null;
     }
 
     public void delete(Long bookId) {

@@ -35,8 +35,5 @@ public class Book {
     @Column(name = "shelf")
     private String shelf;
 
-    @Column(nullable = true)
-    private String imageUrl;
-
     private String publicationYear;
 }

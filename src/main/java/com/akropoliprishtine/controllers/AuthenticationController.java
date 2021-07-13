@@ -66,8 +66,8 @@ public class AuthenticationController {
             return ResponseEntity.ok(new JwtResponse(token));
         } catch (Exception e) {
             e.printStackTrace();
+            return (ResponseEntity<?>) ResponseEntity.notFound();
         }
-        return null;
     }
 
     private void authenticate(String username, String password) throws Exception {

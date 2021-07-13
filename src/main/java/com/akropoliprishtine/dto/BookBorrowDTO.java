@@ -9,7 +9,6 @@ public class BookBorrowDTO {
     private String id;
     private String name;
     private String category;
-    private String imageUrl;
     private String publicationYear;
     private String authorFirstName;
     private String authorLastName;
