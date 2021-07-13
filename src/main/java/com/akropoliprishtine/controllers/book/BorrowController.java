@@ -16,9 +16,8 @@ public class BorrowController {
     private BorrowService borrowService;
 
     @GetMapping("/")
-    public List<Borrow> getBorrows(@RequestParam(value = "status", required = false) BorrowStatus status,
-                                   @RequestParam(value = "userId", required = false) Long userId) {
-        return this.borrowService.getAll(status, userId);
+    public List<Borrow> getBorrows(@RequestParam(value = "status", required = false) BorrowStatus status) {
+        return this.borrowService.getAll(status);
     }
 
     @PostMapping("/")

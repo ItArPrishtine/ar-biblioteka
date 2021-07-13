@@ -19,7 +19,6 @@ import java.io.IOException;
 
 @SpringBootApplication
 @EnableConfigurationProperties
-@EnableAutoConfiguration
 @EntityScan({"com.akropoliprishtine.entities"})
 public class AkropoliPrishtineApplication {
 

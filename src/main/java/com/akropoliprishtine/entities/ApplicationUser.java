@@ -34,7 +34,7 @@ public class ApplicationUser {
     private String description;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
 
     @Transient

@@ -27,22 +27,11 @@ public class BorrowService {
         this.userService = userService;
     }
 
-    public List<Borrow> getAll(BorrowStatus status, long userId) {
-        Optional<ApplicationUser> user = this.userService.getUserById(userId);
-        Role role = user.get().getRole();
-
-        if (role.getName().equals("KF")) {
-            if (status != null) {
-                return this.borrowRepository.findBorrowByBorrowStatus(status);
-            }
-            return this.borrowRepository.findAll();
-        } else {
-
-            if (status != null) {
-                return this.borrowRepository.findBorrowByBorrowStatusAndApplicationUser(status, user.get());
-            }
-            return this.borrowRepository.findAllByApplicationUser(user.get());
+    public List<Borrow> getAll(BorrowStatus status) {
+        if (status != null) {
+            return this.borrowRepository.findBorrowByBorrowStatus(status);
         }
+        return this.borrowRepository.findAll();
     }
 
     public Borrow borrow(Borrow borrow) {
@@ -57,6 +46,7 @@ public class BorrowService {
 
     public Borrow returnBorrow(Borrow borrow) {
         borrow.setBorrowStatus(BorrowStatus.RETURNED);
+        borrow.setReturnedDate(new Date());
         return borrowRepository.save(borrow);
     }
 

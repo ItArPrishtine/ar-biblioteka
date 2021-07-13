@@ -2,6 +2,7 @@ package com.akropoliprishtine.controllers.book;
 
 import com.akropoliprishtine.dto.BookBorrowDTO;
 import com.akropoliprishtine.entities.book.Book;
+import com.akropoliprishtine.enums.BookCategory;
 import com.akropoliprishtine.services.book.BookService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +42,7 @@ public class BookController {
                                         @RequestParam(defaultValue = "", required = false) String category) {
 
         Pageable paging = PageRequest.of(pageNumber, pageSize);
-        return this.bookService.getBooksPage(paging, bookName, authorId);
+        return this.bookService.getBooksPage(paging, bookName, authorId, category);
     }
 
     @DeleteMapping("/{id}")
