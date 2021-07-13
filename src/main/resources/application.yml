@@ -73,23 +73,6 @@ jwt:
 #  spring.mail.properties.mail.smtp.starttls.enable=true
 #  spring.mail.properties.mail.smtp.starttls.required=true
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #jwt.secret: javainuse
 #jwt.expiration: 5 * 60 * 60
 
