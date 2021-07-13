@@ -3,7 +3,9 @@ import {CustomSnackbarService} from "../../../../shared/services/snackbar-servic
 import {BorrowService} from "../../../../shared/services/biblioteka/borrow.service";
 import {BorrowStatusEnum} from "../../../../shared/models/enums/borrow-status.enum";
 import {TokenService} from "../../../../shared/services/auth/token.service";
-import { RouterUrls } from 'src/app/shared/constants/RouterUrls';
+import { GeneralConstant } from 'src/app/shared/constants/GeneralConstant';
+import BuildUrlsUtils from '../../../../shared/utils/BuildUrlsUtils';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-borrow-requests-management',
@@ -11,13 +13,13 @@ import { RouterUrls } from 'src/app/shared/constants/RouterUrls';
   styleUrls: ['./borrow-requests-management.component.scss']
 })
 export class BorrowRequestsManagementComponent implements OnInit {
-  displayedColumns: string[] = ['username', 'bookTitle', 'category', 'author', 'borrowUntil', 'borrowStatus'];
+  displayedColumns: string[] = ['username', 'bookTitle', 'category', 'author', 'borrowUntil', 'returnedDate', 'borrowStatus'];
   dataSource: any;
   filters = [BorrowStatusEnum.BORROWED, BorrowStatusEnum.RETURNED];
-  detailsUrl = '/' + RouterUrls.ACCOUNT.BASE_MODULE + '/' + RouterUrls.BIBLIOTEKA.BASE_MODULE + '/' + RouterUrls.BIBLIOTEKA.BOOK_DETAILS;
+  borrowedStatus = BorrowStatusEnum.BORROWED;
 
   constructor(private borrowService: BorrowService,
-              private tokenService: TokenService,
+              private router: Router,
               private snackBarService: CustomSnackbarService) {
   }
 
@@ -25,12 +27,18 @@ export class BorrowRequestsManagementComponent implements OnInit {
     this.getBorrows();
   }
 
+  public bookDetailsUrl(bookId: string) {
+    return BuildUrlsUtils.bookDetailsUrl(bookId);
+  }
+
+  public navigateToDetails(bookID) {
+      this.router.navigateByUrl(this.bookDetailsUrl(bookID));
+  }
+
   getBorrows(status?: BorrowStatusEnum) {
-    const userId = this.tokenService.getData().id;
-    this.borrowService.getBorrows(userId, status).subscribe(
+    this.borrowService.getBorrows(status).subscribe(
       result => {
         this.dataSource = result;
-        console.log(result);
       }, () => {
         this.snackBarService.error("Error gjate procesimit te kerkesave");
       }

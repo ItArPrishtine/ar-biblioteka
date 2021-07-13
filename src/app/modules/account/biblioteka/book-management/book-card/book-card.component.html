@@ -2,14 +2,14 @@
   <div class="product-card">
     <div class="product-card-image">
       <!--  i huazuar kur e ka vleren 0-->
-      <a routerLink="{{detailsUrl + '/' + book.id}}" class="borrowed" *ngIf="book.borrowStatus == '0'">
+      <a routerLink="{{bookDetailsUrl(book.id)}}" class="borrowed" *ngIf="book.borrowStatus == '0'">
         I Huazuar
       </a>
 
       <div class="content-image">
-        <a routerLink="{{detailsUrl + '/' + book.id}}">
+        <a routerLink="{{bookDetailsUrl(book.id)}}">
           <img src="{{book.imageUrl ? book.imageUrl : bookImage}}"/>
-          
+
           <div class="content-overlay"></div>
 
           <div class="content-details fadeIn-left">
@@ -20,10 +20,10 @@
     </div>
     <div class="product-desc">
       <div class="product-title"  matTooltip="{{book.name}}" matTooltipPosition="above">
-        <a routerLink="{{detailsUrl + '/' + book.id}}">{{book.name}}</a>
+        <a routerLink="{{bookDetailsUrl(book.id)}}">{{book.name}}</a>
       </div>
 
-      <a [routerLink]="authorDetailsUrl + '/' + book.authorId" class="product-author">
+      <a [routerLink]="authorDetailsUrl(book.authorId)" class="product-author">
         <p>{{book.authorFirstName + ' ' + book.authorLastName}}</p>
       </a>
 

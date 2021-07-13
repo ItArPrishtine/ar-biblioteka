@@ -45,4 +45,9 @@ export const RequestUrls = {
       BORROW_USER_EXIST: environment.api + '/book_borrow/user_borrow_exist',
     }
   },
+  ECONOMY: {
+    PAYMENT: {
+      BASE: environment.api + '/economy_payment/'
+    }
+  }
 };

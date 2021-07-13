@@ -3,6 +3,7 @@ import {environment} from '../../../environments/environment';
 export const GeneralConstant = {
   LOCALSTORAGE_TOKEN: 'token',
   LOCALSTORAGE_BORROWED_BOOK: 'borrowed_book',
+  DATEFORMAT: 'dd-MMM-yyyy'
 };
 
 export const IMAGEURLS = {

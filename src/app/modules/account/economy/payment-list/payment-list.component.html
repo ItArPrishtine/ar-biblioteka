@@ -1,0 +1,36 @@
+<div class='table'>
+    <div class='table-title-holder'>
+      <div class='table-title table-title__button'>
+        <div class="title">
+          <p>Pagesat</p>
+        </div>
+        
+        <div class="d-flex filter-button">
+          <mat-select *ngIf="typeOfAdmin" (selectionChange)="userSelected($event)" value="user" placeholder="Personi">
+            <mat-option value="user">Zgjedh Personin</mat-option>
+            <mat-option *ngFor="let user of users" value="{{user.id}}">{{user.firstName}} {{user.lastName}}</mat-option>
+          </mat-select>
+  
+          <div class="button">
+            <button (click)="openCreatePaymentModal()" mat-raised-button color="accent">Shto Pagese te re</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="payment-list d-flex">
+      <div class="payment-card" *ngFor="let payment of payments">
+        <div class="person">
+          <p>{{payment.applicationUser.firstName}} {{payment.applicationUser.lastName}}</p>
+        </div>
+        <div class="payedmonth">
+          <p>Muaji i Paguar: <span>{{(payment.payedMonth | date: dateFormat).substring(3, 11)}}</span></p>
+        </div>
+        <div class="paymentDate">
+          <p>Data e pageses: <span>{{payment.paymentDate | date: dateFormat}}</span></p>
+        </div>
+        <div class="price">
+            <p>Çmimi: <span>{{payment.price}}€</span></p>
+        </div>
+      </div>
+    </div>
+</div>

@@ -11,17 +11,25 @@
       </button>
 
       <div class="filter">
+        <div class="categories">
+          <mat-select (selectionChange)="categorySelected($event)" value="category" placeholder="Kategorite">
+            <mat-option value="tegjitha">Te gjitha Kategorite</mat-option>
+            <mat-option *ngFor="let category of bookCategories" value="{{category.value}}">{{category.name}}</mat-option>
+          </mat-select>
+        </div>
+
         <div class="authors">
           <mat-select (selectionChange)="authorSelected($event)" value="author" placeholder="Autori">
-            <mat-option value="autori">Zgjedh Autorin</mat-option>
+            <mat-option value="autori">Te gjithe autoret</mat-option>
             <mat-option *ngFor="let author of authors" value="{{author.id}}">{{author.firstName}} {{author.lastName}}</mat-option>
           </mat-select>
         </div>
         <div class="g-search">
-          <input #searchTitle placeholder="Titulli i librit" type="text" />
-          <button (click)="getBooks(false, searchTitle.value)"><mat-icon>search</mat-icon></button>
+          <input (change)="titleChanges($event)" placeholder="Titulli i librit" type="text" />
+          <button (click)="getBooks(false)"><mat-icon>search</mat-icon></button>
         </div>
       </div>
+      <button (click)="getBooks(false)">Clear</button>
       <div class="button" *ngIf="currentUserRole == bibliotekaAdmin || currentUserRole == bibliotekaNd">
         <button mat-raised-button color="accent" (click)="createBook()">Shto Liber</button>
       </div>

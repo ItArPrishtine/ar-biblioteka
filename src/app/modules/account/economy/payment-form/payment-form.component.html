@@ -1,0 +1,47 @@
+<div class="form">
+    <form [formGroup]="formGroup" class="form" (submit)="createPayment()">
+        <div class="form-input">
+              <mat-form-field>
+                <mat-label>Personi</mat-label>
+                <mat-select formControlName="applicationUser">
+                  <mat-option *ngFor="let user of users" value="{{user.id}}">{{user.firstName}} {{user.lastName}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+        </div>
+        <div class="form-input">
+            <mat-form-field>
+                <mat-label>Data e Pageses</mat-label>
+                <input matInput type="text" formControlName="paymentDate" placeholder="Data e Pageses" [matDatepicker]="picker" />
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="form-input">
+            <mat-form-field>
+                <mat-label>Muaji i Paguar</mat-label>
+                <input matInput type="text" formControlName="payedMonth" placeholder="Muaji i paguar" [matDatepicker]="picker2" />
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker forma #picker2></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <div class="form-input">
+            <mat-form-field>
+                <mat-label>Cmimi</mat-label>
+                <input matInput type="number" formControlName="price" placeholder="Cmimi" />
+            </mat-form-field>
+        </div>
+
+        <mat-form-field>
+            <mat-label>Pershkrimi</mat-label>
+            <textarea class="w-100" matInput type="text" formControlName="description" placeholder="Pershkrimi"></textarea>
+        </mat-form-field>
+
+        
+        <div class="button buttons-plc">
+            <button class="mr-1" mat-raised-button (click)="closeDialog()">Mbyll</button>
+            <!-- <app-button-spinner [text]="payment && payment.id ? 'Ndrysho' : 'Shto'" color="primary" [loading]="loading"></app-button-spinner> -->
+            <app-button-spinner text='Shto' color="primary" [loading]="loading"></app-button-spinner>
+        </div>
+    </form>
+</div>

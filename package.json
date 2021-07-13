@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "deploy": "ng deploy --base-href=/akropoli-pr-ui --no-silent"
+    "deploy-now": "ng deploy --base-href=https://itarprishtine.github.io/akropoli-pr-ui/"
   },
   "private": true,
   "dependencies": {

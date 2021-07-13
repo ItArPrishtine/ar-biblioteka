@@ -25,6 +25,10 @@ export class RedirectComponent implements OnInit {
         const manageUrl = baseurl + RouterUrls.ACCOUNT.MANAGE;
         const bibliotekaUrl = baseurl + RouterUrls.BIBLIOTEKA.BASE_MODULE;
 
+        if (!this.currentRole) {
+            return;
+        }
+        
         switch(this.currentRole.name) {
             case this.userRoles.KF:
                 this.router.navigateByUrl(manageUrl);

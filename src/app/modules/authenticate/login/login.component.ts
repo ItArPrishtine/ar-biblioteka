@@ -54,6 +54,7 @@ export class LoginComponent implements OnInit {
       )
       .subscribe(
         result => {
+          debugger;
           this.tokenService.saveToken(result.token);
           localStorage.setItem(GeneralConstant.LOCALSTORAGE_BORROWED_BOOK, JSON.stringify(this.tokenService.getBorrowedBook()));
           this.router.navigateByUrl('/' + RouterUrls.ACCOUNT.BASE_MODULE);

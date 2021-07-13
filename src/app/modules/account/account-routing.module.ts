@@ -21,6 +21,10 @@ const routes: Routes = [
         path: RouterUrls.BIBLIOTEKA.BASE_MODULE,
         loadChildren: () => import('./biblioteka/biblioteka.module').then(mod => mod.BibliotekaModule),
       },
+      {
+        path: RouterUrls.ECONOMY.BASE_MODULE,
+        loadChildren: () => import('./economy/economy.module').then(mod => mod.EconomyModule),
+      },
     ]
   },
 ];

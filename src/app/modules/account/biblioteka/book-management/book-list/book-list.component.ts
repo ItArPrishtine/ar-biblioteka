@@ -1,7 +1,6 @@
 import {Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {BookService} from '../../../../../shared/services/biblioteka/book.service';
-import {BookModel} from '../../../../../shared/models/book/book.model';
 import {BookFormComponent} from "../book-form/book-form.component";
 import {BookBorrowDTO} from "../../../../../shared/models/dto/BookBorrowDTO.model";
 import {AuthorService} from "../../../../../shared/services/biblioteka/author.service";
@@ -9,6 +8,7 @@ import {AuthorModel} from "../../../../../shared/models/book/author.model";
 import {IMAGEURLS} from "../../../../../shared/constants/GeneralConstant";
 import { TokenService } from 'src/app/shared/services/auth/token.service';
 import { RolesEnum } from 'src/app/shared/models/enums/roles.enum';
+import {BookCategoryEnum} from '../../../../../shared/models/enums/book-category.enum';
 
 @Component({
   selector: 'app-book-list',
@@ -22,11 +22,16 @@ export class BookListComponent implements OnInit {
   pageNumber = 0;
   loading = false;
   selectedAuthor: string;
+  selectedCategory: string;
   listView = false;
   bookBg = IMAGEURLS.BOOK_BACKGROUND;
   currentUserRole: any;
   bibliotekaAdmin = RolesEnum.PG_BIBLIOTEKA;
   bibliotekaNd = RolesEnum.ND_BIBLIOTEKA;
+  searchTitle = '';
+  bookCategories = [BookCategoryEnum.AKROPOLI, BookCategoryEnum.EF, BookCategoryEnum.K, BookCategoryEnum.ANGLEZE,
+    BookCategoryEnum.BIOGRAFI, BookCategoryEnum.FILOZOFIK, BookCategoryEnum.HISTORI, BookCategoryEnum.L_HUAJ, BookCategoryEnum.L_SHQIPE,
+    BookCategoryEnum.MITOLOGJI, BookCategoryEnum.PSIKOLOGJIK]
 
   @ViewChild('cardList') private cardListElement: ElementRef;
 
@@ -37,14 +42,18 @@ export class BookListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getBooks();
-    this.getAuthors()
+    this.getAuthors();
     this.currentUserRole = this.tokenService.getData().role.name;
   }
 
-  public getBooks(onScroll?: boolean, searchTitle?: string) {
+
+  public getBooks(onScroll?: boolean) {
+    if (onScroll === false) {
+      this.pageNumber = 0;
+    }
     this.loading = true;
 
-    this.bookService.getBooks(this.pageNumber, 32, searchTitle, this.selectedAuthor).subscribe(
+    this.bookService.getBooks(this.pageNumber, 32, this.searchTitle, this.selectedAuthor, this.selectedCategory).subscribe(
       result => {
         this.loading = false;
         if (onScroll) {
@@ -57,6 +66,16 @@ export class BookListComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  titleChanges(event) {
+    this.searchTitle = event.target.value;
+  }
+
+  categorySelected(event) {
+    this.selectedCategory = event.value;
+    this.pageNumber = 0;
+    this.getBooks(null);
   }
 
   private getAuthors() {
@@ -91,7 +110,7 @@ export class BookListComponent implements OnInit {
   authorSelected(event) {
     this.selectedAuthor = event.value;
     this.pageNumber = 0;
-    this.getBooks();
+    this.getBooks(null);
   }
 
   toogleCheckbox() {

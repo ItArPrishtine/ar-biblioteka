@@ -12,6 +12,11 @@ export const RouterUrls = {
     }
   },
 
+  ECONOMY: {
+    BASE_MODULE: 'economy',
+    PAYMENT: 'payment',
+  },
+
   BIBLIOTEKA: {
     BASE_MODULE: 'biblioteka',
     AUTHOR: 'manage-authors',
