@@ -4,8 +4,7 @@
 
 export const environment = {
   production: false,
-  // api: 'https://ar-prishtine.herokuapp.com/api',
-  api: 'http://localhost:8080/api',
+  api: 'https://ar-prishtine.herokuapp.com/api',
   baseHref: ''
 };
 
