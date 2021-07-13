@@ -10,7 +10,7 @@ export class BookService {
 
   constructor(private http: HttpClient) { }
 
-  getBooks(pageNumber?: number, pageSize?: number, bookName?: string, authorId?: string) {
+  getBooks(pageNumber?: number, pageSize?: number, bookName?: string, authorId?: string, categoryId?: string) {
     if (!bookName) {
       bookName = '';
     }
@@ -18,7 +18,11 @@ export class BookService {
     if (!authorId || authorId === 'autori') {
       authorId = '0';
     }
-    return this.http.get<BookBorrowDTO[]>(`${RequestUrls.BOOK.BOOK.BASE}?pageNumber=${pageNumber}&pageSize=${pageSize}&bookName=${bookName}&authorId=${authorId}`);
+
+    if (!categoryId || categoryId === 'tegjitha') {
+      categoryId = '0';
+    }
+    return this.http.get<BookBorrowDTO[]>(`${RequestUrls.BOOK.BOOK.BASE}?pageNumber=${pageNumber}&pageSize=${pageSize}&bookName=${bookName}&authorId=${authorId}&category=${categoryId}`);
   }
 
   getBookById(id: string) {

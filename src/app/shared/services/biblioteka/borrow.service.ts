@@ -18,12 +18,12 @@ export class BorrowService {
     return this.http.post<BorrowModel>(RequestUrls.BOOK.BORROW.RETURN, borrow);
   }
 
-  getBorrows(userId: string, status?: BorrowStatusEnum) {
+  getBorrows(status?: BorrowStatusEnum) {
     let url;
     if (status) {
-      url = RequestUrls.BOOK.BORROW.BORROW + `?status=${status}&userId=${userId}`;
+      url = RequestUrls.BOOK.BORROW.BORROW + `?status=${status}`;
     } else {
-      url = RequestUrls.BOOK.BORROW.BORROW + `?userId=${userId}`;
+      url = RequestUrls.BOOK.BORROW.BORROW;
     }
     return this.http.get<BorrowModel[]>(url);
   }

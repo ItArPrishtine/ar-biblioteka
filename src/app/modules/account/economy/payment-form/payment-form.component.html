@@ -40,8 +40,8 @@
         
         <div class="button buttons-plc">
             <button class="mr-1" mat-raised-button (click)="closeDialog()">Mbyll</button>
-            <app-button-spinner text="Shto" color="primary" [loading]="loading"></app-button-spinner>
-            <!-- <app-button-spinner [text]="payment.id ? 'Ndrysho' : 'Shto'" color="primary" [loading]="loading"></app-button-spinner> -->
+            <!-- <app-button-spinner [text]="payment && payment.id ? 'Ndrysho' : 'Shto'" color="primary" [loading]="loading"></app-button-spinner> -->
+            <app-button-spinner text='Shto' color="primary" [loading]="loading"></app-button-spinner>
         </div>
     </form>
 </div>

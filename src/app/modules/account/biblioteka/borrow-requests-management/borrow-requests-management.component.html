@@ -5,47 +5,53 @@
         <p>Lista e Huazimeve</p>
       </div>
       <div class="filters">
-        <mat-select placeholder="Filtro" (selectionChange)="filter($event)">
-          <mat-option>Filtro</mat-option>
-          <mat-option value="{{filter}}" *ngFor="let filter of filters">{{filter | titlecase}}</mat-option>
+        <mat-select placeholder="Te Gjitha" (selectionChange)="filter($event)">
+          <mat-option>Te gjitha</mat-option>
+          <mat-option value="{{filter}}" *ngFor="let filter of filters">{{filter === 'BORROWED' ? 'Huazuar' : 'Kthyer' | titlecase}}</mat-option>
         </mat-select>
       </div>
     </div>
     <table mat-table [dataSource]="dataSource">
       <!-- Name Column -->
       <ng-container matColumnDef="username">
-        <th style="width: 15%" mat-header-cell *matHeaderCellDef> Useri </th>
-        <td style="width: 15%" mat-cell *matCellDef="let element"> {{element.applicationUser.firstName +  ' ' + element.applicationUser.lastName}} </td>
+        <th style="width: 13%" mat-header-cell *matHeaderCellDef> Useri </th>
+        <td style="width: 13%" mat-cell *matCellDef="let element"> {{element.applicationUser.firstName +  ' ' + element.applicationUser.lastName}} </td>
       </ng-container>
 
       <!-- Weight Column -->
       <ng-container matColumnDef="bookTitle">
-        <th style="width: 30%" mat-header-cell *matHeaderCellDef> Titulli i librit </th>
-        <td style="width: 30%" mat-cell *matCellDef="let element"> {{element.book.name}} </td>
+        <th style="width: 20%" mat-header-cell *matHeaderCellDef> Titulli i librit </th>
+        <td style="width: 20%" mat-cell *matCellDef="let element" class='pointer' (click)="navigateToDetails(element.book.id)"> {{element.book.name}} </td>
       </ng-container>
 
       <!-- Weight Column -->
       <ng-container matColumnDef="category">
-        <th style="width: 15%" mat-header-cell *matHeaderCellDef> Kategoria e Librit </th>
-        <td style="width: 15%" mat-cell *matCellDef="let element"> {{element.book.category}} </td>
+        <th style="width: 13%" mat-header-cell *matHeaderCellDef> Kategoria e Librit </th>
+        <td style="width: 13%" mat-cell *matCellDef="let element"> {{element.book.category}} </td>
       </ng-container>
 
       <!-- Weight Column -->
       <ng-container matColumnDef="author">
-        <th style="width: 15%" mat-header-cell *matHeaderCellDef> Autori </th>
-        <td style="width: 15%" mat-cell *matCellDef="let element"> {{element.book.author.firstName}} {{element.book.author.lastName}}</td>
+        <th style="width: 13%" mat-header-cell *matHeaderCellDef> Autori </th>
+        <td style="width: 13%" mat-cell *matCellDef="let element"> {{element.book.author.firstName}} {{element.book.author.lastName}}</td>
       </ng-container>
 
       <!-- Weight Column -->
       <ng-container matColumnDef="borrowUntil">
-        <th style="width: 15%" mat-header-cell *matHeaderCellDef> Data e Kthimit </th>
-        <td style="width: 15%" mat-cell *matCellDef="let element"> {{element.borrowUntil | date}}</td>
+        <th style="width: 13%" mat-header-cell *matHeaderCellDef> Data per tu kthyer </th>
+        <td style="width: 13%" mat-cell *matCellDef="let element"> {{element.borrowUntil | date}}</td>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="returnedDate">
+        <th style="width: 13%" mat-header-cell *matHeaderCellDef> Data e kthimit </th>
+        <td style="width: 13%" mat-cell *matCellDef="let element"> {{element.returnedDate ? (element.returnedDate | date) : '---' }}</td>
       </ng-container>
 
       <!-- Weight Column -->
       <ng-container matColumnDef="borrowStatus">
         <th style="width: 5%" mat-header-cell *matHeaderCellDef> Statusi </th>
-        <td style="width: 5%" mat-cell *matCellDef="let element"> {{element.borrowStatus | titlecase}}</td>
+        <td style="width: 5%" mat-cell *matCellDef="let element"> {{element.borrowStatus && element.borrowStatus === filters[0] ? 'Huazuar' : 'Kthyer' | titlecase}}</td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

@@ -5,4 +5,12 @@
   .filters {
     width: 100px;
   }
+
+  .pointer {
+    cursor: pointer;
+
+    &:hover {
+      color: #999999;
+    }
+  }
 }
