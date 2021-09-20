@@ -30,8 +30,11 @@ public class ApplicationUser {
     @Column(nullable = false)
     private String dateOfBirth;
 
-    @Column(nullable = false)
+    @Column()
     private String description;
+
+    @Column()
+    private String eSign;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(name = "password", nullable = false)

@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import javax.persistence.Tuple;
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,9 +34,9 @@ public class BookController {
     @GetMapping("/")
     public List<BookBorrowDTO> getBooks(@RequestParam(defaultValue = "0", required = false) Integer pageNumber,
                                         @RequestParam(defaultValue = "20", required = false) Integer pageSize,
-                                        @RequestParam(defaultValue = "", required = false) String bookName,
-                                        @RequestParam(defaultValue = "", required = false) Long authorId,
-                                        @RequestParam(defaultValue = "", required = false) String category) {
+                                        @RequestParam(required = false) String bookName,
+                                        @RequestParam(defaultValue = "0", required = false) int authorId,
+                                        @RequestParam(required = false) String category) {
 
         Pageable paging = PageRequest.of(pageNumber, pageSize);
         return this.bookService.getBooksPage(paging, bookName, authorId, category);

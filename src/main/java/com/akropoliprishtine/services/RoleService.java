@@ -19,13 +19,17 @@ public class RoleService {
     public RoleService(RoleRepository roleRepository) {
         this.roleRepository = roleRepository;
     }
-    
+
     public List<Role> getRoles() {
         return this.roleRepository.findAll();
     }
 
     public Role createRole(Role role) {
         return this.roleRepository.save(role);
+    }
+
+    public Role findByName(String name) {
+        return this.roleRepository.findByName(name);
     }
 
     public Role updateRole(Role role) {
