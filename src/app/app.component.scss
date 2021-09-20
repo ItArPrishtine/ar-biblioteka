@@ -5,6 +5,13 @@
   flex: 1;
 }
 
+.general-scroll {
+  overflow-y: auto;
+  max-height: 100%;
+  display: flex;
+  flex: 1;
+}
+
 .return-book {
   background-color: red;
   padding: 10px 15px;

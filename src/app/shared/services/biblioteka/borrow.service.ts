@@ -31,4 +31,9 @@ export class BorrowService {
   userBorrowExist(borrow: BorrowModel) {
     return this.http.post<BorrowModel>(RequestUrls.BOOK.BORROW.BORROW_USER_EXIST, borrow);
   }
+
+  extendDeadline(borrow: BorrowModel) {
+    debugger;
+    return this.http.post<BorrowModel>(RequestUrls.BOOK.BORROW.EXTEND_DEADLINE + '/' + borrow.id, null);
+  }
 }

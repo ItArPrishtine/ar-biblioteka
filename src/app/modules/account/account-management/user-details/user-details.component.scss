@@ -1,0 +1,50 @@
+.user-profile {
+  background-color: #fff;
+  padding: 30px;
+  margin: 40px auto;
+  width: 800px;
+  //display: flex;
+  //flex-direction: column;
+  //align-items: center;
+
+  .data {
+    padding: 20px 0;
+    display: flex;
+    align-items: center;
+
+    p:last-of-type {
+      font-weight: 500;
+      margin-left: 10px
+    }
+
+    &-img {
+      img {
+        width: 250px;
+        height: 150px;
+        margin-left: 15px;
+        border: 1px dashed #dbdbdb;
+      }
+
+      p {
+        font-weight: 400;
+        margin: 0;
+      }
+    }
+  }
+}
+
+button {
+  margin-top: 40px;
+}
+
+.signature-plc {
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+}
+
+signature-pad {
+  width: 500px;
+  height: 300px;
+  border: 1px dashed #999;
+}

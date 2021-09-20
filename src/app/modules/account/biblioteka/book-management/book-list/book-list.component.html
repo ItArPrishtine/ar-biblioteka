@@ -1,44 +1,68 @@
-<div class="books-bg" [ngStyle]="{ 'background-image': 'url(' + bookBg + ')'}"></div>
-<div class="books-bg" style="background-color: #000; opacity: 0.6"></div>
+<div class="container-fluid">
+  <div class="main-title">
+    <div>
+      <p>Librat</p>
 
-<div class="author-list">
-  <div class='table-title table-title__button title'>
-    <p>Librat</p>
+      <div class="d-flex" style="width: auto">
+        <button class="list-checkbox" [ngClass]="listView ? 'list-view' : ''" (click)="toogleCheckbox()">
+          <p>Shikoni ne forme liste</p>
+          <span class="material-icons">list</span>
+        </button>
 
-    <div class="button-filter">
-      <button class="list-checkbox" [ngClass]="listView ? 'list-view' : ''" (click)="toogleCheckbox()">
-        <span class="material-icons">list</span>
-      </button>
-
-      <div class="filter">
-        <div class="categories">
-          <mat-select (selectionChange)="categorySelected($event)" value="category" placeholder="Kategorite">
-            <mat-option value="tegjitha">Te gjitha Kategorite</mat-option>
-            <mat-option *ngFor="let category of bookCategories" value="{{category.value}}">{{category.name}}</mat-option>
-          </mat-select>
-        </div>
-
-        <div class="authors">
-          <mat-select (selectionChange)="authorSelected($event)" value="author" placeholder="Autori">
-            <mat-option value="autori">Te gjithe autoret</mat-option>
-            <mat-option *ngFor="let author of authors" value="{{author.id}}">{{author.firstName}} {{author.lastName}}</mat-option>
-          </mat-select>
-        </div>
-        <div class="g-search">
-          <input (change)="titleChanges($event)" placeholder="Titulli i librit" type="text" />
-          <button (click)="getBooks(false)"><mat-icon>search</mat-icon></button>
-        </div>
-      </div>
-      <button (click)="getBooks(false)">Clear</button>
-      <div class="button" *ngIf="currentUserRole == bibliotekaAdmin || currentUserRole == bibliotekaNd">
-        <button mat-raised-button color="accent" (click)="createBook()">Shto Liber</button>
+        <button *ngIf="currentUserRole === bibliotekaAdmin || currentUserRole === bibliotekaNd" mat-raised-button color="primary">Shto Libër</button>
       </div>
     </div>
   </div>
 
-  <div class="card-list" [ngClass]="listView ? 'card-list--view' : ''" #cardList>
-    <div class="card" *ngFor="let book of books">
-      <app-book-card [book]="book"></app-book-card>
+  <div class="row">
+    <div class='title col-md-3'>
+
+      <form [formGroup]="filterFormGroup" class="button-filter" (submit)="filterBooks()">
+        <div class="filter">
+          <div class="row filter-specific">
+            <p class="col-md-3">Kategoria: </p>
+
+            <div class="categories col-md-9 filter-value">
+              <mat-select formControlName="category" placeholder="Kategorite">
+                <mat-option *ngFor="let category of bookCategories" value="{{category.value}}">{{category.name}}</mat-option>
+              </mat-select>
+            </div>
+          </div>
+
+          <div class="row filter-specific">
+            <p class="col-md-3">Autori: </p>
+
+            <div class="authors col-md-9 filter-value">
+              <mat-select formControlName="authorId" placeholder="Autori">
+                <mat-option *ngFor="let author of authors" value="{{author.id}}">{{author.firstName}} {{author.lastName}}</mat-option>
+              </mat-select>
+            </div>
+          </div>
+          <div class="row filter-specific">
+            <p class="col-md-3">Titulli: </p>
+            <div class="col-md-9 g-search filter-value">
+              <input formControlName="bookName" placeholder="Titulli i librit" type="text" />
+            </div>
+          </div>
+        </div>
+        <div class="filter-buttons">
+          <button color="primary" mat-flat-button>Filtro <span class="material-icons">search</span></button>
+          <button mat-button (click)="clearFilters()">Fshij Filtrimin</button>
+        </div>
+
+        <div class="button" *ngIf="currentUserRole == bibliotekaAdmin || currentUserRole == bibliotekaNd">
+        </div>
+      </form>
+    </div>
+
+    <div class="card-list col-md-9 row" [ngClass]="listView ? 'card-list--view' : ''">
+        <div class="card col-md-3" *ngFor="let book of books">
+          <app-book-card [book]="book"></app-book-card>
+        </div>
+
+      <div style="width: 100%; padding: 50px">
+        <app-loader [showLoader]="loading"></app-loader>
+      </div>
     </div>
   </div>
 </div>

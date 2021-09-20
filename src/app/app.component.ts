@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {TokenService} from "./shared/services/auth/token.service";
 import * as moment from 'moment';
 import {BookModel} from "./shared/models/book/book.model";
+import {OnscrollService} from './shared/services/shared/onscroll.service';
 
 
 @Component({
@@ -13,7 +14,8 @@ export class AppComponent {
   daysLeft: number;
   bookToReturn: BookModel;
 
-  constructor(private tokenService: TokenService) {
+  constructor(private tokenService: TokenService,
+              private onScrollService: OnscrollService) {
     this.getDateToReturnBook();
   }
 
@@ -27,5 +29,9 @@ export class AppComponent {
     const dateToReturn = moment(new Date(borrowed.borrowUntil));
     const todayDate = moment();
     this.daysLeft = dateToReturn.diff(todayDate, 'days');
+  }
+
+  onScroll() {
+    this.onScrollService.triggerScroll();
   }
 }

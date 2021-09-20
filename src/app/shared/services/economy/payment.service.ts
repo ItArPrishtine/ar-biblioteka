@@ -14,18 +14,26 @@ export class PaymentService {
     if (!value) {
       value = 0;
     }
-    return this.http.get<any[]>(`${RequestUrls.ECONOMY.PAYMENT.BASE}?userId=${value}`);
+    return this.http.get<PaymentModel[]>(`${RequestUrls.ECONOMY.PAYMENT.BASE}?userId=${value}`);
+  }
+
+  getPayment(id: number) {
+    return this.http.get<PaymentModel>(`${RequestUrls.ECONOMY.PAYMENT.BASE}${id}`);
+  }
+
+  verifyPayment(payment: PaymentModel) {
+    return this.http.put<PaymentModel>(RequestUrls.ECONOMY.PAYMENT.VERIFY, payment.id);
   }
 
   createPayment(payment: any) {
     return this.http.post<PaymentModel>(RequestUrls.ECONOMY.PAYMENT.BASE, payment);
   }
 
-  deletePayment(bookId: string) {
-    return this.http.delete(RequestUrls.ECONOMY.PAYMENT.BASE + `${bookId}`);
+  deletePayment(id: string) {
+    return this.http.delete(RequestUrls.ECONOMY.PAYMENT.BASE + `${id}`);
   }
 
-  updatePayment(book: any) {
-    return this.http.put<PaymentModel>(RequestUrls.ECONOMY.PAYMENT.BASE, book);
+  updatePayment(payment: any) {
+    return this.http.put<PaymentModel>(RequestUrls.ECONOMY.PAYMENT.BASE, payment);
   }
 }

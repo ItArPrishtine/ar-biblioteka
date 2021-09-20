@@ -7,7 +7,7 @@
   <form [formGroup]="formGroup" class="form" (submit)="createOrUpdateUser()">
     <div class="form-input">
       <mat-form-field>
-        <mat-label>Email</mat-label>
+        <mat-label>Emaili</mat-label>
         <input matInput type="text" formControlName="email" placeholder="Email" />
       </mat-form-field>
     </div>
@@ -25,7 +25,7 @@
 
 
       <mat-form-field>
-        <mat-label>Roles</mat-label>
+        <mat-label>Roli</mat-label>
         <mat-select formControlName="role">
           <mat-option *ngFor="let role of roles" value="{{role.id}}">{{role.name}}</mat-option>
         </mat-select>
@@ -36,11 +36,6 @@
         <input matInput type="text" formControlName="dateOfBirth" placeholder="Data e Lindjes" [matDatepicker]="picker" [max]='maxBirthdayDate' />
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
-
-      <mat-form-field>
-        <mat-label>Pershkrim i shkurter</mat-label>
-        <input matInput type="text" formControlName="description" placeholder="Pershkrim i shkurter" />
       </mat-form-field>
     </div>
 

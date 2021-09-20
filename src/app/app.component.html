@@ -1,1 +1,7 @@
-<router-outlet></router-outlet>
+<div class="general-scroll" infiniteScroll
+     [infiniteScrollDistance]="2"
+     [infiniteScrollUpDistance]="2"
+     [infiniteScrollThrottle]="50"
+     (scrolled)="onScroll()">
+  <router-outlet></router-outlet>
+</div>

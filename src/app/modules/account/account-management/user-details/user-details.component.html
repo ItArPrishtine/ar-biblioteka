@@ -1,0 +1,36 @@
+<div class="user-profile" *ngIf="user">
+  <div class="data">
+    <p>Emri:</p>
+    <p>{{user.firstName}}</p>
+  </div>
+
+  <div class="data">
+    <p>Mbiemri: </p>
+    <p>{{user.lastName}}</p>
+  </div>
+
+  <div class="data">
+    <p>Data e Lindjes:</p>
+    <p>{{user.dateOfBirth | date: dateFormat}}</p>
+  </div>
+
+  <div class="data">
+    <p>Roli:</p>
+    <p>{{user.role.name}}</p>
+  </div>
+
+  <div class="data data-img">
+    <p class="m-0">Nënshkrimi juaj aktual:</p>
+    <img *ngIf="user.esign" [src]="user.esign" />
+  </div>
+
+  <div class="signature-plc">
+    <signature-pad #signaturePad [options]="signaturePadOptions" (onEndEvent)="drawComplete()"></signature-pad>
+    <p *ngIf="!user.esign">Këtë nënshkrim mund ta përdorni kudo që kërkohet nënshkrimi juaj në platformë.</p>
+
+    <p *ngIf="user.esign">Ndërroni nënshkrimin tuaj këtu.</p>
+  </div>
+
+  <button mat-raised-button color="primary" (click)="saveUser()">Save</button>
+
+</div>

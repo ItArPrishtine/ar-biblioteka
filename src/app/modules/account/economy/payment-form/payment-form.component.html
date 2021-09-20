@@ -1,47 +1,73 @@
 <div class="form">
     <form [formGroup]="formGroup" class="form" (submit)="createPayment()">
         <div class="form-input">
-              <mat-form-field>
-                <mat-label>Personi</mat-label>
-                <mat-select formControlName="applicationUser">
-                  <mat-option *ngFor="let user of users" value="{{user.id}}">{{user.firstName}} {{user.lastName}}</mat-option>
-                </mat-select>
-              </mat-form-field>
-        </div>
-        <div class="form-input">
-            <mat-form-field>
-                <mat-label>Data e Pageses</mat-label>
-                <input matInput type="text" formControlName="paymentDate" placeholder="Data e Pageses" [matDatepicker]="picker" />
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
-        </div>
-        <div class="form-input">
-            <mat-form-field>
-                <mat-label>Muaji i Paguar</mat-label>
-                <input matInput type="text" formControlName="payedMonth" placeholder="Muaji i paguar" [matDatepicker]="picker2" />
-                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                <mat-datepicker forma #picker2></mat-datepicker>
-            </mat-form-field>
+          <mat-form-field>
+            <mat-label>Personi</mat-label>
+            <mat-select formControlName="applicationUser">
+              <mat-option *ngFor="let user of users" value="{{user.id}}">{{user.firstName}} {{user.lastName}}</mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
 
         <div class="form-input">
-            <mat-form-field>
-                <mat-label>Cmimi</mat-label>
-                <input matInput type="number" formControlName="price" placeholder="Cmimi" />
-            </mat-form-field>
+          <mat-form-field>
+            <mat-label>Data</mat-label>
+            <input matInput type="text" formControlName="paymentDate" placeholder="Data" [max]="todayDate" [matDatepicker]="picker" />
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
         </div>
 
+      <div class="form-input">
         <mat-form-field>
-            <mat-label>Pershkrimi</mat-label>
-            <textarea class="w-100" matInput type="text" formControlName="description" placeholder="Pershkrimi"></textarea>
+          <mat-label>Tipi i Dhurimit</mat-label>
+          <mat-select formControlName="paymentType" placeholder="Tipi i Dhurimit">
+            <mat-option *ngFor="let type of paymentType" value="{{type}}">{{type | titlecase}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="form-input form-input__two">
+        <mat-form-field>
+          <mat-label>Muaji i Paguar</mat-label>
+          <mat-select [disabled]="formGroup.get('paymentType').value !== mujore" formControlName="payedMonth" placeholder="Muaji i Paguar">
+            <mat-option *ngFor="let month of paymentMonths" value="{{month.value}}">{{month.text | titlecase}}</mat-option>
+          </mat-select>
         </mat-form-field>
 
-        
-        <div class="button buttons-plc">
-            <button class="mr-1" mat-raised-button (click)="closeDialog()">Mbyll</button>
-            <!-- <app-button-spinner [text]="payment && payment.id ? 'Ndrysho' : 'Shto'" color="primary" [loading]="loading"></app-button-spinner> -->
-            <app-button-spinner text='Shto' color="primary" [loading]="loading"></app-button-spinner>
-        </div>
+        <mat-form-field>
+          <mat-label>Viti</mat-label>
+          <mat-select [disabled]="formGroup.get('paymentType').value !== mujore" formControlName="payedYear" placeholder="Viti i Pageses">
+            <mat-option *ngFor="let year of payedYear" value="{{year.value}}">{{year.text}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="form-input">
+        <mat-form-field>
+          <mat-label>Shuma</mat-label>
+          <input matInput type="number" formControlName="price" placeholder="Shuma" />
+        </mat-form-field>
+      </div>
+
+      <div class="form-input">
+        <textarea class="w-100" matInput type="text" formControlName="description" placeholder="Pershkrimi"></textarea>
+      </div>
+
+      <div class="data data-img" *ngIf="signed">
+        <img [src]="currentUser.esign" />
+        <p>Nenshkrimi i anetarit</p>
+      </div>
+
+      <div class="data data-img">
+        <mat-checkbox (change)="clickedCheckbox($event)">Nenshkruaj</mat-checkbox>
+      </div>
+
+      <div class="button buttons-plc">
+        <button class="mr-1" mat-raised-button (click)="closeDialog()">Mbyll</button>
+        <!-- <app-button-spinner [text]="payment && payment.id ? 'Ndrysho' : 'Shto'" color="primary" [loading]="loading"></app-button-spinner> -->
+        <app-button-spinner text='Shto' color="primary" [loading]="loading"></app-button-spinner>
+      </div>
+
     </form>
 </div>

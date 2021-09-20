@@ -43,11 +43,13 @@ export const RequestUrls = {
       BORROW: environment.api + '/book_borrow/',
       RETURN: environment.api + '/book_borrow/return',
       BORROW_USER_EXIST: environment.api + '/book_borrow/user_borrow_exist',
+      EXTEND_DEADLINE: environment.api + '/book_borrow/extend-deadline',
     }
   },
   ECONOMY: {
     PAYMENT: {
-      BASE: environment.api + '/economy_payment/'
+      BASE: environment.api + '/economy_payment/',
+      VERIFY: environment.api + '/economy_payment/verify'
     }
   }
 };

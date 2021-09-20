@@ -23,31 +23,39 @@ import { PaymentListComponent } from './payment-list/payment-list.component';
 import { PaymentService } from 'src/app/shared/services/economy/payment.service';
 import { PaymentFormComponent } from './payment-form/payment-form.component';
 import { UserService } from 'src/app/shared/services/account/user.service';
+import { PaymentDetailsComponent } from './payment-details/payment-details.component';
+import {SignaturePadModule} from 'angular2-signaturepad';
+import { PaymentVerificationComponent } from './payment-verification/payment-verification.component';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
     EconomyComponent,
     PaymentListComponent,
-    PaymentFormComponent
+    PaymentFormComponent,
+    PaymentDetailsComponent,
+    PaymentVerificationComponent
   ],
-  imports: [
-    CommonModule,
-    RouterModule,
-    EconomyRoutingModule,
-    MatButtonModule,
-    MatDialogModule,
-    MatFormFieldModule,
-    MatSelectModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatTooltipModule,
-    ButtonSpinnerModule,
-    MatMenuModule,
-    MatTableModule,
-    MatIconModule,
-  ],
+    imports: [
+        CommonModule,
+        RouterModule,
+        EconomyRoutingModule,
+        MatButtonModule,
+        MatDialogModule,
+        MatFormFieldModule,
+        MatSelectModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatTooltipModule,
+        ButtonSpinnerModule,
+        MatMenuModule,
+        MatTableModule,
+        MatIconModule,
+        SignaturePadModule,
+        MatCheckboxModule,
+    ],
   providers: [
     PaymentService,
     UserService

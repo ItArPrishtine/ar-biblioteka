@@ -6,18 +6,18 @@
     <form [formGroup]='formGroup' (submit)='login()'>
       <div class='form-input'>
         <mat-form-field>
-          <mat-label>Email Adresa</mat-label>
+          <mat-label>Email Adresa ose Username</mat-label>
           <input matInput formControlName='username' placeholder='Email Adresa ose Username'>
         </mat-form-field>
       </div>
       <div class='form-input'>
         <mat-form-field>
-          <mat-label>Fjalekalimi</mat-label>
+          <mat-label>Fjalëkalimi</mat-label>
           <input matInput type='password' formControlName='password' placeholder='Fjalekalimi' />
         </mat-form-field>
       </div>
       <div class='button'>
-        <app-button-spinner text="Kycu" color="primary" [loading]="loading"></app-button-spinner>
+        <app-button-spinner text="Kyçu" color="primary" [loading]="loading"></app-button-spinner>
       </div>
     </form>
   </div>

@@ -18,29 +18,33 @@ import {MatSelectModule} from '@angular/material/select';
 import {ButtonSpinnerModule} from "../../../shared/components/button-spinner/button-spinner.module";
 import {MatMenuModule} from "@angular/material/menu";
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { UserDetailsComponent } from './user-details/user-details.component';
+import {SignaturePadModule} from 'angular2-signaturepad';
 
 @NgModule({
   declarations: [
     UserListComponent,
     UserCreateUpdateComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    UserDetailsComponent
   ],
-  imports: [
-    CommonModule,
-    RouterModule,
-    AccountManagementRoutingModule,
-    MatTableModule,
-    MatButtonModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatDialogModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatSelectModule,
-    ButtonSpinnerModule,
-    MatMenuModule
-  ],
+    imports: [
+        CommonModule,
+        RouterModule,
+        AccountManagementRoutingModule,
+        MatTableModule,
+        MatButtonModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatDialogModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatSelectModule,
+        ButtonSpinnerModule,
+        MatMenuModule,
+        SignaturePadModule
+    ],
   providers: [
     UserService,
     RoleService,

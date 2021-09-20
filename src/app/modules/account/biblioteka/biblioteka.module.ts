@@ -32,6 +32,9 @@ import {MatTableModule} from "@angular/material/table";
 import {BorrowService} from "../../../shared/services/biblioteka/borrow.service";
 import {BookCommentService} from "../../../shared/services/biblioteka/book-comment.service";
 import {MatIconModule} from "@angular/material/icon";
+import { LoaderModule } from 'src/app/shared/components/loader/loader.module';
+import {InfiniteScrollModule} from 'ngx-infinite-scroll';
+import { ExtendDeadlineComponent } from './extend-deadline/extend-deadline.component';
 
 @NgModule({
   declarations: [
@@ -48,25 +51,27 @@ import {MatIconModule} from "@angular/material/icon";
     BookFormComponent,
     BorrowComponent,
     BorrowRequestsManagementComponent,
+    ExtendDeadlineComponent,
   ],
-    imports: [
-        CommonModule,
-        RouterModule,
-        BibliotekaRoutingModule,
-        MatButtonModule,
-        MatDialogModule,
-        MatFormFieldModule,
-        MatSelectModule,
-        ReactiveFormsModule,
-        MatInputModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
-        MatTooltipModule,
-        ButtonSpinnerModule,
-        MatMenuModule,
-        MatTableModule,
-        MatIconModule,
-    ],
+  imports: [
+    CommonModule,
+    RouterModule,
+    BibliotekaRoutingModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatTooltipModule,
+    ButtonSpinnerModule,
+    MatMenuModule,
+    MatTableModule,
+    MatIconModule,
+    LoaderModule,
+  ],
   providers: [
     AuthorService,
     BookService,

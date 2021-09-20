@@ -27,7 +27,6 @@ export class BookDetailsComponent implements OnInit {
   bookImage = IMAGEURLS.BOOK_TEST;
   commentedAvatar = IMAGEURLS.AUTHOR_AVATAR;
   authorDetailsUrl = '/' + RouterUrls.ACCOUNT.BASE_MODULE + '/' + RouterUrls.BIBLIOTEKA.BASE_MODULE + '/' + RouterUrls.BIBLIOTEKA.AUTHORDETAILS;
-  borrowedBookOfUser: BorrowModel;
   thisUserBorrowedThisBook: boolean;
   currentUserName: string;
   currentUserId: number;
@@ -37,6 +36,7 @@ export class BookDetailsComponent implements OnInit {
   bibliotekaAdmin = RolesEnum.PG_BIBLIOTEKA;
   bibliotekaNd = RolesEnum.ND_BIBLIOTEKA;
   currentUserRole: any;
+  dateFormat = GeneralConstant.DATEFORMAT;
 
   constructor(private activeRoute: ActivatedRoute,
               private dialog: MatDialog,
@@ -53,12 +53,6 @@ export class BookDetailsComponent implements OnInit {
     this.currentUserName = this.tokenService.getData().username;
     this.currentUserId = this.tokenService.getData().id;
     this.currentUserRole = this.tokenService.getData().role.name;
-
-    const borrowedLocalStorage = localStorage.getItem(GeneralConstant.LOCALSTORAGE_BORROWED_BOOK);
-
-    if (borrowedLocalStorage) {
-      this.borrowedBookOfUser = JSON.parse(localStorage.getItem(GeneralConstant.LOCALSTORAGE_BORROWED_BOOK));
-    }
   }
 
   getAllComments() {
@@ -169,10 +163,17 @@ export class BookDetailsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(
       result => {
         this.getBorrowedOfUser();
-        if (result.data) {
-          this.borrowedBookOfUser = null;
-        }
       }
+    )
+  }
+
+  extendDeadline() {
+    this.borrowService.extendDeadline(this.borrowedBook).subscribe(
+      () => {
+        this.borrowedBook.extendedDeadline = true;
+        this.snackBar.success("Deadline u shty me sukses");
+      },
+      () => this.snackBar.error("Deadline nuk mund te shtyhet")
     )
   }
 

@@ -1,14 +1,16 @@
-import {Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {BookService} from '../../../../../shared/services/biblioteka/book.service';
-import {BookFormComponent} from "../book-form/book-form.component";
-import {BookBorrowDTO} from "../../../../../shared/models/dto/BookBorrowDTO.model";
-import {AuthorService} from "../../../../../shared/services/biblioteka/author.service";
-import {AuthorModel} from "../../../../../shared/models/book/author.model";
-import {IMAGEURLS} from "../../../../../shared/constants/GeneralConstant";
-import { TokenService } from 'src/app/shared/services/auth/token.service';
-import { RolesEnum } from 'src/app/shared/models/enums/roles.enum';
+import {BookFormComponent} from '../book-form/book-form.component';
+import {BookBorrowDTO} from '../../../../../shared/models/dto/BookBorrowDTO.model';
+import {AuthorService} from '../../../../../shared/services/biblioteka/author.service';
+import {AuthorModel} from '../../../../../shared/models/book/author.model';
+import {TokenService} from 'src/app/shared/services/auth/token.service';
+import {RolesEnum} from 'src/app/shared/models/enums/roles.enum';
 import {BookCategoryEnum} from '../../../../../shared/models/enums/book-category.enum';
+import {finalize} from 'rxjs/operators';
+import {OnscrollService} from '../../../../../shared/services/shared/onscroll.service';
+import {FormControl, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-book-list',
@@ -16,74 +18,88 @@ import {BookCategoryEnum} from '../../../../../shared/models/enums/book-category
   styleUrls: ['./book-list.component.scss']
 })
 export class BookListComponent implements OnInit {
-
   books: BookBorrowDTO[] = [];
   authors: AuthorModel[] = [];
   pageNumber = 0;
-  loading = false;
-  selectedAuthor: string;
-  selectedCategory: string;
+  loading = true;
   listView = false;
-  bookBg = IMAGEURLS.BOOK_BACKGROUND;
   currentUserRole: any;
+
   bibliotekaAdmin = RolesEnum.PG_BIBLIOTEKA;
   bibliotekaNd = RolesEnum.ND_BIBLIOTEKA;
-  searchTitle = '';
+
   bookCategories = [BookCategoryEnum.AKROPOLI, BookCategoryEnum.EF, BookCategoryEnum.K, BookCategoryEnum.ANGLEZE,
     BookCategoryEnum.BIOGRAFI, BookCategoryEnum.FILOZOFIK, BookCategoryEnum.HISTORI, BookCategoryEnum.L_HUAJ, BookCategoryEnum.L_SHQIPE,
     BookCategoryEnum.MITOLOGJI, BookCategoryEnum.PSIKOLOGJIK]
 
-  @ViewChild('cardList') private cardListElement: ElementRef;
+  filterFormGroup: FormGroup;
+  filterFormSubmitted = false;
 
   constructor(private dialog: MatDialog,
               private bookService: BookService,
               private authorService: AuthorService,
+              private onScrollService: OnscrollService,
               private tokenService: TokenService) { }
 
   ngOnInit(): void {
+    this.initFilterForm();
     this.getBooks();
     this.getAuthors();
+    this.listenOnScroll();
     this.currentUserRole = this.tokenService.getData().role.name;
   }
 
+  initFilterForm() {
+    this.filterFormGroup = new FormGroup({
+      category: new FormControl(),
+      authorId: new FormControl(),
+      bookName: new FormControl()
+    });
+  }
+
+  clearFilters() {
+    this.initFilterForm();
+    this.getBooks(false);
+  }
 
   public getBooks(onScroll?: boolean) {
+    this.loading = true
+
     if (onScroll === false) {
       this.pageNumber = 0;
     }
-    this.loading = true;
 
-    this.bookService.getBooks(this.pageNumber, 32, this.searchTitle, this.selectedAuthor, this.selectedCategory).subscribe(
-      result => {
-        this.loading = false;
-        if (onScroll) {
-          this.books = this.books.concat(...result);
-          return;
-        }
-        this.books = result;
-      },
-      error => {
-        console.log(error);
-      }
-    );
-  }
+    let filter;
 
-  titleChanges(event) {
-    this.searchTitle = event.target.value;
-  }
+    if (this.filterFormSubmitted) {
+      filter = this.filterFormGroup.value;
+    }
 
-  categorySelected(event) {
-    this.selectedCategory = event.value;
-    this.pageNumber = 0;
-    this.getBooks(null);
+    setTimeout(() => {
+      this.bookService.getBooks(this.pageNumber, 32, filter)
+        .pipe(finalize(() => {
+          this.loading = false;
+        }))
+        .subscribe(
+          result => {
+            const resultBooks = this.mapResults(result);
+
+            if (onScroll) {
+              this.books = this.books.concat(...resultBooks);
+              return;
+            }
+            this.books = resultBooks;
+          },
+          error => {
+            console.log(error);
+          }
+        );
+    }, 1000);
   }
 
   private getAuthors() {
-    this.loading = true;
-
     this.authorService.getAllAuthors().subscribe(
       result => {
-        this.loading = false;
         this.authors = result;
       },
       error => {
@@ -92,29 +108,45 @@ export class BookListComponent implements OnInit {
     );
   }
 
-  @HostListener('window:scroll', ['$event'])
-  onWindowScroll() {
-    const pos = (document.documentElement.scrollTop || document.body.scrollTop) + document.documentElement.offsetHeight;
-    const max = document.documentElement.scrollHeight;
-
-    if (max - pos < 100 && !this.loading) {
-      this.pageNumber++;
-      this.getBooks(true);
-    }
+  private listenOnScroll() {
+    this.onScrollService.onScrollTrigger().subscribe(
+      result=> {
+        if (result) {
+          this.pageNumber++;
+          this.getBooks(true);
+        }
+      }
+    )
   }
 
   createBook() {
     this.dialog.open(BookFormComponent);
   }
 
-  authorSelected(event) {
-    this.selectedAuthor = event.value;
-    this.pageNumber = 0;
-    this.getBooks(null);
-  }
-
   toogleCheckbox() {
     this.listView = !this.listView;
+  }
+
+  filterBooks() {
+    this.books = [];
+    this.filterFormSubmitted = true;
+    this.getBooks(false);
+  }
+
+  private mapResults(results: any) {
+    return results.map((element) => {
+      const bookBorrowDto = new BookBorrowDTO();
+      bookBorrowDto.id = element[0];
+      bookBorrowDto.name = element[1];
+      bookBorrowDto.category = element[2];
+      bookBorrowDto.publicationYear = element[3]
+      bookBorrowDto.authorFirstName = element[4];
+      bookBorrowDto.authorLastName = element[5];
+      bookBorrowDto.authorId = element[6];
+      bookBorrowDto.borrowStatus = element[7];
+
+      return bookBorrowDto
+    });
   }
 
 }

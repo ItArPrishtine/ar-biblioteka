@@ -10,6 +10,6 @@ export class BookCategoryEnum {
   static readonly L_HUAJ = new BookCategory('Letersi e Huaj', 'L.H');
   static readonly L_SHQIPE = new BookCategory('Letersi Shqipe', 'L.SH');
   static readonly MITOLOGJI = new BookCategory('Mitologji', 'M');
-  static readonly EF = new BookCategory('E.F', 'E.F');
-  static readonly K = new BookCategory('K', 'K');
+  static readonly EF = new BookCategory('Enciklopedi dhe Fjalor', 'E.F');
+  static readonly K = new BookCategory('Konspiracion', 'K');
 }

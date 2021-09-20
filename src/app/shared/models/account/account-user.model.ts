@@ -6,6 +6,7 @@ export class AccountUserModel extends BaseModel {
   email: string;
   firstName: string;
   lastName: string;
+  esign: string;
   dateOfBirth: string;
   description: string;
   role: RoleModel;

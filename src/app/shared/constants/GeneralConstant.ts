@@ -7,6 +7,7 @@ export const GeneralConstant = {
 };
 
 export const IMAGEURLS = {
+  LOADER: environment.baseHref + '/assets/images/eye-loader.gif',
   LOGO: environment.baseHref + '/assets/images/logo.png',
   AVATAR: environment.baseHref + '/assets/images/img_avatar.png',
   AUTHOR_AVATAR: environment.baseHref + '/assets/images/author.png',

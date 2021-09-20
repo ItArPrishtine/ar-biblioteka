@@ -18,12 +18,15 @@ export class HeaderComponent implements OnInit {
   manageBorrowRequest = RouterUrls.BIBLIOTEKA.BASE_MODULE + '/' + RouterUrls.BIBLIOTEKA.BORROW_REQUESTS;
   resetPassword = RouterUrls.ACCOUNT.MANAGE + '/' + RouterUrls.ACCOUNT.RESET_PASSWORD;
   economyUrl = RouterUrls.ECONOMY.BASE_MODULE + "/" + RouterUrls.ECONOMY.PAYMENT;
+  usersUrl = RouterUrls.ACCOUNT.MANAGE + "/" + RouterUrls.ACCOUNT.MANAGEMENT.USERS;
+  profileUrl = RouterUrls.ACCOUNT.MANAGE + "/" + RouterUrls.ACCOUNT.PROFILE;
 
   constructor(private router: Router, private tokenService: TokenService) {
     this.tokenData = tokenService.getData();
   }
 
   ngOnInit(): void {
+    this.profileUrl += `/${this.tokenData.id}`;
   }
 
   logOut() {

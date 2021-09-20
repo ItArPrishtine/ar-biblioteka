@@ -22,6 +22,7 @@ body, html {
   min-height: 100%;
   min-width: 100%;
   background-color: #eee;
+
 }
 
 a {
@@ -60,6 +61,7 @@ body { margin: 0; font-family: 'Poppins', sans-serif; }
       font-size: 12px;
       outline: none;
       padding: 10px 5px;
+      height: 100%;
 
       &:focus {
         border: 1px solid cornflowerblue;

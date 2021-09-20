@@ -1,5 +1,5 @@
-<div class="borrowed" *ngIf="borrowedBookOfUser">
-  <p>Ju vecse e keni huazuar librin {{borrowedBookOfUser.book.name}}, nese doni te huazoni tjetrin duhet ta ktheni kete paraprakisht !</p>
+<div class="borrowed" *ngIf="borrowedBook && borrowedBook.applicationUser.id == currentUserId">
+  <p>Ju tashmë keni huazuar librin {{borrowedBook.book.name}}. Nëse dëshironi të huazoni një libër tjetër, nevojitet ta ktheni këtë paraprakisht.</p>
 </div>
 
 <div class="product-details" *ngIf="book">
@@ -71,17 +71,13 @@
             </div>
           </div>
           <div class="books-action__bottom">
-<!--            <div class="reviews">-->
-<!--              <span class="material-icons checked">star_rate</span>-->
-<!--              <span class="material-icons checked">star_rate</span>-->
-<!--              <span class="material-icons checked">star_rate</span>-->
-<!--              <span class="material-icons">star_rate</span>-->
-<!--              <span class="material-icons">star_rate</span>-->
-<!--            </div>-->
-
             <div class="order">
               <button mat-raised-button color="warn" class="mr-2" *ngIf="thisUserBorrowedThisBook" (click)="returnBook()">Kthe Librin</button>
-              <button mat-raised-button color="accent" [disabled]="borrowedBook != null || borrowedBookOfUser != null" (click)="borrowRequest()">Huazo Librin</button>
+              <button mat-raised-button color="accent" [disabled]="borrowedBook != null" (click)="borrowRequest()">Huazo Librin</button>
+            </div>
+
+            <div>
+              <button mat-raised-button color="accent" class="mr-2" *ngIf="thisUserBorrowedThisBook && !borrowedBook.extendedDeadline" (click)="extendDeadline()">Shtyj Daten e Kthimit</button>
             </div>
           </div>
         </div>

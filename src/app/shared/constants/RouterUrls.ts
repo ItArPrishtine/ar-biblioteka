@@ -7,6 +7,7 @@ export const RouterUrls = {
     BASE_MODULE: 'account',
     MANAGE: 'manage',
     RESET_PASSWORD: 'reset-password',
+    PROFILE: 'profile',
     MANAGEMENT: {
       USERS: 'users',
     }
@@ -15,6 +16,7 @@ export const RouterUrls = {
   ECONOMY: {
     BASE_MODULE: 'economy',
     PAYMENT: 'payment',
+    PAYMENT_VERIFY: 'verify-payment'
   },
 
   BIBLIOTEKA: {

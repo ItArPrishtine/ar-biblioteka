@@ -2,9 +2,7 @@
   <div class="product-card">
     <div class="product-card-image">
       <!--  i huazuar kur e ka vleren 0-->
-      <a routerLink="{{bookDetailsUrl(book.id)}}" class="borrowed" *ngIf="book.borrowStatus == '0'">
-        I Huazuar
-      </a>
+      <a routerLink="{{bookDetailsUrl(book.id)}}" class="borrowed" *ngIf="book.borrowStatus == '0'">I Huazuar</a>
 
       <div class="content-image">
         <a routerLink="{{bookDetailsUrl(book.id)}}">
@@ -13,7 +11,7 @@
           <div class="content-overlay"></div>
 
           <div class="content-details fadeIn-left">
-            <p>Liber Historik</p>
+<!--            <p>Liber Historik</p>-->
           </div>
         </a>
       </div>
@@ -23,9 +21,11 @@
         <a routerLink="{{bookDetailsUrl(book.id)}}">{{book.name}}</a>
       </div>
 
-      <a [routerLink]="authorDetailsUrl(book.authorId)" class="product-author">
-        <p>{{book.authorFirstName + ' ' + book.authorLastName}}</p>
-      </a>
+      <div class="product-author">
+        <a [routerLink]="authorDetailsUrl(book.authorId)">
+          {{book.authorFirstName + ' ' + book.authorLastName}}
+        </a>
+      </div>
 
       <div class="product-price">
         <p>{{book.category}}</p>

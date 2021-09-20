@@ -9,4 +9,5 @@ export class BorrowModel extends BaseModel {
   applicationUser: AccountUserModel;
   book: BookModel;
   borrowStatus: BorrowStatusEnum;
+  extendedDeadline: boolean;
 }

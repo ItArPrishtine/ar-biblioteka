@@ -53,7 +53,6 @@ export class UserCreateUpdateComponent implements OnInit {
       lastName: new FormControl(this.user ? this.user.lastName : '', Validators.required),
       role: new FormControl(this.user && this.user.role ? this.user.role.id.toString() : '', Validators.required),
       dateOfBirth: new FormControl(this.user ? this.user.dateOfBirth : '', Validators.required),
-      description: new FormControl(this.user ? this.user.description : '', Validators.required),
     });
   }
 
@@ -72,7 +71,6 @@ export class UserCreateUpdateComponent implements OnInit {
     this.user.firstName = values.firstName;
     this.user.lastName = values.lastName;
     this.user.dateOfBirth = values.dateOfBirth;
-    this.user.description = values.description;
     this.user.role = role;
 
     if (!this.user.id) {

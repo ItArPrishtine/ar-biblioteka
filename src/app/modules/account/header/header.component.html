@@ -2,7 +2,7 @@
 
   <div class="left-side">
     <div class="logo-plc">
-      <a href="#">
+      <a routerLink="/">
         <img src="{{logoUrl}}" />
       </a>
     </div>
@@ -10,12 +10,14 @@
 
   <div class="right-side">
     <nav>
+      <a routerLink="{{usersUrl}}">Lista e Userëve</a>
+
       <a routerLink="{{economyUrl}}">Ekonomia</a>
 
       <a [matMenuTriggerFor]="bibliotekaMenu">Bilbioteka</a>
       <mat-menu #bibliotekaMenu="matMenu">
-        <button mat-menu-item routerLink="{{authorsUrl}}">Autoret</button>
         <button mat-menu-item routerLink="{{booksUrl}}">Librat</button>
+        <button mat-menu-item routerLink="{{authorsUrl}}">Autorët</button>
         <button mat-menu-item routerLink="{{manageBorrowRequest}}">Lista e Huazimeve</button>
       </mat-menu>
     </nav>
@@ -26,7 +28,8 @@
         <div class="image" [matMenuTriggerFor]="menu"  [ngStyle]="{ 'background-image': 'url(' + avatarUrl + ')'}"></div>
       </div>
       <mat-menu #menu="matMenu">
-        <button [routerLink]="resetPassword" mat-menu-item>Ndrysho Passwordin</button>
+        <button [routerLink]="resetPassword" mat-menu-item>Ndrysho Fjalëkalimin</button>
+        <button [routerLink]="profileUrl" mat-menu-item>Profili Juaj</button>
         <button mat-menu-item (click)="logOut()">Dil</button>
       </mat-menu>
     </div>

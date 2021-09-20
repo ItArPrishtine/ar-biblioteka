@@ -3,6 +3,8 @@ import {Routes, RouterModule} from '@angular/router';
 import {RouterUrls} from '../../../shared/constants/RouterUrls';
 import {EconomyComponent} from '../economy/economy.component';
 import { PaymentListComponent } from './payment-list/payment-list.component';
+import {PaymentDetailsComponent} from './payment-details/payment-details.component';
+import {PaymentVerificationComponent} from './payment-verification/payment-verification.component';
 
 const routes: Routes = [
   {
@@ -17,6 +19,14 @@ const routes: Routes = [
       {
         path: RouterUrls.ECONOMY.PAYMENT,
         component: PaymentListComponent
+      },
+      {
+        path: RouterUrls.ECONOMY.PAYMENT + '/:id',
+        component: PaymentDetailsComponent
+      },
+      {
+        path: RouterUrls.ECONOMY.PAYMENT_VERIFY + '/:id',
+        component: PaymentVerificationComponent
       },
     ]
   },
