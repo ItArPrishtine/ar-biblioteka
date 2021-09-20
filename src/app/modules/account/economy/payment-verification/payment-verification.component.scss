@@ -1,0 +1,46 @@
+:host {
+  display: flex;
+  flex: 1;
+}
+
+.title {
+  padding-bottom: 30px;
+}
+
+.payment-details {
+  width: 500px;
+  background-color: #fff;
+  border-radius: 5px;
+  margin: 40px auto;
+  padding: 30px;
+}
+
+.data {
+  display: flex;
+
+  p:last-of-type {
+    font-weight: 500;
+    margin-left: 15px;
+  }
+
+  &-img {
+    display: block;
+    margin-top: 30px;
+
+    p:last-of-type {
+      margin: 0;
+    }
+
+    img {
+      height: 80px;
+      width: 200px;
+      border: 1px dashed #dbdbdb;
+    }
+  }
+}
+
+.save {
+  padding: 30px;
+  width: 100%;
+  text-align: center;
+}

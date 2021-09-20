@@ -1,0 +1,44 @@
+<div class="payment-details" *ngIf="payment">
+  <div class="title">
+    <p>Detajet e pageses</p>
+    <button mat-raised-button color="accent" (click)="navigateToVerification(payment.id)">Verifiko Pagesen</button>
+  </div>
+
+  <div class="data">
+    <p>Emri dhe Mbiemri:</p>
+    <p>{{payment.applicationUser.firstName}} {{payment.applicationUser.lastName}}</p>
+  </div>
+
+  <div class="data">
+    <p>Data e Pageses:</p>
+    <p>{{payment.paymentDate | date: dateFormat}}</p>
+  </div>
+
+  <div class="data">
+    <p>Muaji i Paguar:</p>
+    <p>{{payment.payedMonth | titlecase}}</p>
+  </div>
+
+  <div class="data">
+    <p>Pershkrimi:</p>
+    <p>{{payment.description}}</p>
+  </div>
+
+  <div class="data">
+    <p>Shuma:</p>
+    <p>{{payment.price}} €</p>
+  </div>
+
+  <div class="signs">
+    <div class="data data-img" *ngIf="payment.verifiedFromUser">
+      <img [src]="payment.applicationUser.esign" />
+      <p>Nenshkrimi i Pergjegjesit</p>
+    </div>
+
+    <div class="data data-img" *ngIf="payment.verifiedFromUser">
+      <img [src]="payment.applicationUser.esign" />
+      <p>Nenshkrimi i anetarit</p>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,49 @@
+<div class="payment-details" *ngIf="payment">
+  <div class="title">
+    Detajet e pageses
+  </div>
+
+  <div class="data">
+    <p>Emri dhe Mbiemri:</p>
+    <p>{{payment.applicationUser.firstName}} {{payment.applicationUser.lastName}}</p>
+  </div>
+
+  <div class="data">
+    <p>Lloji i dhurimit:</p>
+    <p>{{payment.paymentType | titlecase}}</p>
+  </div>
+
+  <div class="data">
+    <p>Data e Pageses:</p>
+    <p>{{payment.paymentDate | date: dateFormat}}</p>
+  </div>
+
+  <div class="data" *ngIf="payment.paymentType === mujore">
+    <p>Muaji i Paguar:</p>
+    <p>{{payment.payedMonth}}</p>
+  </div>
+
+  <div class="data">
+    <p>Pershkrimi:</p>
+    <p>{{payment.description}}</p>
+  </div>
+
+  <div class="data">
+    <p>Shuma:</p>
+    <p>{{payment.price}} €</p>
+  </div>
+
+  <div class="data data-img" *ngIf="signed">
+    <img [src]="user.esign" />
+    <p>Nenshkrimi i anetarit</p>
+  </div>
+
+  <div class="data data-img">
+    <mat-checkbox [disabled]="payment.verifiedFromUser" (change)="clickedCheckbox($event)">Nenshkruaj Pagesen</mat-checkbox>
+  </div>
+
+  <div class="save">
+    <button mat-raised-button color="primary" [disabled]="!signed || payment.verifiedFromUser" (click)="savePayment()">Ruaj</button>
+  </div>
+
+</div>

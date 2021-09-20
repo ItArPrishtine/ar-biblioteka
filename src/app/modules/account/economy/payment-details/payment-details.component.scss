@@ -1,0 +1,53 @@
+:host {
+  display: flex;
+  flex: 1;
+}
+
+.title {
+  padding-bottom: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  p {
+    font-size: 18px;
+    font-weight: 500;
+  }
+}
+
+.signs {
+  display: flex;
+  justify-content: space-between;
+}
+
+.payment-details {
+  width: 500px;
+  background-color: #fff;
+  border-radius: 5px;
+  margin: 40px auto;
+  padding: 30px;
+}
+
+.data {
+  display: flex;
+
+  p:last-of-type {
+    font-weight: 500;
+    margin-left: 15px;
+  }
+
+  &-img {
+    display: block;
+    margin-top: 30px;
+
+    p:last-of-type {
+      margin: 0;
+    }
+
+    img {
+      height: 80px;
+      width: 200px;
+      border: 1px dashed #dbdbdb;
+    }
+  }
+}
