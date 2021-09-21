@@ -23,12 +23,19 @@ public class PaymentController {
 
     @PostMapping("/")
     public Payment createPayment(@RequestBody Payment payment) {
-        return this.paymentService.createPayment(payment);
+        Payment responsePayment = null;
+        try {
+            responsePayment = this.paymentService.createPayment(payment);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return responsePayment;
     }
 
     @GetMapping("/")
-    public List<Payment> getPayments(@RequestParam(required = false, defaultValue = "0") Long userId) {
-        return this.paymentService.getPayments(userId);
+    public List<Payment> getPayments() {
+        return this.paymentService.getPayments();
     }
 
     @PutMapping("/")
@@ -36,11 +43,16 @@ public class PaymentController {
         return this.paymentService.updatePayment(payment);
     }
 
+
+    @PutMapping("/verify")
+    public Payment verifyPayment(@RequestBody Long payment) {
+        return this.paymentService.verifyPayment(payment);
+    }
+
     @DeleteMapping("/{id}")
     public void deletePayment(@PathVariable Long id) {
         this.paymentService.deletePayment(id);
     }
-
 
     @GetMapping("/{id}")
     public Optional<Payment> getPaymentDetails(@PathVariable Long id) {

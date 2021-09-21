@@ -59,9 +59,7 @@ public class AuthenticationController {
                     username,
                     authenticationRequest.getPassword());
 
-            Borrow borrow = borrowService.getBorrowedBookOfUser(user);
-
-            final String token = jwtTokenUtil.generateToken(user, borrow);
+            final String token = jwtTokenUtil.generateToken(user);
 
             return ResponseEntity.ok(new JwtResponse(token));
         } catch (Exception e) {

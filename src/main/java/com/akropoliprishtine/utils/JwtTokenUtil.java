@@ -34,26 +34,32 @@ public class JwtTokenUtil implements Serializable {
         return getClaimFromToken(token, Claims::getExpiration);
     }
 
+
     public <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = getAllClaimsFromToken(token);
         return claimsResolver.apply(claims);
     }
 
-    private Claims getAllClaimsFromToken(String token) {
+    public Claims getAllClaimsFromToken(String token) {
         return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
     }
 
-    private Boolean isTokenExpired(String token) {
+    public Boolean isTokenExpired(String token) {
         final Date expiration = getExpirationDateFromToken(token);
         return expiration.before(new Date());
     }
 
-    public String generateToken(ApplicationUser user, Borrow borrow) {
+    public String generateToken(ApplicationUser user) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("username", user.getUsername());
         claims.put("id", user.getId());
         claims.put("role", user.getRole());
-        claims.put("borrow", borrow);
+        return doGenerateToken(claims, user.getUsername());
+    }
+
+    public String generateTokenForEmail(ApplicationUser user) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("id", user.getId());
         return doGenerateToken(claims, user.getUsername());
     }
 

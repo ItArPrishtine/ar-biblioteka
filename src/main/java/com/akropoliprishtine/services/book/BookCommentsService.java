@@ -1,8 +1,10 @@
 package com.akropoliprishtine.services.book;
 
+import com.akropoliprishtine.entities.ApplicationUser;
 import com.akropoliprishtine.entities.book.Book;
 import com.akropoliprishtine.entities.book.BookComment;
 import com.akropoliprishtine.repositories.book.BookCommentsRepository;
+import com.akropoliprishtine.services.JwtUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -17,6 +19,9 @@ public class BookCommentsService {
     @Autowired
     BookService bookService;
 
+    @Autowired
+    JwtUserDetailsService jwtUserDetailsService;
+
     public BookCommentsService(BookCommentsRepository bookCommentsRepository,
                                BookService bookService) {
         this.bookCommentsRepository = bookCommentsRepository;
@@ -24,6 +29,8 @@ public class BookCommentsService {
     }
 
     public BookComment addComment(BookComment comment) {
+        ApplicationUser user = jwtUserDetailsService.getUserFromToken();
+        comment.setApplicationUser(user);
         return this.bookCommentsRepository.save(comment);
     }
 

@@ -3,22 +3,19 @@ package com.akropoliprishtine;
 import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import com.sendinblue.Sendinblue;
-import lombok.Value;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
 import java.io.IOException;
-
 
 @SpringBootApplication
 @EnableConfigurationProperties
+@EnableScheduling
 @EntityScan({"com.akropoliprishtine.entities"})
 public class AkropoliPrishtineApplication {
 
@@ -39,5 +36,4 @@ public class AkropoliPrishtineApplication {
 				.withRegion("eu-central-1")
 				.build();
 	}
-
 }

@@ -2,6 +2,9 @@ package com.akropoliprishtine.entities.economy;
 
 import com.akropoliprishtine.entities.ApplicationUser;
 import com.akropoliprishtine.entities.BaseEntity;
+import com.akropoliprishtine.enums.PayedMonth;
+import com.akropoliprishtine.enums.PayedYear;
+import com.akropoliprishtine.enums.PaymentType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,12 +27,27 @@ public class Payment extends BaseEntity {
     @Column(nullable = false)
     private Date paymentDate;
 
+    @Column(nullable = true)
+    @Enumerated(EnumType.STRING)
+    private PayedMonth payedMonth;
+
+    @Column(nullable = true)
+    @Enumerated(EnumType.STRING)
+    private PayedYear payedYear;
+
     @Column(nullable = false)
-    private Date payedMonth;
+    @Enumerated(EnumType.STRING)
+    private PaymentType paymentType;
 
     @Column(nullable = false)
     private Integer price;
 
     @Column(nullable = true)
     private String description;
+
+    @Column(nullable = true)
+    private Boolean verifiedFromUser;
+
+    @Column(nullable = true)
+    private Boolean verifiedFromEconomy;
 }

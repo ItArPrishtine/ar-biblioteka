@@ -7,20 +7,25 @@ server:
   port: 8080
 
 spring:
+  freemarker:
+    suffix: .ftlh
+    settings:
+      recognize_standard_file_extensions: true
   sendgrid:
-    api-key: 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
+    api-key: SG.7kYqpyobR5GWd75-ooXWrQ.yQg7jJ7YN5-xgIkBYicSEhobErpYdmYdJQkzEDitp3Q
+  #    password: itArPrishtineagon
   jpa:
     properties.hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
     generate-ddl: true
     hibernate:
       ddl-auto: update
   datasource:
-    url: "jdbc:postgresql://ec2-54-217-236-206.eu-west-1.compute.amazonaws.com/dacdcj35ed6ko"
-    username: "xsgaqzizelklnz"
-    password: "a453a2ec428c5c949f004563556e70a5ce4fc5d736d474edfb458a1cdbc43a42"
-#    url: "jdbc:postgresql://localhost:5433/ar"
-#    username: "it"
-#    password: "password"
+#    url: "jdbc:postgresql://ec2-54-217-236-206.eu-west-1.compute.amazonaws.com/dacdcj35ed6ko"
+#    username: "xsgaqzizelklnz"
+#    password: "a453a2ec428c5c949f004563556e70a5ce4fc5d736d474edfb458a1cdbc43a42"
+    url: "jdbc:postgresql://localhost:5433/ar"
+    username: "it"
+    password: "password"
     driverClassName: org.postgresql.Driver
     initialization-mode: always
   flyway:
@@ -32,17 +37,11 @@ spring:
 #    url: "jdbc:postgresql://localhost:5433/ar"
 #    username: "it"
 #    password: "password"
-  mail:
-    host: "email-smtp.us-west-2.amazonaws.com"
-    username: "it.arprishtine@gmail.com"
-    password: "itPrishtine1!"
-    transport:
-      protocol: smtp
-      port: 25
-      auth: true
-      starttls:
-        enable: true
-        required: true
+
+
+links:
+  webapp_base: "https://arsekretarite.com/"
+  book_details: "https://arsekretarite.com/account/biblioteka/book-details/"
 
 #AWS properties
 amazonProperties:
@@ -52,6 +51,7 @@ amazonProperties:
   bucketName: "ar-prishtine"
 
 app.awsServices.bucketName: "ar-prishtine"
+
 cloud:
   aws:
     stack.auto: false
