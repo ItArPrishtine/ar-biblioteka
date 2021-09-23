@@ -1,3 +1,4 @@
+INSERT INTO account_roles(name, description) VALUES ('ADMIN', 'Admin') ON CONFLICT DO NOTHING;
 INSERT INTO account_roles(name, description) VALUES ('KF', 'Kryetari/ja i/e Filialit') ON CONFLICT DO NOTHING;
 
 INSERT INTO account_roles(name, description) VALUES ('PGS PISHTARI', 'Pergjegjes/e ne grup seketarine Pishtari') ON CONFLICT DO NOTHING;
