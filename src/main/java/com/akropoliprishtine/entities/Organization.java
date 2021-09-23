@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Setter
 @Entity(name = "account_organization")
 @Table(name = "account_organization")
-public class Organization {
+public class Organization extends Auditable<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

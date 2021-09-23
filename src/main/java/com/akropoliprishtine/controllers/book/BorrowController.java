@@ -35,6 +35,11 @@ public class BorrowController {
         return this.borrowService.borrowExist(borrow);
     }
 
+    @GetMapping("/check_user_borrow")
+    public Borrow borrowExist() {
+        return this.borrowService.checkIfUserHasAnyBorrow();
+    }
+
     @PostMapping("/extend-deadline/{borrowId}")
     public void extendDeadline(@PathVariable Long borrowId) {
         this.borrowService.extendDeadline(borrowId);

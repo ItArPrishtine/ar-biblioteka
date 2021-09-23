@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "account_roles")
-public class Role {
+public class Role extends Auditable<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -119,6 +119,17 @@ public class BorrowService {
         }
     }
 
+    public Borrow checkIfUserHasAnyBorrow() {
+        ApplicationUser user = jwtUserDetailsService.getUserFromToken();
+
+        List<Borrow> borrowList = this.borrowRepository.findBorrowByApplicationUserAndBorrowStatus(user, BorrowStatus.BORROWED);
+        if (borrowList.size() != 0) {
+            return borrowList.get(0);
+        } else {
+            return null;
+        }
+    }
+
     @Scheduled(cron = "0 0 12 * * *")
     public void scheduleTaskUsingCronExpression() {
 

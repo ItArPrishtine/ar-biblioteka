@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Setter
 @Entity(name = "account_users")
 @Table(name = "account_users")
-public class ApplicationUser {
+public class ApplicationUser extends Auditable<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

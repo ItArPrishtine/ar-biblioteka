@@ -1,6 +1,7 @@
 package com.akropoliprishtine.entities.book;
 
 import com.akropoliprishtine.entities.ApplicationUser;
+import com.akropoliprishtine.entities.Auditable;
 import com.akropoliprishtine.enums.BorrowStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
@@ -13,7 +14,7 @@ import java.util.Date;
 @Setter
 @Entity(name="book_borrow")
 @Table(name = "book_borrow")
-public class Borrow {
+public class Borrow extends Auditable<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

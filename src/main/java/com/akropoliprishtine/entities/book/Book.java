@@ -1,6 +1,7 @@
 package com.akropoliprishtine.entities.book;
 
 
+import com.akropoliprishtine.entities.Auditable;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,7 +11,7 @@ import javax.persistence.*;
 @Setter
 @Entity(name="book_book")
 @Table(name = "book_book", uniqueConstraints = @UniqueConstraint(columnNames = {"name", "category"}))
-public class Book {
+public class Book extends Auditable<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

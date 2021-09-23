@@ -1,7 +1,7 @@
 package com.akropoliprishtine.entities.economy;
 
 import com.akropoliprishtine.entities.ApplicationUser;
-import com.akropoliprishtine.entities.BaseEntity;
+import com.akropoliprishtine.entities.Auditable;
 import com.akropoliprishtine.enums.PayedMonth;
 import com.akropoliprishtine.enums.PayedYear;
 import com.akropoliprishtine.enums.PaymentType;
@@ -15,7 +15,7 @@ import java.util.Date;
 @Table(name = "economy_payment")
 @Getter
 @Setter
-public class Payment extends BaseEntity {
+public class Payment extends Auditable<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

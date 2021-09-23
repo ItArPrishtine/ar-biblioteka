@@ -624,6 +624,8 @@
                                                                     <li>password: <strong>password</strong></li>
                                                                 </ul>
 
+                                                                <h3><span style="font-size:14px; color: #444444">Rekomandohet të ndryshoni password-in menjëherë pasi te kyçeni në aplikacion</span></h3>
+
                                                             </td>
                                                         </tr>
                                                         </tbody></table>

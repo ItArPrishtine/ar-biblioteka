@@ -1,6 +1,7 @@
 package com.akropoliprishtine.entities.book;
 
 import com.akropoliprishtine.entities.ApplicationUser;
+import com.akropoliprishtine.entities.Auditable;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,7 +11,7 @@ import javax.persistence.*;
 @Table(name = "book_comment")
 @Getter
 @Setter
-public class BookComment {
+public class BookComment extends Auditable<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
