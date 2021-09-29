@@ -149,8 +149,10 @@ public class BorrowService {
             long milli = borrowedUntil.getTime() - currentDate.getTime();
             long daysLeft = (milli / (60*60*24*1000));
 
+            this.emailService.sendEmailForBorrowDeadline(item, daysLeft, true);
+
             if (daysLeft == 2 || daysLeft == 0) {
-                this.emailService.sendEmailForBorrowDeadline(item, daysLeft);
+                this.emailService.sendEmailForBorrowDeadline(item, daysLeft, false);
             }
         });
     }
