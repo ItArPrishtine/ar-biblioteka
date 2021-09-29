@@ -2,6 +2,7 @@ package com.akropoliprishtine.services.book;
 
 import com.akropoliprishtine.entities.ApplicationUser;
 import com.akropoliprishtine.entities.Role;
+import com.akropoliprishtine.entities.book.Book;
 import com.akropoliprishtine.entities.book.Borrow;
 import com.akropoliprishtine.enums.BorrowStatus;
 import com.akropoliprishtine.repositories.RoleRepository;
@@ -47,18 +48,21 @@ public class BorrowService {
     @Autowired
     EmailService emailService;
 
-    GeneralUtils generalUtils;
+    @Autowired
+    BookService bookService;
 
     public BorrowService(BorrowRepository borrowRepository,
                          ApplicationUserService userService,
                          JwtUserDetailsService jwtUserDetailsService,
                          RoleRepository roleRepository,
-                         UserRepository userRepository) {
+                         UserRepository userRepository,
+                         BookService bookService) {
         this.borrowRepository = borrowRepository;
         this.userService = userService;
         this.jwtUserDetailsService = jwtUserDetailsService;
         this.roleRepository = roleRepository;
         this.userRepository = userRepository;
+        this.bookService = bookService;
     }
 
     public List<Borrow> getAll(BorrowStatus status) {
@@ -168,5 +172,36 @@ public class BorrowService {
         borrow.setBorrowUntil(addedDate);
 
         borrowRepository.save(borrow);
+    }
+
+
+    public Borrow bookBorrowed(Long bookId) {
+        Optional<Book> book = bookService.getBooksById(bookId);
+        if (!book.isPresent()) {
+            return null;
+        }
+
+        List<Borrow> borrowList = borrowRepository.findBorrowByBookAndBorrowStatus(book.get(), BorrowStatus.BORROWED);
+
+        if (borrowList.size() != 0) {
+            return borrowList.get(0);
+        } else {
+            return null;
+        }
+    }
+
+    public Borrow getCurrentUserBorrow(Long userId) {
+        Optional<ApplicationUser> user = userService.getUserById(userId);
+        if (!user.isPresent()) {
+            return null;
+        }
+
+        List<Borrow> borrowList = borrowRepository.findBorrowByApplicationUserAndBorrowStatus(user.get(), BorrowStatus.BORROWED);
+
+        if (borrowList.size() != 0) {
+            return borrowList.get(0);
+        } else {
+            return null;
+        }
     }
 }
