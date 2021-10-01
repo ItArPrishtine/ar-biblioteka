@@ -134,7 +134,7 @@ public class BorrowService {
         }
     }
 
-    @Scheduled(cron = "0 0 12 * * *")
+    @Scheduled(cron = "0 15 11 * * ? *")
     public void scheduleTaskUsingCronExpression() {
 
         long now = System.currentTimeMillis() / 1000;
