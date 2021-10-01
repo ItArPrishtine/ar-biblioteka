@@ -30,14 +30,14 @@ public class BorrowController {
         return this.borrowService.returnBorrow(borrow);
     }
 
-    @PostMapping("/user_borrow_exist")
-    public Borrow borrowExist(@RequestBody Borrow borrow) {
-        return this.borrowService.borrowExist(borrow);
+    @GetMapping("/borrowed/{bookId}")
+    public Borrow getBookBorrowed(@PathVariable Long bookId) {
+        return this.borrowService.bookBorrowed(bookId);
     }
 
-    @GetMapping("/check_user_borrow")
-    public Borrow borrowExist() {
-        return this.borrowService.checkIfUserHasAnyBorrow();
+    @GetMapping("/user_current_borros/{userId}")
+    public Borrow getCurrentUserBorrow(@PathVariable Long userId) {
+        return this.borrowService.getCurrentUserBorrow(userId);
     }
 
     @PostMapping("/extend-deadline/{borrowId}")

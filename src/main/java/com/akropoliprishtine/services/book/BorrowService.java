@@ -2,6 +2,7 @@ package com.akropoliprishtine.services.book;
 
 import com.akropoliprishtine.entities.ApplicationUser;
 import com.akropoliprishtine.entities.Role;
+import com.akropoliprishtine.entities.book.Book;
 import com.akropoliprishtine.entities.book.Borrow;
 import com.akropoliprishtine.enums.BorrowStatus;
 import com.akropoliprishtine.repositories.RoleRepository;
@@ -47,18 +48,21 @@ public class BorrowService {
     @Autowired
     EmailService emailService;
 
-    GeneralUtils generalUtils;
+    @Autowired
+    BookService bookService;
 
     public BorrowService(BorrowRepository borrowRepository,
                          ApplicationUserService userService,
                          JwtUserDetailsService jwtUserDetailsService,
                          RoleRepository roleRepository,
-                         UserRepository userRepository) {
+                         UserRepository userRepository,
+                         BookService bookService) {
         this.borrowRepository = borrowRepository;
         this.userService = userService;
         this.jwtUserDetailsService = jwtUserDetailsService;
         this.roleRepository = roleRepository;
         this.userRepository = userRepository;
+        this.bookService = bookService;
     }
 
     public List<Borrow> getAll(BorrowStatus status) {
@@ -130,7 +134,7 @@ public class BorrowService {
         }
     }
 
-    @Scheduled(cron = "0 0 12 * * *")
+    @Scheduled(cron = "0 15 11 * * ? *")
     public void scheduleTaskUsingCronExpression() {
 
         long now = System.currentTimeMillis() / 1000;
@@ -145,8 +149,10 @@ public class BorrowService {
             long milli = borrowedUntil.getTime() - currentDate.getTime();
             long daysLeft = (milli / (60*60*24*1000));
 
+            this.emailService.sendEmailForBorrowDeadline(item, daysLeft, true);
+
             if (daysLeft == 2 || daysLeft == 0) {
-                this.emailService.sendEmailForBorrowDeadline(item, daysLeft);
+                this.emailService.sendEmailForBorrowDeadline(item, daysLeft, false);
             }
         });
     }
@@ -168,5 +174,36 @@ public class BorrowService {
         borrow.setBorrowUntil(addedDate);
 
         borrowRepository.save(borrow);
+    }
+
+
+    public Borrow bookBorrowed(Long bookId) {
+        Optional<Book> book = bookService.getBooksById(bookId);
+        if (!book.isPresent()) {
+            return null;
+        }
+
+        List<Borrow> borrowList = borrowRepository.findBorrowByBookAndBorrowStatus(book.get(), BorrowStatus.BORROWED);
+
+        if (borrowList.size() != 0) {
+            return borrowList.get(0);
+        } else {
+            return null;
+        }
+    }
+
+    public Borrow getCurrentUserBorrow(Long userId) {
+        Optional<ApplicationUser> user = userService.getUserById(userId);
+        if (!user.isPresent()) {
+            return null;
+        }
+
+        List<Borrow> borrowList = borrowRepository.findBorrowByApplicationUserAndBorrowStatus(user.get(), BorrowStatus.BORROWED);
+
+        if (borrowList.size() != 0) {
+            return borrowList.get(0);
+        } else {
+            return null;
+        }
     }
 }

@@ -97,7 +97,7 @@ public class EmailService {
         sendGridService.sendEmailWithSendGrid(subject, "agonhaxhani83@gmail.com", templateData, templateUrl);
     }
 
-    public void sendEmailForBorrowDeadline(Borrow borrow, long daysLeft) {
+    public void sendEmailForBorrowDeadline(Borrow borrow, long daysLeft, boolean sendToAgon) {
         final String subject = "Deadline-i per kthimin e librit";
         final String templateUrl = "templates/mail/deadline-reminders.ftl";
 
@@ -108,6 +108,10 @@ public class EmailService {
 //        templateData.put("url", "https://arsekretarite.com/account/economy/verify-payment/" + payment.getId());
 
 
-        sendGridService.sendEmailWithSendGrid(subject, "agonhaxhani83@gmail.com", templateData, templateUrl);
+        if (sendToAgon) {
+            sendGridService.sendEmailWithSendGrid(subject, "agonhaxhani83@gmail.com", templateData, templateUrl);
+        } else {
+            sendGridService.sendEmailWithSendGrid(subject, borrow.getApplicationUser().getEmail(), templateData, templateUrl);
+        }
     }
 }
