@@ -27,15 +27,15 @@ public class Borrow extends Auditable<Long> {
     private Book book;
 
     @Column(nullable = false)
-    @JsonFormat(pattern = "dd/MM/yy")
+    @JsonFormat(pattern = "dd/MMM/yyyy")
     private Date borrowFrom;
 
     @Column(nullable = false)
-    @JsonFormat(pattern = "dd/MM/yy")
+    @JsonFormat(pattern = "dd/MMM/yyyy")
     private Date borrowUntil;
 
     @Column(nullable = true)
-    @JsonFormat(pattern = "dd/MM/yy")
+    @JsonFormat(pattern = "dd/MMM/yyyy")
     private Date returnedDate;
 
     @Column(nullable = false)
