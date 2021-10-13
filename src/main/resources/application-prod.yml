@@ -15,3 +15,6 @@ spring:
     user: "xsgaqzizelklnz"
     password: "a453a2ec428c5c949f004563556e70a5ce4fc5d736d474edfb458a1cdbc43a42"
 
+jwt:
+  secret: arPrishtinePr0D2021
+  expiration: 24
