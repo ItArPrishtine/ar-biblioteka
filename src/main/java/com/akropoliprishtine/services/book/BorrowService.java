@@ -22,10 +22,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class BorrowService {
@@ -114,26 +111,6 @@ public class BorrowService {
         return borrowRepository.save(borrow);
     }
 
-    public Borrow borrowExist(Borrow borrow) {
-        List<Borrow> borrowList = this.borrowRepository.findBorrowByBookAndBorrowStatus(borrow.getBook(), BorrowStatus.BORROWED);
-        if (borrowList.size() != 0) {
-            return borrowList.get(0);
-        } else {
-            return null;
-        }
-    }
-
-    public Borrow checkIfUserHasAnyBorrow() {
-        ApplicationUser user = jwtUserDetailsService.getUserFromToken();
-
-        List<Borrow> borrowList = this.borrowRepository.findBorrowByApplicationUserAndBorrowStatus(user, BorrowStatus.BORROWED);
-        if (borrowList.size() != 0) {
-            return borrowList.get(0);
-        } else {
-            return null;
-        }
-    }
-
     @Scheduled(cron = "0 0 12 * * *")
     public void scheduleTaskUsingCronExpression() {
 
@@ -157,10 +134,10 @@ public class BorrowService {
         });
     }
 
-    public void extendDeadline(Long borrowId) {
-        Borrow borrow = borrowRepository.getOne(borrowId);
+    public Borrow extendDeadline(Long borrowId) {
+        Optional<Borrow> borrow = borrowRepository.findById(borrowId);
 
-        if (borrow.getExtendedDeadline()) {
+        if (borrow.get().getExtendedDeadline()) {
             try {
                 throw new Exception("Deadline cannot be extended two times !");
             } catch (Exception e) {
@@ -168,12 +145,22 @@ public class BorrowService {
             }
         }
 
-        Date addedDate = GeneralUtils.addDaysToDate(borrow.getBorrowUntil(), 7);
+        ApplicationUser userExtending = jwtUserDetailsService.getUserFromToken();
 
-        borrow.setExtendedDeadline(true);
-        borrow.setBorrowUntil(addedDate);
+        if (!Objects.equals(borrow.get().getApplicationUser().getId(), userExtending.getId())) {
+            try {
+                throw new Exception("Nuk mund te shtyni deadline-in e dikujt tjeter!");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
-        borrowRepository.save(borrow);
+        Date addedDate = GeneralUtils.addDaysToDate(borrow.get().getBorrowUntil(), 7);
+
+        borrow.get().setExtendedDeadline(true);
+        borrow.get().setBorrowUntil(addedDate);
+
+        return borrowRepository.save(borrow.get());
     }
 
 

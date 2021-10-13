@@ -1,0 +1,17 @@
+spring:
+  sendgrid:
+    api-key: SG.7kYqpyobR5GWd75-ooXWrQ.yQg7jJ7YN5-xgIkBYicSEhobErpYdmYdJQkzEDitp3Q
+  #    password: itArPrishtineagon
+  datasource:
+    url: "jdbc:postgresql://localhost:5433/ar"
+    username: "it"
+    password: "password"
+    driverClassName: org.postgresql.Driver
+    initialization-mode: always
+  flyway:
+    baselineOnMigrate: true
+    enabled: false
+    url: "jdbc:postgresql://localhost:5433/ar"
+    user: "it"
+    password: "password"
+

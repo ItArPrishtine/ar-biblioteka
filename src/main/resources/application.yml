@@ -7,38 +7,18 @@ server:
   port: 8080
 
 spring:
+  profiles:
+    active: dev
   freemarker:
     suffix: .ftlh
     settings:
       recognize_standard_file_extensions: true
-  sendgrid:
-    api-key: SG.7kYqpyobR5GWd75-ooXWrQ.yQg7jJ7YN5-xgIkBYicSEhobErpYdmYdJQkzEDitp3Q
   #    password: itArPrishtineagon
   jpa:
     properties.hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
     generate-ddl: true
     hibernate:
       ddl-auto: update
-  datasource:
-    url: "jdbc:postgresql://ec2-54-217-236-206.eu-west-1.compute.amazonaws.com/dacdcj35ed6ko"
-    username: "xsgaqzizelklnz"
-    password: "a453a2ec428c5c949f004563556e70a5ce4fc5d736d474edfb458a1cdbc43a42"
-#    url: "jdbc:postgresql://localhost:5433/ar"
-#    username: "it"
-#    password: "password"
-    driverClassName: org.postgresql.Driver
-    initialization-mode: always
-  flyway:
-    baselineOnMigrate: true
-    enabled: false
-    url: "jdbc:postgresql://ec2-54-217-236-206.eu-west-1.compute.amazonaws.com/dacdcj35ed6ko"
-    user: "xsgaqzizelklnz"
-    password: "a453a2ec428c5c949f004563556e70a5ce4fc5d736d474edfb458a1cdbc43a42"
-
-#    url: "jdbc:postgresql://localhost:5433/ar"
-#    username: "it"
-#    password: "password"
-
 
 links:
   webapp_base: "https://arsekretarite.com/"
@@ -63,36 +43,6 @@ cloud:
 
 jwt:
   secret: javainuse
-#  jwt expiration in hours
   expiration: 24
-#  spring.mail.host=email-smtp.us-west-2.amazonaws.com
-#  spring.mail.username=username
-#  spring.mail.password=password
-#  spring.mail.properties.mail.transport.protocol=smtp
-#  spring.mail.properties.mail.smtp.port=25
-#  spring.mail.properties.mail.smtp.auth=true
-#  spring.mail.properties.mail.smtp.starttls.enable=true
-#  spring.mail.properties.mail.smtp.starttls.required=true
-
-#jwt.secret: javainuse
-#jwt.expiration: 5 * 60 * 60
-
-#
-#
-#  spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.PostgreSQLDialect
-#  spring.jpa.hibernate.ddl-auto=update
-#  spring.datasource.url=jdbc:postgresql://localhost:5432/test
-#  spring.datasource.username=testuser
-#  spring.datasource.password=testuser
-#  spring.datasource.initialization-mode=always
-#  spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation=true
-#  server.servlet.context-path=/api
-#  jwt.secret=javainuse
-#  spring.flyway.baselineOnMigrate = true
-#  spring.flyway.enabled=false
-#
-#spring.flyway.url: "jdbc:postgresql://localhost:5432/test"
-#spring.flyway.user: testuser
-#spring.flyway.password: testuser
 
 
