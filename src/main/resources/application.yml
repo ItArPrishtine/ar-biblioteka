@@ -13,16 +13,11 @@ spring:
     suffix: .ftlh
     settings:
       recognize_standard_file_extensions: true
-  #    password: itArPrishtineagon
   jpa:
     properties.hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
     generate-ddl: true
     hibernate:
       ddl-auto: update
-
-links:
-  webapp_base: "https://arsekretarite.com/"
-  book_details: "https://arsekretarite.com/account/biblioteka/book-details/"
 
 #AWS properties
 amazonProperties:

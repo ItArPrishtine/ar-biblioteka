@@ -617,14 +617,14 @@
 
                                                             <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
 
-                                                                <h3><span style="font-size:14px; color: #444444">Për t'u kyçur ju lutem përdoreni email-in tuaj personal, apo username-in dhe password-in si më poshtë:</span></h3>
+                                                                <h3><span style="font-size:14px; color: #444444">Për t'u kyçur ju lutemi të përdorni email-in tuaj personal apo username-in, dhe password-in si më poshtë:</span></h3>
 
                                                                 <ul>
                                                                     <li>username: <strong>${username}</strong></li>
                                                                     <li>password: <strong>password</strong></li>
                                                                 </ul>
 
-                                                                <h3><span style="font-size:14px; color: #444444; text-align: center">Rekomandohet të ndryshoni password-in menjëherë pasi te kyçeni në aplikacion</span></h3>
+                                                                <h3><span style="font-size:14px; color: #444444; text-align: center">Rekomandohet të ndryshoni password-in menjëherë pasi te kyçeni në aplikacion.</span></h3>
 
                                                             </td>
                                                         </tr>
