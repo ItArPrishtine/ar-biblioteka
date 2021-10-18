@@ -1,0 +1,23 @@
+spring:
+  sendgrid:
+    api-key: SG.7kYqpyobR5GWd75-ooXWrQ.yQg7jJ7YN5-xgIkBYicSEhobErpYdmYdJQkzEDitp3Q
+  datasource:
+    url: "jdbc:postgresql://localhost:5433/ar"
+    username: "it"
+    password: "password"
+    driverClassName: org.postgresql.Driver
+    initialization-mode: always
+  flyway:
+    baselineOnMigrate: true
+    enabled: true
+    url: "jdbc:postgresql://localhost:5433/ar"
+    username: "it"
+    password: "password"
+
+links:
+  webapp_base: "http://localhost:4200/"
+  book_details: "http://localhost:4200/account/biblioteka/book-details/"
+
+jwt:
+  secret: arPrishtineDev2021
+  expiration: 24
