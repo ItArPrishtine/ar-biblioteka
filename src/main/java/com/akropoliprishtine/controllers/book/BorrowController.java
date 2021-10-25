@@ -40,9 +40,9 @@ public class BorrowController {
         return this.borrowService.getCurrentUserBorrow(userId);
     }
 
-    @PostMapping("/extend-deadline/{borrowId}")
-    public void extendDeadline(@PathVariable Long borrowId) {
-        this.borrowService.extendDeadline(borrowId);
+    @PostMapping("/extend-deadline")
+    public Borrow extendDeadline(@RequestBody String borrowId) {
+        return this.borrowService.extendDeadline(Long.parseLong(borrowId));
     }
 }
 

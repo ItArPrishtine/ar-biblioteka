@@ -592,9 +592,9 @@
 
                         <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
 
-                            <p>Pershendetje,<br>
+                            <p>Përshëndetje,<br>
 <br>
-Nje liber i ri eshte huazuar nga <span style="color:#A52A2A">${borrowerName}</span>, me titullin "<span style="color:#990000">${bookTitle}</span>" nga <span style="color:#2F4F4F">${authorName}</span>.<br>
+Një libër i ri është huazuar nga <span style="color:#A52A2A">${borrowerName}</span>, me titullin "<span style="color:#990000">${bookTitle}</span>" nga <span style="color:#2F4F4F">${authorName}</span>.<br>
 <br>
 Kategoria: <span style="color:#008000">${category}</span><br>
 Data e Huazimit:&nbsp;<span style="color:#008000">${borrowDate}</span><br>

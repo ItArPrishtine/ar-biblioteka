@@ -559,15 +559,15 @@
                             Pershendetje<strong> <span style="color:#0000FF">${username}</span></strong>,<br>
 <br>
                             <#if days != 0>
-                                Sekretaria e Bibliotekes iu rikujton se ju kan mbetur edhe <strong><span style="color:#000080">${days}</span></strong> per te lexuar librin e huazuar <span style="color:#000080">${bookName}</span>.&nbsp;<br>
-                                Gjithashtu nese kjo kohe nuk ka mjaftuar ju mund te shtyni daten e kthimit per 1 jave duke klikuar tek butoni meposhte.<br>
+                                Sekretaria e Bibliotekës iu rikujton se ju kanë mbetur edhe <strong><span style="color:#000080">${days}</span></strong> ditë për të lexuar librin e huazuar <span style="color:#000080">${bookName}</span>.&nbsp;<br>
+                                Gjithashtu, nëse kjo kohë nuk ka mjaftuar, ju mund të shtyni datën e kthimit për 1 javë duke klikuar tek butoni më poshtë..<br>
                                 <br>
-                                Ju lutem respektoni daten e kthimit.<br>
+                                Ju lutemi të respektoni datën e kthimit.<br>
                                 <#else>
                                     Sekretaria e Bibliotekes iu rikujton se sot eshte <strong><span style="color:#000080">dita e fundit</span></strong> per ta kthyer librin <span style="color:#000080">${bookName}</span> tek biblioteka.
                             </#if>
                             <br>
-                            Gjithe te mirat,<br>
+                            Gjithë të mirat,<br>
                             Biblioteka Platon.
                         </td>
                     </tr>
@@ -591,7 +591,7 @@
                     <tbody>
                         <tr>
                             <td align="center" valign="middle" class="mcnButtonContent" style="font-family: Arial; font-size: 16px; padding: 18px;">
-                                <a class="mcnButton " title="Shtyj daten e mbarimit" href="https://arsekretarite.com/account/biblioteka/exceed-deadline" target="_blank" style="font-weight: bold;letter-spacing: normal;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;">Shtyj daten e mbarimit</a>
+                                <a class="mcnButton " title="Shtyj daten e mbarimit" href="https://arsekretarite.com/account/biblioteka/extend-deadline" target="_blank" style="font-weight: bold;letter-spacing: normal;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;">Shtyj daten e mbarimit</a>
                             </td>
                         </tr>
                     </tbody>
