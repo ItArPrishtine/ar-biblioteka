@@ -105,8 +105,7 @@ public class EmailService {
         templateData.put("username", borrow.getApplicationUser().getFirstName());
         templateData.put("bookName", borrow.getBook().getName());
         templateData.put("days", daysLeft);
-//        templateData.put("url", "https://arsekretarite.com/account/economy/verify-payment/" + payment.getId());
-
+        templateData.put("url", "https://arsekretarite.com/account/biblioteka/extend-deadline/" + borrow.getId());
 
         if (sendToAgon) {
             sendGridService.sendEmailWithSendGrid(subject, "agonhaxhani83@gmail.com", templateData, templateUrl);
