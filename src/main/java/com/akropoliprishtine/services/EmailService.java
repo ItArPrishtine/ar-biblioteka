@@ -28,7 +28,7 @@ public class EmailService {
     }
 
     public void sendWelcomeMail(String email, String username) {
-        final String subject = "Miresevini ne arsekretarite.com";
+        final String subject = "Important: Miresevini ne arsekretarite.com";
         final String templateUrl = "templates/mail/welcomeuser.ftl";
 
         Map<String, Object> templateData = new HashMap<>();
