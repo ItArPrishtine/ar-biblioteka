@@ -70,6 +70,10 @@ public class ApplicationUserService {
         return this.userRepository.findById(id);
     }
 
+    public List<ApplicationUser> getUsersByRole(Role role) {
+        return this.userRepository.findAllByRole(role);
+    }
+
     public ApplicationUser createUser(JsonNode jsonNode) {
         ApplicationUser applicationUser = new ApplicationUser();
         applicationUser.setFirstName(jsonNode.get("firstName").textValue());

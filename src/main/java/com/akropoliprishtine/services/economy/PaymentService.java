@@ -4,6 +4,7 @@ package com.akropoliprishtine.services.economy;
 import com.akropoliprishtine.entities.ApplicationUser;
 import com.akropoliprishtine.entities.Role;
 import com.akropoliprishtine.entities.economy.Payment;
+import com.akropoliprishtine.enums.UserRolesEnum;
 import com.akropoliprishtine.repositories.UserRepository;
 import com.akropoliprishtine.repositories.economy.PaymentRepository;
 import com.akropoliprishtine.services.ApplicationUserService;
@@ -62,11 +63,12 @@ public class PaymentService {
 
     public List<Payment> getPayments() {
         ApplicationUser user = jwtUserDetailsService.getUserFromToken();
-        String roleName = user.getRole().getName().toLowerCase();
+        String roleName = user.getRole().getName();
 
-        if ((roleName.contains("pg") && roleName.contains("ekonomia"))
-                || roleName.contains("pishtari")
-                || roleName.contains("kf")) {
+        if (roleName.contains(UserRolesEnum.PG_EKONOMIA.label) ||
+                roleName.contains(UserRolesEnum.ND_EKONOMIA.label) ||
+                roleName.contains(UserRolesEnum.KF.label) ||
+                roleName.contains(UserRolesEnum.PGS_PISHTARI.label)) {
             return this.paymentRepository.findAll();
         }
 
@@ -81,8 +83,12 @@ public class PaymentService {
     public Payment createPayment(Payment payment) {
         Payment savedPayment = this.paymentRepository.save(payment);
         Optional<ApplicationUser> user = this.userService.findById(savedPayment.getApplicationUser().getId());
+
         savedPayment.setApplicationUser(user.orElse(null));
-        emailService.sendPaymentEmailToClient(savedPayment);
+
+        Role pgEkonomia = this.roleService.findByName(UserRolesEnum.PG_EKONOMIA.label);
+        List<ApplicationUser> pgUser = this.userService.getUsersByRole(pgEkonomia);
+        emailService.sendPaymentEmailToClient(savedPayment, pgUser.get(0));
         return savedPayment;
     }
 
@@ -99,8 +105,8 @@ public class PaymentService {
             payment.setVerifiedFromUser(true);
             payment = this.paymentRepository.save(payment);
 
-            Role pg = roleService.findByName("PG tek Ekonomia");
-            Role helper = roleService.findByName("ND tek Ekonomia");
+            Role pg = roleService.findByName(UserRolesEnum.PG_EKONOMIA.label);
+            Role helper = roleService.findByName(UserRolesEnum.ND_EKONOMIA.label);
 
             List<ApplicationUser> pgUsers = userRepository.findAllByRole(pg);
             List<ApplicationUser> helperUsers = userRepository.findAllByRole(helper);

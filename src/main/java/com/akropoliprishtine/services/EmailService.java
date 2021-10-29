@@ -1,5 +1,6 @@
 package com.akropoliprishtine.services;
 
+import com.akropoliprishtine.entities.ApplicationUser;
 import com.akropoliprishtine.entities.book.Borrow;
 import com.akropoliprishtine.entities.economy.Payment;
 import com.akropoliprishtine.utils.JwtTokenUtil;
@@ -77,14 +78,14 @@ public class EmailService {
         sendGridService.sendEmailWithSendGrid(subject, borrow.getApplicationUser().getEmail(), templateData, templateUrl);
     }
 
-    public void sendPaymentEmailToClient(Payment payment) {
+    public void sendPaymentEmailToClient(Payment payment, ApplicationUser pgEkonomia) {
         final String subject = "Pagese e re";
         final String templateUrl = "templates/mail/newPayment.ftl";
 
         Map<String, Object> templateData = new HashMap<>();
         templateData.put("firstName", payment.getApplicationUser().getFirstName());
         templateData.put("lastName", payment.getApplicationUser().getLastName());
-        templateData.put("signUrl", payment.getApplicationUser().getESign());
+        templateData.put("signUrl", pgEkonomia.getESign());
         templateData.put("price", payment.getPrice());
         templateData.put("paymentType", payment.getPaymentType());
         templateData.put("paymentDate", dateFormat.format(payment.getPaymentDate()));
@@ -94,7 +95,7 @@ public class EmailService {
         templateData.put("url", "https://arsekretarite.com/account/economy/verify-payment/" + payment.getId());
 
 
-        sendGridService.sendEmailWithSendGrid(subject, "agonhaxhani83@gmail.com", templateData, templateUrl);
+        sendGridService.sendEmailWithSendGrid(subject, payment.getApplicationUser().getEmail(), templateData, templateUrl);
     }
 
     public void sendEmailForBorrowDeadline(Borrow borrow, long daysLeft, boolean sendToAgon) {

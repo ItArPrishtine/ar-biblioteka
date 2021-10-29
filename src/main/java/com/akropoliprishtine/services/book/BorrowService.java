@@ -5,24 +5,22 @@ import com.akropoliprishtine.entities.Role;
 import com.akropoliprishtine.entities.book.Book;
 import com.akropoliprishtine.entities.book.Borrow;
 import com.akropoliprishtine.enums.BorrowStatus;
+import com.akropoliprishtine.enums.PayedMonth;
+import com.akropoliprishtine.enums.UserRolesEnum;
 import com.akropoliprishtine.repositories.RoleRepository;
 import com.akropoliprishtine.repositories.UserRepository;
 import com.akropoliprishtine.repositories.book.BorrowRepository;
 import com.akropoliprishtine.services.ApplicationUserService;
 import com.akropoliprishtine.services.EmailService;
 import com.akropoliprishtine.services.JwtUserDetailsService;
-import com.akropoliprishtine.services.RoleService;
-import com.akropoliprishtine.utils.GeneralConstants;
 import com.akropoliprishtine.utils.GeneralUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.stream.Collectors;
 
 @Service
 public class BorrowService {
@@ -80,10 +78,14 @@ public class BorrowService {
         long dateUntil = currentDate.getTime() + 14 * 24 * 3600 * 1000;
         borrow.setBorrowUntil(new Date(dateUntil));
 
+        if (checkIfBorrowExist(borrow)) {
+            return null;
+        }
+
         Borrow borrowed = borrowRepository.save(borrow);
 
-        Role pg = roleRepository.findByName("PG tek Biblioteka");
-        Role helper = roleRepository.findByName("ND tek Biblioteka");
+        Role pg = roleRepository.findByName(UserRolesEnum.PG_BIBLIOTEKA.label);
+        Role helper = roleRepository.findByName(UserRolesEnum.ND_BIBLIOTEKA.label);
 
         List<ApplicationUser> pgUsers = userRepository.findAllByRole(pg);
         List<ApplicationUser> helperUsers = userRepository.findAllByRole(helper);
@@ -99,6 +101,21 @@ public class BorrowService {
         emailService.sendBorrowEmailToClient(borrowed);
 
         return borrowed;
+    }
+
+    private boolean checkIfBorrowExist(Borrow borrow) {
+        List<Borrow> borrows = this.getAll(null);
+        AtomicBoolean containsSameItem = new AtomicBoolean(false);
+
+        List<Boolean> foundBorrows = borrows.stream().map(item -> item.getBorrowStatus() == BorrowStatus.BORROWED
+                        && Objects.equals(item.getBook().getId(), borrow.getBook().getId()))
+                .collect(Collectors.toList());
+
+        if (foundBorrows.contains(true)) {
+            return true;
+        }
+
+        return false;
     }
 
     public Borrow returnBorrow(Borrow borrow) {

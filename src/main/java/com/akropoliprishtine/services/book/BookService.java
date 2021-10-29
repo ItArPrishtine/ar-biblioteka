@@ -3,6 +3,7 @@ package com.akropoliprishtine.services.book;
 import com.akropoliprishtine.dto.BookBorrowDTO;
 import com.akropoliprishtine.entities.book.Author;
 import com.akropoliprishtine.entities.book.Book;
+import com.akropoliprishtine.enums.BorrowStatus;
 import com.akropoliprishtine.repositories.book.BookRepository;
 import com.akropoliprishtine.services.AmazonClient;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,10 +51,9 @@ public class BookService {
 
     public List<BookBorrowDTO> getBooksPage(Pageable pageable, String bookName, int authorId, String category) {
         StringBuilder queryBuilder = new StringBuilder("SELECT book.id, book.name, book.category, " +
-                "book.publicationYear, author.firstName, author.lastName, author.id as authorId, bb.borrowStatus " +
+                "book.publicationYear, author.firstName, author.lastName, author.id as authorId " +
                 "FROM book_book book " +
-                "inner join book_author author on book.author.id = author.id " +
-                "left join book_borrow bb on book.id = bb.book.id");
+                "inner join book_author author on book.author.id = author.id ");
 
         List<String> conditions = new ArrayList<>();
 

@@ -49,5 +49,5 @@ public class Payment extends Auditable<Long> {
     private Boolean verifiedFromUser;
 
     @Column(nullable = true)
-    private Boolean verifiedFromEconomy;
+    private String signFromEconomy;
 }
