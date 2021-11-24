@@ -1,6 +1,9 @@
 package com.akropoliprishtine.entities;
 
+import org.hibernate.mapping.Set;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "account_roles")
@@ -12,6 +15,9 @@ public class Role extends Auditable<Long> {
     private String name;
 
     private String description;
+
+    @ManyToMany(targetEntity = Permission.class, mappedBy = "roles", cascade = CascadeType.ALL)
+    private List<Permission> permissions;
 
     public Long getId() {
         return id;

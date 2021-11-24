@@ -8,6 +8,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -39,6 +41,7 @@ public class BookController {
                                         @RequestParam(required = false) String category) {
 
         Pageable paging = PageRequest.of(pageNumber, pageSize);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return this.bookService.getBooksPage(paging, bookName, authorId, category);
     }
 
