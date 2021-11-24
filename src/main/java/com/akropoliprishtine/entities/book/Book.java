@@ -19,7 +19,7 @@ public class Book extends Auditable<Long> {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = true)
+    @Column(length = 4000)
     private String description;
 
     @JoinColumn(name = "authorId", nullable = false)
