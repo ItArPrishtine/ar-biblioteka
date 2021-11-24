@@ -50,11 +50,9 @@ public class BookService {
 
     public List<BookBorrowDTO> getBooksPage(Pageable pageable, String bookName, int authorId, String category) {
         StringBuilder queryBuilder = new StringBuilder("SELECT book.id, book.name, book.category, " +
-                "book.publicationYear, author.firstName, author.lastName, author.id as authorId, bb.borrowStatus " +
+                "book.publicationYear, author.firstName, author.lastName, author.id as authorId " +
                 "FROM book_book book " +
-                "inner join book_author author on book.author.id = author.id " +
-                "left join book_borrow bb on book.id = bb.book.id");
-
+                "inner join book_author author on book.author.id = author.id");
         List<String> conditions = new ArrayList<>();
 
         if (bookName != null && !bookName.isEmpty()) {
