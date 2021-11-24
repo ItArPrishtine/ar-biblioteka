@@ -28,7 +28,7 @@ public class EmailService {
     }
 
     public void sendWelcomeMail(String email, String username) {
-        final String subject = "Miresevini ne arsekretarite.com";
+        final String subject = "Important: Miresevini ne arsekretarite.com";
         final String templateUrl = "templates/mail/welcomeuser.ftl";
 
         Map<String, Object> templateData = new HashMap<>();
@@ -105,8 +105,7 @@ public class EmailService {
         templateData.put("username", borrow.getApplicationUser().getFirstName());
         templateData.put("bookName", borrow.getBook().getName());
         templateData.put("days", daysLeft);
-//        templateData.put("url", "https://arsekretarite.com/account/economy/verify-payment/" + payment.getId());
-
+        templateData.put("url", "https://arsekretarite.com/account/biblioteka/extend-deadline/" + borrow.getId());
 
         if (sendToAgon) {
             sendGridService.sendEmailWithSendGrid(subject, "agonhaxhani83@gmail.com", templateData, templateUrl);

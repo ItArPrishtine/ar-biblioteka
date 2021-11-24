@@ -591,7 +591,7 @@
                     <tbody>
                         <tr>
                             <td align="center" valign="middle" class="mcnButtonContent" style="font-family: Arial; font-size: 16px; padding: 18px;">
-                                <a class="mcnButton " title="Shtyj daten e mbarimit" href="https://arsekretarite.com/account/biblioteka/extend-deadline" target="_blank" style="font-weight: bold;letter-spacing: normal;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;">Shtyj daten e mbarimit</a>
+                                <a class="mcnButton " title="Shtyj daten e mbarimit" href=${url} target="_blank" style="font-weight: bold;letter-spacing: normal;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;">Shtyj daten e mbarimit</a>
                             </td>
                         </tr>
                     </tbody>
