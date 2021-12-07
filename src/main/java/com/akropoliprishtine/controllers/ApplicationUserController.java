@@ -32,12 +32,12 @@ public class ApplicationUserController {
         return this.applicationUserService.changePassword(applicationUser);
     }
 
-    @GetMapping("/")
+    @GetMapping("/read")
     public List<ApplicationUser> getUsers() {
         return this.applicationUserService.getUsers();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/read/{id}")
     public Optional<ApplicationUser> getUserById(@PathVariable Long id) {
         return this.applicationUserService.getUserById(id);
     }

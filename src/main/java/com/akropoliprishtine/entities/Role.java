@@ -1,13 +1,13 @@
 package com.akropoliprishtine.entities;
 
-import org.hibernate.mapping.Set;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "account_roles")
-public class Role extends Auditable<Long> {
+public class Role extends Auditable<Long> implements GrantedAuthority {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -16,8 +16,16 @@ public class Role extends Auditable<Long> {
 
     private String description;
 
-    @ManyToMany(targetEntity = Permission.class, mappedBy = "roles", cascade = CascadeType.ALL)
-    private List<Permission> permissions;
+    public String getAuthority() {
+        return name;
+    }
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "account_role_permissions",
+            joinColumns = @JoinColumn(name = "role_id"),
+            inverseJoinColumns = @JoinColumn(name = "permission_id"))
+    Set<Permission> permissions;
 
     public Long getId() {
         return id;
@@ -41,5 +49,9 @@ public class Role extends Auditable<Long> {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Set<Permission> getPermissions() {
+        return this.permissions;
     }
 }
