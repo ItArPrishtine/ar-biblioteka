@@ -23,14 +23,7 @@ public class PaymentController {
 
     @PostMapping("/")
     public Payment createPayment(@RequestBody Payment payment) {
-        Payment responsePayment = null;
-        try {
-            responsePayment = this.paymentService.createPayment(payment);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        return responsePayment;
+        return this.paymentService.createPayment(payment);
     }
 
     @GetMapping("/")
@@ -41,12 +34,6 @@ public class PaymentController {
     @PutMapping("/")
     public Payment updatePayment(@RequestBody Payment payment) {
         return this.paymentService.updatePayment(payment);
-    }
-
-
-    @PutMapping("/verify")
-    public Payment verifyPayment(@RequestBody Long payment) {
-        return this.paymentService.verifyPayment(payment);
     }
 
     @DeleteMapping("/{id}")
