@@ -61,4 +61,5 @@ INSERT INTO account_roles(name, description) VALUES ('PG tek Rrjetet Sociale', '
 INSERT INTO account_roles(name, description) VALUES ('ND tek Rrjetet Sociale', 'Ndihmes/e ne sekretarine e Rrjeteve Sociale') ON CONFLICT DO NOTHING;
 
 INSERT INTO account_roles(name, description) VALUES ('Anetar', 'Anetar ne AR') ON CONFLICT DO NOTHING;
+INSERT INTO account_roles(name, description) VALUES ('Provues', 'Provues ne AR') ON CONFLICT DO NOTHING;
 
