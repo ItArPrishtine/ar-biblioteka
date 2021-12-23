@@ -78,26 +78,6 @@ public class EmailService {
         sendGridService.sendEmailWithSendGrid(subject, borrow.getApplicationUser().getEmail(), templateData, templateUrl);
     }
 
-    public void sendPaymentEmailToClient(Payment payment, ApplicationUser pgEkonomia) {
-        final String subject = "Pagese e re";
-        final String templateUrl = "templates/mail/newPayment.ftl";
-
-        Map<String, Object> templateData = new HashMap<>();
-        templateData.put("firstName", payment.getApplicationUser().getFirstName());
-        templateData.put("lastName", payment.getApplicationUser().getLastName());
-        templateData.put("signUrl", pgEkonomia.getESign());
-        templateData.put("price", payment.getPrice());
-        templateData.put("paymentType", payment.getPaymentType());
-        templateData.put("paymentDate", dateFormat.format(payment.getPaymentDate()));
-        templateData.put("payedMonth", payment.getPayedMonth() != null ? payment.getPayedMonth().label : null);
-        templateData.put("payedYear", payment.getPayedYear() != null ? payment.getPayedYear().label : null);
-        templateData.put("description", payment.getDescription());
-        templateData.put("url", "https://arsekretarite.com/account/economy/verify-payment/" + payment.getId());
-
-
-        sendGridService.sendEmailWithSendGrid(subject, payment.getApplicationUser().getEmail(), templateData, templateUrl);
-    }
-
     public void sendEmailForBorrowDeadline(Borrow borrow, long daysLeft, boolean sendToAgon) {
         final String subject = "Deadline-i per kthimin e librit";
         final String templateUrl = "templates/mail/deadline-reminders.ftl";

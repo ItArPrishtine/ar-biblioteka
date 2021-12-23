@@ -23,17 +23,17 @@ public class BookController {
     @Autowired
     private BookService bookService;
 
-    @PostMapping("/")
+    @PostMapping("/create")
     public Book createBook(@RequestBody Book book) {
         return this.bookService.save(book);
     }
 
-    @PutMapping("/")
+    @PutMapping("/update")
     public Book updateBook(@RequestBody Book book) {
         return this.bookService.save(book);
     }
 
-    @GetMapping("/")
+    @GetMapping("/read")
     public List<BookBorrowDTO> getBooks(@RequestParam(defaultValue = "0", required = false) Integer pageNumber,
                                         @RequestParam(defaultValue = "20", required = false) Integer pageSize,
                                         @RequestParam(required = false) String bookName,
@@ -41,22 +41,21 @@ public class BookController {
                                         @RequestParam(required = false) String category) {
 
         Pageable paging = PageRequest.of(pageNumber, pageSize);
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return this.bookService.getBooksPage(paging, bookName, authorId, category);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public void deleteBook(@PathVariable Long id) {
         this.bookService.delete(id);
     }
 
 
-    @GetMapping("/author/{authorId}")
+    @GetMapping("/read/author/{authorId}")
     public List<Book> getAuthorBooks(@PathVariable String authorId) {
         return this.bookService.getBooksByAuthor(authorId);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/read/{id}")
     public Optional<Book> getBookDetails(@PathVariable Long id) {
         return this.bookService.getBooksById(id);
     }

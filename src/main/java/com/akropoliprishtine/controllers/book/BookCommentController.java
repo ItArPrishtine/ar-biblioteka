@@ -14,24 +14,24 @@ public class BookCommentController {
     @Autowired
     private BookCommentsService bookCommentsService;
 
-    @DeleteMapping("/{id}")
-    public void deleteBook(@PathVariable Long id) {
-        this.bookCommentsService.delete(id);
+    @GetMapping("/read/book/{bookId}")
+    public List<BookComment> getBookComments(@PathVariable Long bookId) {
+        return this.bookCommentsService.getCommentsByBook(bookId);
     }
 
-    @PostMapping("/")
+    @PostMapping("/create")
     public BookComment addComment(@RequestBody BookComment comment) {
         return this.bookCommentsService.addComment(comment);
     }
 
-    @PutMapping("/")
+    @PutMapping("/update")
     public BookComment editComment(@RequestBody BookComment comment) {
         return this.bookCommentsService.updateComment(comment);
     }
 
-    @GetMapping("/book/{bookId}")
-    public List<BookComment> getAuthorBooks(@PathVariable Long bookId) {
-        return this.bookCommentsService.getCommentsByBook(bookId);
+    @DeleteMapping("/delete/{id}")
+    public void deleteBook(@PathVariable Long id) {
+        this.bookCommentsService.delete(id);
     }
 }
 

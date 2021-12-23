@@ -20,6 +20,5 @@ public class EditionController {
     public List<Edition> getEditions() {
         return this.editionService.getEditions();
     }
-
 }
 

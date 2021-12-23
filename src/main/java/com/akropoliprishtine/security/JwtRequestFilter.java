@@ -1,14 +1,12 @@
 package com.akropoliprishtine.security;
 
-import com.akropoliprishtine.entities.ApplicationUser;
-import com.akropoliprishtine.entities.Permission;
 import com.akropoliprishtine.services.ApplicationUserService;
 import com.akropoliprishtine.services.JwtUserDetailsService;
 import com.akropoliprishtine.utils.JwtTokenUtil;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
@@ -20,9 +18,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
@@ -71,37 +68,34 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                         userDetails, null, userDetails.getAuthorities());
                 usernamePasswordAuthenticationToken
                         .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                // After setting the Authentication in the context, we specify
-                // that the current user is authenticated. So it passes the
-                // Spring Security Configurations successfully.
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             }
         }
 
-        // permission checker
-        boolean hasPermission = permissionValidate(request);
-        if (!hasPermission) {
-            response.sendError(HttpServletResponse.SC_FORBIDDEN, "Nuk keni te drejte t'i shihni keto te dhena.");
+//        // permission checker
+        if (!request.getRequestURL().toString().contains("/p1")) {
+            boolean hasPermission = permissionValidate(request);
+
+            if (!hasPermission) {
+                response.sendError(HttpServletResponse.SC_FORBIDDEN, "Nuk keni te drejte t'i shihni keto te dhena.");
+            }
         }
+
 
 
         chain.doFilter(request, response);
     }
 
     public boolean permissionValidate(HttpServletRequest request) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String[] splitterPath = request.getRequestURI().split("/");
 
-        if (auth != null && auth.isAuthenticated()) {
-            String token = request.getHeader("Authorization");
-            Map<String, Object> tokenData = jwtTokenUtil.getAllClaimsFromToken(token.split(" ")[1]);
-            Long userId =  Long.parseLong(tokenData.get("id").toString());
-            Optional<ApplicationUser> user = applicationUserService.getUserById(userId);
-            if (user.isPresent()) {
-                Set<Permission> permissions = user.get().getRole().getPermissions();
-                String apiToCompare = request.getRequestURI().split("api")[1];
-                return permissions.stream().anyMatch(permission -> permission.getEndpoint().equals(apiToCompare));
-            }
-        }
-        return false;
+        String api = splitterPath[1];
+        String module = splitterPath[2];
+        String action = splitterPath[3];
+
+        String permissionToFind = "/" + api + "/" + module + "/" + action;
+
+        return SecurityContextHolder.getContext().getAuthentication().getAuthorities()
+                .stream().anyMatch(item -> item.toString().startsWith(permissionToFind));
     }
 }

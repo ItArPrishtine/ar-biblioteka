@@ -17,12 +17,11 @@ public class ApplicationUserController {
     @Autowired
     private ApplicationUserService applicationUserService;
 
-    public ApplicationUserController(ApplicationUserService applicationUserService,
-                                     JwtTokenUtil jwtTokenUtil) {
+    public ApplicationUserController(ApplicationUserService applicationUserService) {
         this.applicationUserService = applicationUserService;
     }
 
-    @PostMapping("/")
+    @PostMapping("/create")
     public ApplicationUser createUser(@RequestBody JsonNode applicationUser) {
         return this.applicationUserService.createUser(applicationUser);
     }
@@ -42,18 +41,12 @@ public class ApplicationUserController {
         return this.applicationUserService.getUserById(id);
     }
 
-    @PutMapping("/")
+    @PutMapping("/update")
     public ApplicationUser updateUser(@RequestBody ApplicationUser applicationUser) {
         return this.applicationUserService.updateUser(applicationUser);
     }
 
-    @PutMapping("/user/e-sign")
-    public Optional<ApplicationUser> eSign(@RequestParam(value = "file", required = true) MultipartFile file,
-                                           @RequestParam Long id) {
-        return this.applicationUserService.uploadESign(id, file);
-    }
-
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public void deleteBook(@PathVariable Long id) {
         this.applicationUserService.deleteUser(id);
     }

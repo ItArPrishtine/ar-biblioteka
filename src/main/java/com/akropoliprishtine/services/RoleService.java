@@ -24,22 +24,7 @@ public class RoleService {
         return this.roleRepository.findAll();
     }
 
-    public Role createRole(Role role) {
-        return this.roleRepository.save(role);
-    }
-
     public Role findByName(String name) {
         return this.roleRepository.findByName(name);
-    }
-
-    public Role updateRole(Role role) {
-        if (role != null && role.getId() != null) {
-            return this.roleRepository.save(role);
-        }
-        return null;
-    }
-
-    public void deleteRole(Role role) {
-        this.roleRepository.delete(role);
     }
 }

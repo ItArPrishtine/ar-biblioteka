@@ -63,16 +63,7 @@ public class PaymentService {
 
     public List<Payment> getPayments() {
         ApplicationUser user = jwtUserDetailsService.getUserFromToken();
-        String roleName = user.getRole().getName();
-
-        if (roleName.contains(UserRolesEnum.PG_EKONOMIA.label) ||
-                roleName.contains(UserRolesEnum.ND_EKONOMIA.label) ||
-                roleName.contains(UserRolesEnum.KF.label) ||
-                roleName.contains(UserRolesEnum.PGS_PISHTARI.label)) {
-            return this.paymentRepository.findAll();
-        }
-
-        return this.paymentRepository.findAllByApplicationUser(user);
+        return this.paymentRepository.findAll();
     }
 
     public Optional<Payment> getPaymentById(Long id) {
@@ -86,9 +77,6 @@ public class PaymentService {
 
         savedPayment.setApplicationUser(user.orElse(null));
 
-        Role pgEkonomia = this.roleService.findByName(UserRolesEnum.PG_EKONOMIA.label);
-        List<ApplicationUser> pgUser = this.userService.getUsersByRole(pgEkonomia);
-        emailService.sendPaymentEmailToClient(savedPayment, pgUser.get(0));
         return savedPayment;
     }
 

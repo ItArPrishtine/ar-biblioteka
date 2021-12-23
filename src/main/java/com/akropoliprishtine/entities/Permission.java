@@ -4,12 +4,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Getter
 @Setter
 @Entity(name = "account_permissions")
-@Table(name = "account_permissions")
+@Table(name = "account_permissions", uniqueConstraints = @UniqueConstraint(columnNames = {"endpoint"}))
 public class Permission extends Auditable<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,9 +19,6 @@ public class Permission extends Auditable<Long> {
 
     @Column
     private String description;
-
-    @ManyToMany(mappedBy = "permissions", fetch = FetchType.EAGER)
-    Set<Role> roles;
 
     @Column
     private String endpoint;

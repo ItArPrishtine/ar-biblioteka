@@ -3,6 +3,7 @@ package com.akropoliprishtine.services.book;
 import com.akropoliprishtine.dto.BookBorrowDTO;
 import com.akropoliprishtine.entities.book.Author;
 import com.akropoliprishtine.entities.book.Book;
+import com.akropoliprishtine.enums.BookCategory;
 import com.akropoliprishtine.enums.BorrowStatus;
 import com.akropoliprishtine.repositories.book.BookRepository;
 import com.akropoliprishtine.services.AmazonClient;
@@ -67,6 +68,11 @@ public class BookService {
 
         if (category != null && !category.isEmpty()) {
             conditions.add("lower(category) LIKE '%" + category.toLowerCase() + "%'");
+
+            if (category.equals(BookCategory.ANGLEZE.label)) {
+                conditions.add("category NOT LIKE '%" + BookCategory.AKROPOLI.label + "%'");
+                conditions.add("category NOT LIKE '%" + BookCategory.AKROPOLI2.label + "%'");
+            }
         }
 
         String conditionsToString = String.join(" AND ", conditions);

@@ -7,6 +7,7 @@ public enum BookCategory {
     PSIKOLOGJIK("P"),
     BIOGRAFI("B"),
     AKROPOLI("A.R"),
+    AKROPOLI2("AR"),
     LETERSI_HUAJ("L.H"),
     LETERSI_SHQIPE("L.SH"),
     MITOLOGJI("M"),
