@@ -17,4 +17,9 @@ public class RoleController {
     public List<Role> getRoles() {
         return this.roleService.getRoles();
     }
+    
+    @PutMapping("/change-permissions")
+    public Role updateRole(@RequestBody Role role) {
+        return this.roleService.updateRole(role);
+    }
 }

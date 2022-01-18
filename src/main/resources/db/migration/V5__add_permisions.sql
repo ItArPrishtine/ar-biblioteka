@@ -38,7 +38,7 @@ INSERT INTO account_permissions(description, endpoint, permission_code) VALUES (
 INSERT INTO account_permissions(description, endpoint, permission_code) VALUES ('Fshij autor',  '/api/book_author/delete', 'DELETE_AUTHORS') ON CONFLICT DO NOTHING;
 
 -- ROLED AND PERMISSIONS
-INSERT INTO account_permissions(description, endpoint, permission_code) VALUES ('Ndryshoje rolet dhe privilegjet',  '/api/account_roles/change-permissions', 'CHANGE_ROLE_PERMISSIONS') ON CONFLICT DO NOTHING;
+INSERT INTO account_permissions(description, endpoint, permission_code) VALUES ('Ndryshoje rolet dhe privilegjet',  '/api/account_role/change-permissions', 'CHANGE_ROLE_PERMISSIONS') ON CONFLICT DO NOTHING;
 INSERT INTO account_permissions(description, endpoint, permission_code) VALUES ('Lexoje listen e te drejtave',  '/api/account_permissions/read', 'READ_PERMISSIONS') ON CONFLICT DO NOTHING;
 INSERT INTO account_permissions(description, endpoint, permission_code) VALUES ('Lexoje listen e roleve',  '/api/account_role/list', 'READ_ROLES') ON CONFLICT DO NOTHING;
 

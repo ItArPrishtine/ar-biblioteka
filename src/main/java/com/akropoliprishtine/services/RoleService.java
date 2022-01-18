@@ -23,6 +23,9 @@ public class RoleService {
     public List<Role> getRoles() {
         return this.roleRepository.findAll();
     }
+    public Role updateRole(Role role) {
+        return this.roleRepository.save(role);
+    }
 
     public Role findByName(String name) {
         return this.roleRepository.findByName(name);

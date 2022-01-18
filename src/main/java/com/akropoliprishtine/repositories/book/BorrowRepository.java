@@ -18,6 +18,8 @@ public interface BorrowRepository extends JpaRepository<Borrow, Long> {
 
     List<Borrow> findBorrowByBorrowStatus(BorrowStatus status);
 
+    List<Borrow> findByApplicationUser(ApplicationUser user);
+
     List<Borrow> findBorrowByApplicationUserAndBorrowStatus(ApplicationUser user, BorrowStatus status);
 
 }

@@ -2,6 +2,7 @@ package com.akropoliprishtine.entities.economy;
 
 import com.akropoliprishtine.entities.ApplicationUser;
 import com.akropoliprishtine.entities.Auditable;
+import com.akropoliprishtine.entities.Organization;
 import com.akropoliprishtine.enums.PayedMonth;
 import com.akropoliprishtine.enums.PayedYear;
 import com.akropoliprishtine.enums.PaymentType;
@@ -50,4 +51,8 @@ public class Payment extends Auditable<Long> {
 
     @Column(nullable = true)
     private String signFromEconomy;
+
+//    @OneToOne
+//    @JoinColumn(name = "organizationId", nullable = true)
+//    private Organization organization;
 }

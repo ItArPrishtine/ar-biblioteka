@@ -5,7 +5,6 @@ import com.akropoliprishtine.entities.Role;
 import com.akropoliprishtine.entities.book.Book;
 import com.akropoliprishtine.entities.book.Borrow;
 import com.akropoliprishtine.enums.BorrowStatus;
-import com.akropoliprishtine.enums.PayedMonth;
 import com.akropoliprishtine.enums.UserRolesEnum;
 import com.akropoliprishtine.repositories.RoleRepository;
 import com.akropoliprishtine.repositories.UserRepository;
@@ -60,9 +59,19 @@ public class BorrowService {
         this.bookService = bookService;
     }
 
-    public List<Borrow> getAll(BorrowStatus status) {
-        if (status != null) {
+    public List<Borrow> getAll(BorrowStatus status, Long userId) {
+        if (status != null && userId == null) {
             return this.borrowRepository.findBorrowByBorrowStatus(status);
+        }
+        
+        if (userId != null && status == null) {
+            Optional<ApplicationUser> borrowUser = this.userService.getUserById(userId.longValue());
+            return this.borrowRepository.findByApplicationUser(borrowUser.get());
+        }
+        
+        if (userId != null) {
+            Optional<ApplicationUser> borrowUser = this.userService.getUserById(userId.longValue());
+            return this.borrowRepository.findBorrowByApplicationUserAndBorrowStatus(borrowUser.get(), status);
         }
         return this.borrowRepository.findAll();
     }
@@ -104,8 +113,7 @@ public class BorrowService {
     }
 
     private boolean checkIfBorrowExist(Borrow borrow) {
-        List<Borrow> borrows = this.getAll(null);
-        AtomicBoolean containsSameItem = new AtomicBoolean(false);
+        List<Borrow> borrows = this.getAll(null, null);
 
         List<Boolean> foundBorrows = borrows.stream().map(item -> item.getBorrowStatus() == BorrowStatus.BORROWED
                         && Objects.equals(item.getBook().getId(), borrow.getBook().getId()))
