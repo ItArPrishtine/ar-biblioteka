@@ -1,6 +1,7 @@
 package com.akropoliprishtine.entities.book;
 
 import com.akropoliprishtine.entities.Auditable;
+import com.akropoliprishtine.entities.Organization;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,4 +21,8 @@ public class Edition extends Auditable<Long> {
 
     @Column(nullable = true)
     private String description;
+
+    @OneToOne
+    @JoinColumn(name = "organizationId", nullable = true)
+    private Organization organization;
 }

@@ -52,7 +52,7 @@ public class Payment extends Auditable<Long> {
     @Column(nullable = true)
     private String signFromEconomy;
 
-//    @OneToOne
-//    @JoinColumn(name = "organizationId", nullable = true)
-//    private Organization organization;
+    @OneToOne
+    @JoinColumn(name = "organizationId", nullable = true)
+    private Organization organization;
 }
