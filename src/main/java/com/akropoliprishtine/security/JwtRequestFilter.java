@@ -72,7 +72,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             }
         }
 
-//        // permission checker
+
         if (!request.getRequestURL().toString().contains("/p1")) {
             boolean hasPermission = permissionValidate(request);
 

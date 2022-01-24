@@ -8,7 +8,7 @@ server:
 
 spring:
   profiles:
-    active: local
+    active: dev
   freemarker:
     suffix: .ftlh
     settings:

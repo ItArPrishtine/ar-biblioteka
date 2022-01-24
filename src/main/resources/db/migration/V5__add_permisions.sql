@@ -32,7 +32,7 @@ INSERT INTO account_permissions(description, endpoint, permission_code) VALUES (
 INSERT INTO account_permissions(description, endpoint, permission_code) VALUES ('Fshij Komentin',  '/api/book_comment/delete', 'DELETE_COMMENT') ON CONFLICT DO NOTHING;
 
 -- BOOK_COMMENTS
-INSERT INTO account_permissions(description, endpoint, permission_code) VALUES ('Krijoje autore te ri',  '/api/book_author/create', 'CRATE_AUTHORS') ON CONFLICT DO NOTHING;
+INSERT INTO account_permissions(description, endpoint, permission_code) VALUES ('Krijoje autore te ri',  '/api/book_author/create', 'CREATE_AUTHORS') ON CONFLICT DO NOTHING;
 INSERT INTO account_permissions(description, endpoint, permission_code) VALUES ('Lexoje autore',  '/api/book_author/read', 'READ_AUTHORS') ON CONFLICT DO NOTHING;
 INSERT INTO account_permissions(description, endpoint, permission_code) VALUES ('Ndryshoj te dhenat e autorit',  '/api/book_author/update', 'UPDATE_AUTHORS') ON CONFLICT DO NOTHING;
 INSERT INTO account_permissions(description, endpoint, permission_code) VALUES ('Fshij autor',  '/api/book_author/delete', 'DELETE_AUTHORS') ON CONFLICT DO NOTHING;
