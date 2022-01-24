@@ -6,6 +6,7 @@ import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.boot.autoconfigure.integration.IntegrationAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -13,7 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import java.io.IOException;
 
-@SpringBootApplication
+@SpringBootApplication(exclude = IntegrationAutoConfiguration.class)
 @EnableConfigurationProperties
 @EnableScheduling
 @EntityScan({"com.akropoliprishtine.entities"})

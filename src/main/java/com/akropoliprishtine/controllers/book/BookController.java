@@ -8,6 +8,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,17 +23,17 @@ public class BookController {
     @Autowired
     private BookService bookService;
 
-    @PostMapping("/")
+    @PostMapping("/create")
     public Book createBook(@RequestBody Book book) {
         return this.bookService.save(book);
     }
 
-    @PutMapping("/")
+    @PutMapping("/update")
     public Book updateBook(@RequestBody Book book) {
         return this.bookService.save(book);
     }
 
-    @GetMapping("/")
+    @GetMapping("/read")
     public List<BookBorrowDTO> getBooks(@RequestParam(defaultValue = "0", required = false) Integer pageNumber,
                                         @RequestParam(defaultValue = "20", required = false) Integer pageSize,
                                         @RequestParam(required = false) String bookName,
@@ -42,18 +44,18 @@ public class BookController {
         return this.bookService.getBooksPage(paging, bookName, authorId, category);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public void deleteBook(@PathVariable Long id) {
         this.bookService.delete(id);
     }
 
 
-    @GetMapping("/author/{authorId}")
+    @GetMapping("/read/author/{authorId}")
     public List<Book> getAuthorBooks(@PathVariable String authorId) {
         return this.bookService.getBooksByAuthor(authorId);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/read/{id}")
     public Optional<Book> getBookDetails(@PathVariable Long id) {
         return this.bookService.getBooksById(id);
     }

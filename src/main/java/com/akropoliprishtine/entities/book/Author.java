@@ -1,6 +1,7 @@
 package com.akropoliprishtine.entities.book;
 
 import com.akropoliprishtine.entities.Auditable;
+import com.akropoliprishtine.entities.Organization;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -33,4 +34,8 @@ public class Author extends Auditable<Long> {
 
     @Column(nullable = true)
     private String imageUrl;
+
+    @OneToOne
+    @JoinColumn(name = "organizationId", nullable = true)
+    private Organization organization;
 }

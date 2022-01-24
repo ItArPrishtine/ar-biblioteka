@@ -28,17 +28,22 @@ public class ApplicationUserService {
 
     @Autowired
     AmazonClient amazonClient;
+    
+    @Autowired
+    JwtUserDetailsService jwtUserDetailsService;
 
     ObjectMapper objectMapper;
 
     public ApplicationUserService(UserRepository userRepository,
                                   EmailService emailService,
                                   ObjectMapper objectMapper,
+                                  JwtUserDetailsService jwtUserDetailsService,
                                   AmazonClient amazonClient) {
         this.userRepository = userRepository;
         this.objectMapper = objectMapper;
         this.emailService = emailService;
         this.amazonClient = amazonClient;
+        this.jwtUserDetailsService = jwtUserDetailsService;
     }
 
 
@@ -65,9 +70,17 @@ public class ApplicationUserService {
     public List<ApplicationUser> getUsers() {
         return this.userRepository.findAll();
     }
+    
+    public ApplicationUser getLoggedUser() {
+        return  this.jwtUserDetailsService.getUserFromToken();
+    }
 
     public Optional<ApplicationUser> getUserById(long id) {
         return this.userRepository.findById(id);
+    }
+
+    public List<ApplicationUser> getUsersByRole(Role role) {
+        return this.userRepository.findAllByRole(role);
     }
 
     public ApplicationUser createUser(JsonNode jsonNode) {

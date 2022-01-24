@@ -4,6 +4,7 @@ import com.akropoliprishtine.entities.book.Author;
 import com.akropoliprishtine.entities.book.Book;
 import com.akropoliprishtine.repositories.book.AuthorRepository;
 import com.akropoliprishtine.services.AmazonClient;
+import com.akropoliprishtine.services.ApplicationUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,14 +22,20 @@ public class AuthorService {
 
     @Autowired
     AuthorRepository authorRepository;
+    
+    @Autowired
+    ApplicationUserService userService;
 
     public AuthorService(AuthorRepository authorRepository,
-                         AmazonClient amazonClient) {
+                         AmazonClient amazonClient,
+                         ApplicationUserService userService) {
         this.authorRepository = authorRepository;
         this.amazonClient = amazonClient;
+        this.userService = userService;
     }
 
     public Author saveAuthor(Author author) {
+        author.setOrganization(this.userService.getLoggedUser().getOrganization());
         return this.authorRepository.save(author);
     }
 
@@ -50,11 +57,8 @@ public class AuthorService {
         return null;
     }
 
-    public List<Author> getAuthors() {
-        return this.authorRepository.findAllOrderByName();
-    }
-
     public Page<Author> getAuthorsPage(Pageable pageable) {
+        // TODO BY ORG ID
         return this.authorRepository.findAll(pageable);
     }
 

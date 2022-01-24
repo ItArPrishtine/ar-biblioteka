@@ -22,9 +22,8 @@ import java.util.Optional;
 public class AuthorController {
     @Autowired
     private AuthorService authorService;
-    private final Path authorsDirectory = Paths.get("src/main/resources/images/authors");
 
-    @PostMapping("create")
+    @PostMapping("/create")
     public Author createAuthor(@RequestParam(value = "file", required = false) MultipartFile file,
                                @RequestParam("author") String author) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
@@ -33,12 +32,7 @@ public class AuthorController {
         return this.authorService.saveAndUploadFile(authorToSave, file);
     }
 
-    @GetMapping()
-    public List<Author> getAuthors() {
-        return this.authorService.getAuthors();
-    }
-
-    @GetMapping("list")
+    @GetMapping("/read")
     public Page<Author> getAuthors(@RequestParam(defaultValue = "0") Integer pageNumber,
                                    @RequestParam(defaultValue = "20") Integer pageSize) {
 
@@ -46,7 +40,7 @@ public class AuthorController {
         return this.authorService.getAuthorsPage(paging);
     }
 
-    @PutMapping("update")
+    @PutMapping("/update")
     public Author updateAuthor(@RequestParam(value = "file", required = false) MultipartFile file,
                                @RequestParam("author") String author) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
@@ -55,12 +49,12 @@ public class AuthorController {
         return this.authorService.saveAndUploadFile(authorToSave, file);
     }
 
-    @DeleteMapping("delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public void deleteAuthor(@PathVariable Long id) {
         this.authorService.deleteAuthor(id);
     }
 
-    @GetMapping("details/{id}")
+    @GetMapping("/read/{id}")
     public Optional<Author> getAuthorDetails(@PathVariable Long id) {
         return this.authorService.getAuthorDetails(id);
     }

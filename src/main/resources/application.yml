@@ -22,8 +22,8 @@ spring:
 #AWS properties
 amazonProperties:
   endpointUrl: "https://s3.us-east-2.amazonaws.com"
-  accessKey: "AKIAQII6KD23XJJFCXXU"
-  secretKey: "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"
+  accessKey: "AKIAQII6KD234HOLPN4Q"
+  secretKey: "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"
   bucketName: "ar-prishtine"
 
 app.awsServices.bucketName: "ar-prishtine"
@@ -33,8 +33,8 @@ cloud:
     stack.auto: false
     region.static: "eu-central-1"
     credentials:
-      accessKey: "AKIAQII6KD23XJJFCXXU"
-      secretKey: "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"
+      accessKey: "AKIAQII6KD234HOLPN4Q"
+      secretKey: "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"
 
 jwt:
   secret: javainuse

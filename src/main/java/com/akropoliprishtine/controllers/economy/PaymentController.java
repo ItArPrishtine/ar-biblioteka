@@ -1,15 +1,16 @@
 package com.akropoliprishtine.controllers.economy;
 
-import com.akropoliprishtine.dto.BookBorrowDTO;
-import com.akropoliprishtine.entities.book.Book;
 import com.akropoliprishtine.entities.economy.Payment;
-import com.akropoliprishtine.services.book.BookService;
 import com.akropoliprishtine.services.economy.PaymentService;
+import com.akropoliprishtine.services.economy.PdfGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.ByteArrayInputStream;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,29 +22,56 @@ public class PaymentController {
     @Autowired
     private PaymentService paymentService;
 
-    @PostMapping("/")
+    @PostMapping("/create")
     public Payment createPayment(@RequestBody Payment payment) {
-        return this.paymentService.createPayment(payment);
+        Payment responsePayment = null;
+        try {
+            responsePayment = this.paymentService.createPayment(payment);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return responsePayment;
     }
 
-    @GetMapping("/")
+    @GetMapping("/read")
     public List<Payment> getPayments() {
         return this.paymentService.getPayments();
     }
 
-    @PutMapping("/")
+    @PutMapping("/update")
     public Payment updatePayment(@RequestBody Payment payment) {
         return this.paymentService.updatePayment(payment);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public void deletePayment(@PathVariable Long id) {
         this.paymentService.deletePayment(id);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/read/{id}")
     public Optional<Payment> getPaymentDetails(@PathVariable Long id) {
         return this.paymentService.getPaymentById(id);
     }
+
+
+    @RequestMapping(value = "/export/pdf", method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_PDF_VALUE)
+    public ResponseEntity<InputStreamResource> citiesReport() {
+
+        List<Payment> payments = paymentService.getPayments();
+
+        ByteArrayInputStream bis = PdfGenerator.paymentReports(payments);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "inline; filename=paymentReports.pdf");
+
+        return ResponseEntity
+                .ok()
+                .headers(headers)
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(new InputStreamResource(bis));
+    }
+
 }
 

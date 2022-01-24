@@ -26,5 +26,6 @@ public class BookComment extends Auditable<Long> {
     @JoinColumn(name = "bookId", nullable = false)
     @ManyToOne
     private Book book;
+    
 
 }

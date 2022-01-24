@@ -15,12 +15,13 @@ public class BorrowController {
     @Autowired
     private BorrowService borrowService;
 
-    @GetMapping("/")
-    public List<Borrow> getBorrows(@RequestParam(value = "status", required = false) BorrowStatus status) {
-        return this.borrowService.getAll(status);
+    @GetMapping("/read")
+    public List<Borrow> getBorrows(@RequestParam(value = "status", required = false) BorrowStatus status,
+                                   @RequestParam(value = "userId", required = false) Long userId) {
+        return this.borrowService.getAll(status, userId);
     }
 
-    @PostMapping("/")
+    @PostMapping("/borrow")
     public Borrow borrow(@RequestBody Borrow borrow) {
         return this.borrowService.borrow(borrow);
     }
@@ -31,11 +32,11 @@ public class BorrowController {
     }
 
     @GetMapping("/borrowed/{bookId}")
-    public Borrow getBookBorrowed(@PathVariable Long bookId) {
+    public Borrow checkIfBookBorrowed(@PathVariable Long bookId) {
         return this.borrowService.bookBorrowed(bookId);
     }
 
-    @GetMapping("/user_current_borros/{userId}")
+    @GetMapping("/user_current_borrows/{userId}")
     public Borrow getCurrentUserBorrow(@PathVariable Long userId) {
         return this.borrowService.getCurrentUserBorrow(userId);
     }
