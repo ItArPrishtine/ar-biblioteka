@@ -46,12 +46,6 @@ public class Payment extends Auditable<Long> {
     @Column(nullable = true)
     private String description;
 
-    @Column(nullable = true)
-    private Boolean verifiedFromUser;
-
-    @Column(nullable = true)
-    private String signFromEconomy;
-
     @OneToOne
     @JoinColumn(name = "organizationId", nullable = true)
     private Organization organization;

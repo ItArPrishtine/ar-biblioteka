@@ -94,6 +94,8 @@ public class BookService {
             queryBuilder.append( " WHERE " + conditionsToString);
         }
 
+        queryBuilder.append(" ORDER BY book.category DESC");
+
         Query query = entityManager.createQuery(queryBuilder.toString());
 
         query.setFirstResult((int)pageable.getOffset());
