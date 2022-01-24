@@ -30,7 +30,7 @@ public class AuthenticationController {
         return "App is deplyed successfully!!";
     }
 
-    @PostMapping(value = "/p1/authenticate")
+    @PostMapping(value = "/c/authenticate")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
         try {
 

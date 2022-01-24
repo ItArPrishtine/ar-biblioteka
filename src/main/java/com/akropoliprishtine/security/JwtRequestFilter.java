@@ -73,6 +73,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         }
 
 
+        logger.warn("AGONAGON");
+        logger.warn(request.getRequestURL().toString().contains("/p1"));
         if (!request.getRequestURL().toString().contains("/p1")) {
             boolean hasPermission = permissionValidate(request);
 
