@@ -87,7 +87,9 @@ public class EmailService {
         templateData.put("bookName", borrow.getBook().getName());
         templateData.put("days", daysLeft);
         templateData.put("url", "https://arsekretarite.com/account/biblioteka/extend-deadline/" + borrow.getId());
-
+        
+        // TODO GRUPOJ NE BAZE TE FILIALIT
+        
         if (sendToAgon) {
             sendGridService.sendEmailWithSendGrid(subject, "agonhaxhani83@gmail.com", templateData, templateUrl);
         } else {

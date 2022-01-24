@@ -1,12 +1,14 @@
 package com.akropoliprishtine.services.book;
 
 import com.akropoliprishtine.dto.BookBorrowDTO;
+import com.akropoliprishtine.entities.ApplicationUser;
 import com.akropoliprishtine.entities.book.Author;
 import com.akropoliprishtine.entities.book.Book;
 import com.akropoliprishtine.enums.BookCategory;
 import com.akropoliprishtine.enums.BorrowStatus;
 import com.akropoliprishtine.repositories.book.BookRepository;
 import com.akropoliprishtine.services.AmazonClient;
+import com.akropoliprishtine.services.ApplicationUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -32,14 +34,19 @@ public class BookService {
 
     @Autowired
     EntityManager entityManager;
+    
+    @Autowired
+    ApplicationUserService userService;
 
     public BookService(BookRepository bookRepository,
                        AuthorService authorService,
-                       AmazonClient amazonClient
+                       AmazonClient amazonClient,
+                       ApplicationUserService userService
                        ) {
         this.bookRepository = bookRepository;
         this.authorService = authorService;
         this.amazonClient = amazonClient;
+        this.userService = userService;
     }
 
     public List<Book> saveBooks(List<Book> books) {
@@ -75,6 +82,12 @@ public class BookService {
             }
         }
 
+        ApplicationUser user = this.userService.getLoggedUser();
+        
+        if (user.getId() != 1) {
+            conditions.add("book.organization.id = " + this.userService.getLoggedUser().getOrganization().getId());
+        }
+
         String conditionsToString = String.join(" AND ", conditions);
 
         if (conditionsToString.length() != 0) {
@@ -99,6 +112,7 @@ public class BookService {
     }
 
     public Book save(Book book) {
+        book.setOrganization(this.userService.getLoggedUser().getOrganization());
         return this.bookRepository.save(book);
     }
 

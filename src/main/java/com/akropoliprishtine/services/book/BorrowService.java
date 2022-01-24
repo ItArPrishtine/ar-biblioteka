@@ -1,6 +1,7 @@
 package com.akropoliprishtine.services.book;
 
 import com.akropoliprishtine.entities.ApplicationUser;
+import com.akropoliprishtine.entities.Organization;
 import com.akropoliprishtine.entities.Role;
 import com.akropoliprishtine.entities.book.Book;
 import com.akropoliprishtine.entities.book.Borrow;
@@ -60,8 +61,9 @@ public class BorrowService {
     }
 
     public List<Borrow> getAll(BorrowStatus status, Long userId) {
+        Organization organization = this.userService.getLoggedUser().getOrganization();
         if (status != null && userId == null) {
-            return this.borrowRepository.findBorrowByBorrowStatus(status);
+            return this.borrowRepository.findBorrowByBorrowStatusAndOrganization(status, organization);
         }
         
         if (userId != null && status == null) {
@@ -73,11 +75,12 @@ public class BorrowService {
             Optional<ApplicationUser> borrowUser = this.userService.getUserById(userId.longValue());
             return this.borrowRepository.findBorrowByApplicationUserAndBorrowStatus(borrowUser.get(), status);
         }
-        return this.borrowRepository.findAll();
+        return this.borrowRepository.findAllByOrganization(organization);
     }
 
     public Borrow borrow(Borrow borrow) {
         ApplicationUser borrowUser = jwtUserDetailsService.getUserFromToken();
+        borrow.setOrganization(borrowUser.getOrganization());
 
         borrow.setApplicationUser(borrowUser);
         borrow.setBorrowStatus(BorrowStatus.BORROWED);

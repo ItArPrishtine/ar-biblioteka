@@ -1,9 +1,9 @@
 package com.akropoliprishtine.services.book;
 
-import com.akropoliprishtine.entities.book.Author;
 import com.akropoliprishtine.entities.book.Edition;
-import com.akropoliprishtine.repositories.book.AuthorRepository;
 import com.akropoliprishtine.repositories.book.EditionRepository;
+import com.akropoliprishtine.services.ApplicationUserService;
+import com.amazonaws.services.appstream.model.Application;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,20 +14,17 @@ public class EditionService {
 
     @Autowired
     EditionRepository editionRepository;
+    
+    @Autowired
+    ApplicationUserService userService;
 
-    public EditionService(EditionRepository editionRepository) {
+    public EditionService(EditionRepository editionRepository,
+                          ApplicationUserService userService) {
         this.editionRepository = editionRepository;
+        this.userService = userService;
     }
     
-    public List<Edition> saveEditions(List<Edition> editions) {
-        return this.editionRepository.saveAll(editions);
-    }
-
-    public Edition saveEdition(Edition edition) {
-        return this.editionRepository.save(edition);
-    }
-
     public List<Edition> getEditions() {
-        return this.editionRepository.findAll();
+        return this.editionRepository.findAllByOrganization(this.userService.getLoggedUser().getOrganization());
     }
 }

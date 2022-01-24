@@ -40,6 +40,6 @@ public class Book extends Auditable<Long> {
     private String publicationYear;
 
     @OneToOne
-    @JoinColumn(name = "organizationId", nullable = true)
+    @JoinColumn(name = "organizationId")
     private Organization organization;
 }
