@@ -84,33 +84,6 @@ public class PaymentService {
         return this.paymentRepository.save(payment);
     }
 
-    public Payment verifyPayment(Long paymentId) {
-        Payment payment = paymentRepository.getOne(paymentId);
-        ApplicationUser user = jwtUserDetailsService.getUserFromToken();
-
-
-        if (user.getId() == payment.getApplicationUser().getId()) {
-            payment.setVerifiedFromUser(true);
-            payment = this.paymentRepository.save(payment);
-
-            Role pg = roleService.findByName(UserRolesEnum.PG_EKONOMIA.label);
-            Role helper = roleService.findByName(UserRolesEnum.ND_EKONOMIA.label);
-
-            List<ApplicationUser> pgUsers = userRepository.findAllByRole(pg);
-            List<ApplicationUser> helperUsers = userRepository.findAllByRole(helper);
-
-            pgUsers.forEach(pgUser -> {
-//                emailService.sendBorrowEmailToLibrary(user.getEmail(), payment);
-            });
-
-            helperUsers.forEach(helpUser -> {
-//                emailService.sendBorrowEmailToLibrary(user.getEmail(), payment);
-            });
-        }
-
-        return payment;
-    }
-
     public void deletePayment(Long id) {
         this.paymentRepository.deleteById(id);
     }
