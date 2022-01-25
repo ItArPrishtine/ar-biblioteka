@@ -68,7 +68,7 @@ SELECT relatePermissionToRole('KF', 'DELETE_COMMENT');
 SELECT relatePermissionToRole('KF', 'READ_AUTHORS');
 
 SELECT relatePermissionToRole('KF', 'CHANGE_ROLE_PERMISSIONS');
-SELECT relatePermissionToRole('KF', 'READ_PERMISSIONS');§
+SELECT relatePermissionToRole('KF', 'READ_PERMISSIONS');
 SELECT relatePermissionToRole('KF', 'READ_ROLES');
 
 SELECT relatePermissionToRole('KF', 'READ_AUTHORS');
