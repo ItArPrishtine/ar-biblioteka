@@ -86,6 +86,11 @@ public class BookService {
         
         if (user.getId() != 1) {
             conditions.add("book.organization.id = " + this.userService.getLoggedUser().getOrganization().getId());
+
+            if (category.equals(BookCategory.ANGLEZE.label)) {
+                conditions.add("category NOT LIKE '%" + BookCategory.AKROPOLI.label + "%'");
+                conditions.add("category NOT LIKE '%" + BookCategory.AKROPOLI2.label + "%'");
+            }
         }
 
         String conditionsToString = String.join(" AND ", conditions);
