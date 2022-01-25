@@ -13,23 +13,13 @@ public class RoleController {
     @Autowired
     private RoleService roleService;
 
-    @PostMapping("create")
-    public Role createRole(@RequestBody Role role) {
-        return this.roleService.createRole(role);
-    }
-
-    @GetMapping("list")
+    @GetMapping("/list")
     public List<Role> getRoles() {
         return this.roleService.getRoles();
     }
-
-    @PutMapping
+    
+    @PutMapping("/change-permissions")
     public Role updateRole(@RequestBody Role role) {
         return this.roleService.updateRole(role);
-    }
-
-    @DeleteMapping
-    public void deleteUser(@RequestBody Role role) {
-        this.roleService.deleteRole(role);
     }
 }

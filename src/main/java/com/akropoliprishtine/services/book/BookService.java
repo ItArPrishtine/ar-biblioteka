@@ -1,11 +1,14 @@
 package com.akropoliprishtine.services.book;
 
 import com.akropoliprishtine.dto.BookBorrowDTO;
+import com.akropoliprishtine.entities.ApplicationUser;
 import com.akropoliprishtine.entities.book.Author;
 import com.akropoliprishtine.entities.book.Book;
 import com.akropoliprishtine.enums.BookCategory;
+import com.akropoliprishtine.enums.BorrowStatus;
 import com.akropoliprishtine.repositories.book.BookRepository;
 import com.akropoliprishtine.services.AmazonClient;
+import com.akropoliprishtine.services.ApplicationUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -31,14 +34,19 @@ public class BookService {
 
     @Autowired
     EntityManager entityManager;
+    
+    @Autowired
+    ApplicationUserService userService;
 
     public BookService(BookRepository bookRepository,
                        AuthorService authorService,
-                       AmazonClient amazonClient
+                       AmazonClient amazonClient,
+                       ApplicationUserService userService
                        ) {
         this.bookRepository = bookRepository;
         this.authorService = authorService;
         this.amazonClient = amazonClient;
+        this.userService = userService;
     }
 
     public List<Book> saveBooks(List<Book> books) {
@@ -53,7 +61,8 @@ public class BookService {
         StringBuilder queryBuilder = new StringBuilder("SELECT book.id, book.name, book.category, " +
                 "book.publicationYear, author.firstName, author.lastName, author.id as authorId " +
                 "FROM book_book book " +
-                "inner join book_author author on book.author.id = author.id");
+                "inner join book_author author on book.author.id = author.id ");
+
         List<String> conditions = new ArrayList<>();
 
         if (bookName != null && !bookName.isEmpty()) {
@@ -66,6 +75,17 @@ public class BookService {
 
         if (category != null && !category.isEmpty()) {
             conditions.add("lower(category) LIKE '%" + category.toLowerCase() + "%'");
+
+            if (category.equals(BookCategory.ANGLEZE.label)) {
+                conditions.add("category NOT LIKE '%" + BookCategory.AKROPOLI.label + "%'");
+                conditions.add("category NOT LIKE '%" + BookCategory.AKROPOLI2.label + "%'");
+            }
+        }
+
+        ApplicationUser user = this.userService.getLoggedUser();
+        
+        if (user.getId() != 1) {
+            conditions.add("book.organization.id = " + this.userService.getLoggedUser().getOrganization().getId());
 
             if (category.equals(BookCategory.ANGLEZE.label)) {
                 conditions.add("category NOT LIKE '%" + BookCategory.AKROPOLI.label + "%'");
@@ -99,6 +119,7 @@ public class BookService {
     }
 
     public Book save(Book book) {
+        book.setOrganization(this.userService.getLoggedUser().getOrganization());
         return this.bookRepository.save(book);
     }
 

@@ -2,6 +2,7 @@ package com.akropoliprishtine.entities.book;
 
 import com.akropoliprishtine.entities.ApplicationUser;
 import com.akropoliprishtine.entities.Auditable;
+import com.akropoliprishtine.entities.Organization;
 import com.akropoliprishtine.enums.BorrowStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
@@ -43,4 +44,8 @@ public class Borrow extends Auditable<Long> {
 
     @Column(nullable = false)
     private Boolean extendedDeadline = false;
+
+    @OneToOne
+    @JoinColumn(name = "organizationId", nullable = true)
+    private Organization organization;
 }

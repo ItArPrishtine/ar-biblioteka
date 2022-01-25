@@ -16,10 +16,9 @@ public class EditionController {
     @Autowired
     private EditionService editionService;
 
-    @GetMapping()
+    @GetMapping("/read")
     public List<Edition> getEditions() {
         return this.editionService.getEditions();
     }
-
 }
 
