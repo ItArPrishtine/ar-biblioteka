@@ -21,9 +21,6 @@ INSERT INTO account_roles(name, description) VALUES ('ND tek Teatri', 'Ndihmes/e
 INSERT INTO account_roles(name, description) VALUES ('PG tek Teknika', 'Pergjegjes/e ne sekretarine e Teknikes') ON CONFLICT DO NOTHING;
 INSERT INTO account_roles(name, description) VALUES ('ND tek Teknika', 'Ndihmes/e ne sekretarine e Teknikes') ON CONFLICT DO NOTHING;
 
-INSERT INTO account_roles(name, description) VALUES ('PG tek Teknika', 'Pergjegjes/e ne sekretarine e Teknikes') ON CONFLICT DO NOTHING;
-INSERT INTO account_roles(name, description) VALUES ('ND tek Teknika', 'Ndihmes/e ne sekretarine e Teknikes') ON CONFLICT DO NOTHING;
-
 -- Aksi
 INSERT INTO account_roles(name, description) VALUES ('PG i Vullnetarizmit', 'Pergjegjes/e ne sekretarine e Vullnetarizmit') ON CONFLICT DO NOTHING;
 INSERT INTO account_roles(name, description) VALUES ('ND i Vullnetarizmit', 'Ndihmes/e ne sekretarine e Vullnetarizmit') ON CONFLICT DO NOTHING;
