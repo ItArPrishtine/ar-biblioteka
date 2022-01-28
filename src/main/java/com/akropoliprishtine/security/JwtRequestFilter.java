@@ -73,13 +73,13 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         }
 
 
-//        if (!request.getRequestURL().toString().contains("/p1")) {
-//            boolean hasPermission = permissionValidate(request);
-//
-//            if (!hasPermission) {
-//                response.sendError(HttpServletResponse.SC_FORBIDDEN, "Nuk keni te drejte t'i shihni keto te dhena.");
-//            }
-//        }
+        if (!request.getRequestURL().toString().contains("/p1")) {
+            boolean hasPermission = permissionValidate(request);
+
+            if (!hasPermission) {
+                response.sendError(HttpServletResponse.SC_FORBIDDEN, "Nuk keni te drejte t'i shihni keto te dhena.");
+            }
+        }
 
 
 

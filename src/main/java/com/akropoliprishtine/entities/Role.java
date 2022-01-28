@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "account_roles")
+@Table(name = "account_roles", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
 public class Role extends Auditable<Long> implements GrantedAuthority {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
