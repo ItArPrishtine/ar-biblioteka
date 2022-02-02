@@ -25,6 +25,10 @@ public class EditionService {
     }
     
     public List<Edition> getEditions() {
-        return this.editionRepository.findAllByOrganization(this.userService.getLoggedUser().getOrganization());
+        return this.editionRepository.findAll();
+    }
+
+    public Edition saveEdition(Edition edition) {
+        return this.editionRepository.save(edition);
     }
 }

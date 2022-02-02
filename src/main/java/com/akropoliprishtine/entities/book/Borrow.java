@@ -7,6 +7,8 @@ import com.akropoliprishtine.enums.BorrowStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -15,7 +17,9 @@ import java.util.Date;
 @Setter
 @Entity(name="book_borrow")
 @Table(name = "book_borrow")
-public class Borrow extends Auditable<Long> {
+@SQLDelete(sql = "UPDATE book_borrow SET deleted = true WHERE id=?")
+@Where(clause = "deleted=false")
+public class Borrow extends Auditable<String> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

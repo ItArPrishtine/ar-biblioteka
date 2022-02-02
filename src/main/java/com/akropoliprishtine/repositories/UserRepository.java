@@ -1,6 +1,7 @@
 package com.akropoliprishtine.repositories;
 
 import com.akropoliprishtine.entities.ApplicationUser;
+import com.akropoliprishtine.entities.Organization;
 import com.akropoliprishtine.entities.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -17,4 +18,6 @@ public interface UserRepository extends JpaRepository<ApplicationUser, Long> {
     List<ApplicationUser> findAll();
 
     List<ApplicationUser> findAllByRole(Role role);
+    
+    List<ApplicationUser> findAllByOrganization(Organization organization);
 }

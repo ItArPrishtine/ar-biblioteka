@@ -1,5 +1,7 @@
 package com.akropoliprishtine.entities;
 
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
@@ -7,7 +9,9 @@ import java.util.Set;
 
 @Entity
 @Table(name = "account_roles", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
-public class Role extends Auditable<Long> implements GrantedAuthority {
+@SQLDelete(sql = "UPDATE account_roles SET deleted = true WHERE id=?")
+@Where(clause = "deleted=false")
+public class Role extends Auditable<String> implements GrantedAuthority {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -1,6 +1,7 @@
 package com.akropoliprishtine.controllers.book;
 
 import com.akropoliprishtine.dto.BookBorrowDTO;
+import com.akropoliprishtine.entities.book.Author;
 import com.akropoliprishtine.entities.book.Book;
 import com.akropoliprishtine.enums.BookCategory;
 import com.akropoliprishtine.services.book.BookService;
@@ -11,7 +12,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,13 +27,21 @@ public class BookController {
     private BookService bookService;
 
     @PostMapping("/create")
-    public Book createBook(@RequestBody Book book) {
-        return this.bookService.save(book);
+    public Book createBook(@RequestParam(value = "file", required = false) MultipartFile file,
+                               @RequestParam("book") String book) throws IOException {
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        Book bookToSave = objectMapper.readValue(book, Book.class);
+        return this.bookService.save(bookToSave, file);
+
     }
 
     @PutMapping("/update")
-    public Book updateBook(@RequestBody Book book) {
-        return this.bookService.save(book);
+    public Book updateBook(@RequestParam(value = "file", required = false) MultipartFile file,
+                           @RequestParam("book") String book) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        Book bookToSave = objectMapper.readValue(book, Book.class);
+        return this.bookService.save(bookToSave, file);
     }
 
     @GetMapping("/read")
@@ -38,10 +49,11 @@ public class BookController {
                                         @RequestParam(defaultValue = "20", required = false) Integer pageSize,
                                         @RequestParam(required = false) String bookName,
                                         @RequestParam(defaultValue = "0", required = false) int authorId,
+                                        @RequestParam(defaultValue = "0", required = false) int organization,
                                         @RequestParam(required = false) String category) {
 
         Pageable paging = PageRequest.of(pageNumber, pageSize);
-        return this.bookService.getBooksPage(paging, bookName, authorId, category);
+        return this.bookService.getBooksPage(paging, bookName, authorId, category, organization);
     }
 
     @DeleteMapping("/delete/{id}")

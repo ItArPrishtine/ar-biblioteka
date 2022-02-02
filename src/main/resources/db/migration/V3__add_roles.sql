@@ -7,7 +7,7 @@ INSERT INTO account_roles(name, description) VALUES ('PGS PENDA', 'Pergjegjes/e 
 
 -- Pishtari
 INSERT INTO account_roles(name, description) VALUES ('PG tek Biblioteka', 'Pergjegjes/e ne sekretarine e bibliotekes') ON CONFLICT DO NOTHING;
-INSERT INTO account_roles(name, description) VALUES ('ND tek Bilbioteka', 'Ndihmes/e ne sekretarine e bibliotekes') ON CONFLICT DO NOTHING;
+INSERT INTO account_roles(name, description) VALUES ('ND tek Biblioteka', 'Ndihmes/e ne sekretarine e bibliotekes') ON CONFLICT DO NOTHING;
 
 INSERT INTO account_roles(name, description) VALUES ('PG tek IT', 'Pergjegjes/e ne sekretarine e IT') ON CONFLICT DO NOTHING;
 INSERT INTO account_roles(name, description) VALUES ('ND tek IT', 'Ndihmes/e ne sekretarine e IT') ON CONFLICT DO NOTHING;

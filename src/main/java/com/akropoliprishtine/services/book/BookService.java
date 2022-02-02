@@ -6,12 +6,14 @@ import com.akropoliprishtine.entities.book.Author;
 import com.akropoliprishtine.entities.book.Book;
 import com.akropoliprishtine.enums.BookCategory;
 import com.akropoliprishtine.enums.BorrowStatus;
+import com.akropoliprishtine.enums.UserRolesEnum;
 import com.akropoliprishtine.repositories.book.BookRepository;
 import com.akropoliprishtine.services.AmazonClient;
 import com.akropoliprishtine.services.ApplicationUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -57,8 +59,10 @@ public class BookService {
         return this.bookRepository.findAll();
     }
 
-    public List<BookBorrowDTO> getBooksPage(Pageable pageable, String bookName, int authorId, String category) {
-        StringBuilder queryBuilder = new StringBuilder("SELECT book.id, book.name, book.category, " +
+    public List<BookBorrowDTO> getBooksPage(Pageable pageable, String bookName, int authorId, String category, int organization) {
+        ApplicationUser loggedUser = this.userService.getLoggedUser();
+        
+        StringBuilder queryBuilder = new StringBuilder("SELECT book.id, book.name, book.category, book.imageUrl, " +
                 "book.publicationYear, author.firstName, author.lastName, author.id as authorId " +
                 "FROM book_book book " +
                 "inner join book_author author on book.author.id = author.id ");
@@ -81,17 +85,20 @@ public class BookService {
                 conditions.add("category NOT LIKE '%" + BookCategory.AKROPOLI2.label + "%'");
             }
         }
-
-        ApplicationUser user = this.userService.getLoggedUser();
         
-//        if (user.getId() != 1) {
-//            conditions.add("book.organization.id = " + this.userService.getLoggedUser().getOrganization().getId());
-//
-//            if (category.equals(BookCategory.ANGLEZE.label)) {
-//                conditions.add("category NOT LIKE '%" + BookCategory.AKROPOLI.label + "%'");
-//                conditions.add("category NOT LIKE '%" + BookCategory.AKROPOLI2.label + "%'");
-//            }
-//        }
+        
+        int organizationId;
+        
+        if ((loggedUser.getRole().getName().equals(UserRolesEnum.KK.label) ||
+                loggedUser.getRole().getName().equals(UserRolesEnum.ADMIN.label) && 
+                organization != 0)        
+        ) {
+            organizationId = organization;
+        } else {
+            organizationId = loggedUser.getOrganization().getId().intValue();
+        }
+
+        conditions.add("book.organization.id = " + organizationId);
 
         String conditionsToString = String.join(" AND ", conditions);
 
@@ -118,9 +125,33 @@ public class BookService {
         return this.bookRepository.findBooksByAuthor(author);
     }
 
-    public Book save(Book book) {
+    public Book save(Book book, MultipartFile multipartFile) {
+        book.setOrganization(this.userService.getLoggedUser().getOrganization());
+
+        this.uploadImageAndSaveBook(book, multipartFile);
+        return this.bookRepository.save(book);
+    }
+    
+    public Book update(Book book) {
         book.setOrganization(this.userService.getLoggedUser().getOrganization());
         return this.bookRepository.save(book);
+    }
+
+    public Book uploadImageAndSaveBook(Book book, MultipartFile multipartFile) {
+        String uploadedFileUrl = null;
+
+        try {
+            if (multipartFile != null) {
+                uploadedFileUrl = amazonClient.uploadFileTos3bucket(multipartFile);
+                book.setImageUrl(uploadedFileUrl);
+            }
+            
+            return this.bookRepository.save(book);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
     public void delete(Long bookId) {

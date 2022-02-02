@@ -32,8 +32,8 @@ public class ApplicationUserController {
     }
 
     @GetMapping("/read")
-    public List<ApplicationUser> getUsers() {
-        return this.applicationUserService.getUsers();
+    public List<ApplicationUser> getUsers(@RequestParam(defaultValue = "0", required = false) int organization) {
+        return this.applicationUserService.getUsers(organization);
     }
 
     @GetMapping("/read/{id}")
