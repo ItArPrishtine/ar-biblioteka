@@ -35,8 +35,8 @@ public class PaymentController {
     }
 
     @GetMapping("/read")
-    public List<Payment> getPayments() {
-        return this.paymentService.getPayments();
+    public List<Payment> getPayments(@RequestParam(defaultValue = "0", required = false) int organization) {
+        return this.paymentService.getPayments(organization);
     }
 
     @PutMapping("/update")
@@ -57,9 +57,10 @@ public class PaymentController {
 
     @RequestMapping(value = "/export/pdf", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_PDF_VALUE)
-    public ResponseEntity<InputStreamResource> citiesReport() {
+    public ResponseEntity<InputStreamResource> paymentsReport(
+            @RequestParam(defaultValue = "0", required = false) int organization) {
 
-        List<Payment> payments = paymentService.getPayments();
+        List<Payment> payments = paymentService.getPayments(organization);
 
         ByteArrayInputStream bis = PdfGenerator.paymentReports(payments);
 

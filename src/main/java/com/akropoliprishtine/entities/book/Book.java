@@ -5,6 +5,8 @@ import com.akropoliprishtine.entities.Auditable;
 import com.akropoliprishtine.entities.Organization;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 
@@ -12,7 +14,9 @@ import javax.persistence.*;
 @Setter
 @Entity(name="book_book")
 @Table(name = "book_book", uniqueConstraints = @UniqueConstraint(columnNames = {"name", "category"}))
-public class Book extends Auditable<Long> {
+@SQLDelete(sql = "UPDATE book_book SET deleted = true WHERE id=?")
+@Where(clause = "deleted=false")
+public class Book extends Auditable<String> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,6 +26,9 @@ public class Book extends Auditable<Long> {
 
     @Column(length = 4000)
     private String description;
+    
+    @Column(name = "imageUrl", nullable = false)
+    private String imageUrl;
 
     @JoinColumn(name = "authorId", nullable = false)
     @OneToOne

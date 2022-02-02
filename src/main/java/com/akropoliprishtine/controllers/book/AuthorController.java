@@ -33,11 +33,8 @@ public class AuthorController {
     }
 
     @GetMapping("/read")
-    public Page<Author> getAuthors(@RequestParam(defaultValue = "0") Integer pageNumber,
-                                   @RequestParam(defaultValue = "20") Integer pageSize) {
-
-        Pageable paging = PageRequest.of(pageNumber, pageSize);
-        return this.authorService.getAuthorsPage(paging);
+    public List<Author> getAuthors(@RequestParam(defaultValue = "0", required = false) int organization) {
+        return this.authorService.getAuthorsPage(organization);
     }
 
     @PutMapping("/update")

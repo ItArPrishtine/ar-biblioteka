@@ -6,7 +6,9 @@ public enum UserRolesEnum {
     PG_EKONOMIA("PG tek Ekonomia"),
     ND_EKONOMIA("ND tek Ekonomia"),
     PGS_PISHTARI("PGS PISHTARI"),
-    KF("KF");
+    ADMIN("ADMIN"),
+    KF("KF"),
+    KK("KK");
 
 
     public final String label;

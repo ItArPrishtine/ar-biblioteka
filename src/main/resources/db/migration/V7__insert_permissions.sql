@@ -36,6 +36,8 @@ SELECT relatePermissionToRole('ADMIN', 'CHANGE_ROLE_PERMISSIONS');
 SELECT relatePermissionToRole('ADMIN', 'READ_PERMISSIONS');
 SELECT relatePermissionToRole('ADMIN', 'READ_ROLES');
 
+SELECT relatePermissionToRole('ADMIN', 'READ_BOOK_EDITION');
+
 -- KF PERMISSIONS
 SELECT relatePermissionToRole('KF', 'CREATE_USERS');
 SELECT relatePermissionToRole('KF', 'READ_USERS');
@@ -75,6 +77,7 @@ SELECT relatePermissionToRole('KF', 'READ_AUTHORS');
 SELECT relatePermissionToRole('KF', 'CREATE_AUTHORS');
 SELECT relatePermissionToRole('KF', 'UPDATE_AUTHORS');
 SELECT relatePermissionToRole('KF', 'DELETE_AUTHORS');
+SELECT relatePermissionToRole('KF', 'READ_BOOK_EDITION');
 
 -- PGS PISHTARI
 SELECT relatePermissionToRole('PGS PISHTARI', 'CHANGE_PASSWORD');
@@ -149,6 +152,7 @@ SELECT relatePermissionToRole('PG tek Biblioteka', 'READ_AUTHORS');
 SELECT relatePermissionToRole('PG tek Biblioteka', 'CREATE_AUTHORS');
 SELECT relatePermissionToRole('PG tek Biblioteka', 'UPDATE_AUTHORS');
 SELECT relatePermissionToRole('PG tek Biblioteka', 'DELETE_AUTHORS');
+SELECT relatePermissionToRole('PG tek Biblioteka', 'READ_BOOK_EDITION');
 ---
 SELECT relatePermissionToRole('ND tek Biblioteka', 'CHANGE_PASSWORD');
 SELECT relatePermissionToRole('ND tek Biblioteka', 'READ_BOOKS');
@@ -171,6 +175,7 @@ SELECT relatePermissionToRole('ND tek Biblioteka', 'READ_AUTHORS');
 SELECT relatePermissionToRole('ND tek Biblioteka', 'CREATE_AUTHORS');
 SELECT relatePermissionToRole('ND tek Biblioteka', 'UPDATE_AUTHORS');
 SELECT relatePermissionToRole('ND tek Biblioteka', 'DELETE_AUTHORS');
+SELECT relatePermissionToRole('ND tek Biblioteka', 'READ_BOOK_EDITION');
 
 -- IT
 SELECT relatePermissionToRole('PG tek IT', 'CHANGE_PASSWORD');

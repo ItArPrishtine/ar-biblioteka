@@ -45,12 +45,16 @@ public class BorrowService {
 
     @Autowired
     BookService bookService;
+    
+    @Autowired
+    OrganizationService organizationService;
 
     public BorrowService(BorrowRepository borrowRepository,
                          ApplicationUserService userService,
                          JwtUserDetailsService jwtUserDetailsService,
                          RoleRepository roleRepository,
                          UserRepository userRepository,
+                         OrganizationService organizationService,
                          BookService bookService) {
         this.borrowRepository = borrowRepository;
         this.userService = userService;
@@ -58,12 +62,25 @@ public class BorrowService {
         this.roleRepository = roleRepository;
         this.userRepository = userRepository;
         this.bookService = bookService;
+        this.organizationService = organizationService;
     }
 
-    public List<Borrow> getAll(BorrowStatus status, Long userId) {
-        Organization organization = this.userService.getLoggedUser().getOrganization();
+    public List<Borrow> getAll(BorrowStatus status, Long userId, long organization) {
+        Organization org;
+        ApplicationUser loggedUser = this.userService.getLoggedUser();
+
+        if ((loggedUser.getRole().getName().equals(UserRolesEnum.KK.label) ||
+                loggedUser.getRole().getName().equals(UserRolesEnum.ADMIN.label) &&
+                        organization != 0)
+        ) {
+            org = organizationService.getOrganizationById(organization);
+        } else {
+            org = loggedUser.getOrganization();
+        }
+
+
         if (status != null && userId == null) {
-            return this.borrowRepository.findBorrowByBorrowStatusAndOrganization(status, organization);
+            return this.borrowRepository.findBorrowByBorrowStatusAndOrganization(status, org);
         }
         
         if (userId != null && status == null) {
@@ -75,7 +92,7 @@ public class BorrowService {
             Optional<ApplicationUser> borrowUser = this.userService.getUserById(userId.longValue());
             return this.borrowRepository.findBorrowByApplicationUserAndBorrowStatus(borrowUser.get(), status);
         }
-        return this.borrowRepository.findAllByOrganization(organization);
+        return this.borrowRepository.findAllByOrganization(org);
     }
 
     public Borrow borrow(Borrow borrow) {
@@ -116,7 +133,7 @@ public class BorrowService {
     }
 
     private boolean checkIfBorrowExist(Borrow borrow) {
-        List<Borrow> borrows = this.getAll(null, null);
+        List<Borrow> borrows = this.getAll(null, null, 0);
 
         List<Boolean> foundBorrows = borrows.stream().map(item -> item.getBorrowStatus() == BorrowStatus.BORROWED
                         && Objects.equals(item.getBook().getId(), borrow.getBook().getId()))

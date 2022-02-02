@@ -1,9 +1,12 @@
 //package com.akropoliprishtine.config;
 //
+//import com.akropoliprishtine.entities.Organization;
 //import com.akropoliprishtine.entities.book.*;
+//import com.akropoliprishtine.enums.OrganizationEnum;
 //import com.akropoliprishtine.services.book.AuthorService;
 //import com.akropoliprishtine.services.book.BookService;
 //import com.akropoliprishtine.services.book.EditionService;
+//import com.akropoliprishtine.services.book.OrganizationService;
 //import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 //import org.apache.poi.ss.formula.functions.T;
 //import org.apache.poi.ss.usermodel.*;
@@ -30,6 +33,9 @@
 //
 //    @Autowired
 //    AuthorService authorService;
+//    
+//    @Autowired
+//    OrganizationService organizationService;
 //
 //    public ExcelFileToDatabaseConfig(BookService bookService,
 //                                     EditionService editionService,
@@ -56,6 +62,9 @@
 //        Iterator<Row> rowIterator = sheet.rowIterator();
 //        List<RegjistriDTO> registerList = new ArrayList<>();
 //
+//        Organization prishtina = organizationService.getOrganization(OrganizationEnum.PRISHTINE.label);
+//
+//
 //        while (rowIterator.hasNext()) {
 //            Row row = rowIterator.next();
 //
@@ -74,10 +83,12 @@
 //            Author author = new Author();
 //            author.setFirstName(regjistriDTO.getEmriAutorit());
 //            author.setLastName("");
+//            author.setOrganization(prishtina);
 //            author = saveAuthor(author, existedAuthors);
 //
 //            Edition edition = new Edition();
 //            edition.setName(regjistriDTO.getShtepiaBotuese());
+//            edition.setOrganization(prishtina);
 //            edition = saveEdition(edition, existedEditions);
 //
 //            Book book = new Book();
@@ -86,6 +97,7 @@
 //            book.setCategory(regjistriDTO.getKategoria());
 //            book.setAuthor(author);
 //            book.setEdition(edition);
+//            book.setOrganization(prishtina);
 //
 //            addBooksIfNotExist(booksToAdd, book, existedBooks);
 //        }
@@ -103,7 +115,7 @@
 //        if (existedAuthor != null) {
 //            return existedAuthor;
 //        } else {
-//            Author savedAuthor = this.authorService.saveAuthor(author);
+//            Author savedAuthor = this.authorService.saveAuthorFromSheet(author);
 //            existedAuthors.add(author);
 //            return savedAuthor;
 //        }

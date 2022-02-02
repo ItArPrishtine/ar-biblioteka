@@ -2,6 +2,8 @@ package com.akropoliprishtine.entities;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 
@@ -9,7 +11,9 @@ import javax.persistence.*;
 @Setter
 @Entity(name = "account_permissions")
 @Table(name = "account_permissions", uniqueConstraints = @UniqueConstraint(columnNames = {"endpoint"}))
-public class Permission extends Auditable<Long> {
+@SQLDelete(sql = "UPDATE account_permissions SET deleted = true WHERE id=?")
+@Where(clause = "deleted=false")
+public class Permission extends Auditable<String> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

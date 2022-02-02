@@ -1,15 +1,12 @@
 package com.akropoliprishtine.services;
 
-import com.akropoliprishtine.entities.ApplicationUser;
 import com.akropoliprishtine.entities.Role;
 import com.akropoliprishtine.repositories.RoleRepository;
-import com.akropoliprishtine.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RoleService {
@@ -29,5 +26,9 @@ public class RoleService {
 
     public Role findByName(String name) {
         return this.roleRepository.findByName(name);
+    }
+    
+    public Optional<Role> findById(Long roleId) {
+        return this.roleRepository.findById(roleId);
     }
 }

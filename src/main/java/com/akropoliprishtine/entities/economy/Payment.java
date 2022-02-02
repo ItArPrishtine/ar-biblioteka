@@ -16,7 +16,7 @@ import java.util.Date;
 @Table(name = "economy_payment")
 @Getter
 @Setter
-public class Payment extends Auditable<Long> {
+public class Payment extends Auditable<String> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
