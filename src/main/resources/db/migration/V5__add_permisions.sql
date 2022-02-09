@@ -42,4 +42,6 @@ INSERT INTO account_permissions(description, endpoint, permission_code) VALUES (
 INSERT INTO account_permissions(description, endpoint, permission_code) VALUES ('Lexoje listen e te drejtave',  '/api/account_permissions/read', 'READ_PERMISSIONS') ON CONFLICT DO NOTHING;
 INSERT INTO account_permissions(description, endpoint, permission_code) VALUES ('Lexoje listen e roleve',  '/api/account_role/list', 'READ_ROLES') ON CONFLICT DO NOTHING;
 
+INSERT INTO account_permissions(description, endpoint, permission_code) VALUES ('Lexoje listen e shtepive te botimit',  '/book_edition/read', 'READ_BOOK_EDITION') ON CONFLICT DO NOTHING;
+
 
