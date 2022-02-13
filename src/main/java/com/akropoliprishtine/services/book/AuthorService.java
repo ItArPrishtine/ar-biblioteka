@@ -74,11 +74,10 @@ public class AuthorService {
 
         Organization org;
 
-        if ((loggedUser.getRole().getName().equals(UserRolesEnum.KK.label) ||
-                loggedUser.getRole().getName().equals(UserRolesEnum.ADMIN.label) &&
-                        organization != 0)
+        if (((loggedUser.getRole().getName().equals(UserRolesEnum.KK.label) || loggedUser.getRole().getName().equals(UserRolesEnum.ADMIN.label)) &&
+                organization != 0)
         ) {
-            org = organizationService.getOrganizationById(organization != 0 ? organization : 2);
+            org = organizationService.getOrganizationById(organization);
         } else {
             org = loggedUser.getOrganization();
         }

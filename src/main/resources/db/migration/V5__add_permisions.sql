@@ -6,8 +6,8 @@ INSERT INTO account_permissions(description, endpoint, permission_code) VALUES (
 INSERT INTO account_permissions(description, endpoint, permission_code) VALUES ('Ndryshoj fjalekalim',  '/api/account_user/change_password', 'CHANGE_PASSWORD') ON CONFLICT DO NOTHING;
 
 -- PAYMENT
-INSERT INTO account_permissions(description, endpoint, permission_code) VALUES ('Shtoje te ardhura ekonomike',  '/api/economy_payment/read', 'READ_PAYMENTS') ON CONFLICT DO NOTHING;
-INSERT INTO account_permissions(description, endpoint, permission_code) VALUES ('Lexoje te ardhurat ekonomike',  '/api/economy_payment/create', 'CREATE_PAYMENTS') ON CONFLICT DO NOTHING;
+INSERT INTO account_permissions(description, endpoint, permission_code) VALUES ('Lexoje te ardhura ekonomike',  '/api/economy_payment/read', 'READ_PAYMENTS') ON CONFLICT DO NOTHING;
+INSERT INTO account_permissions(description, endpoint, permission_code) VALUES ('Shtoje te ardhurat ekonomike',  '/api/economy_payment/create', 'CREATE_PAYMENTS') ON CONFLICT DO NOTHING;
 INSERT INTO account_permissions(description, endpoint, permission_code) VALUES ('Ndryshoj te ardhurat ekonomike',  '/api/economy_payment/update', 'UPDATE_PAYMENTS') ON CONFLICT DO NOTHING;
 INSERT INTO account_permissions(description, endpoint, permission_code) VALUES ('Fshij te ardhura ekonomike',  '/api/economy_payment/delete', 'DELETE_PAYMENTS') ON CONFLICT DO NOTHING;
 INSERT INTO account_permissions(description, endpoint, permission_code) VALUES ('Gjenero PDF',  '/api/economy_payment/export/pdf', 'EXPORT_PDF') ON CONFLICT DO NOTHING;

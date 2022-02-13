@@ -88,12 +88,11 @@ public class BookService {
         
         
         int organizationId;
-        
-        if ((loggedUser.getRole().getName().equals(UserRolesEnum.KK.label) ||
-                loggedUser.getRole().getName().equals(UserRolesEnum.ADMIN.label) && 
+
+        if (((loggedUser.getRole().getName().equals(UserRolesEnum.KK.label) || loggedUser.getRole().getName().equals(UserRolesEnum.ADMIN.label)) &&
                 organization != 0)        
         ) {
-            organizationId = organization != 0 ? organization : 2;
+            organizationId = organization;
         } else {
             organizationId = loggedUser.getOrganization().getId().intValue();
         }
