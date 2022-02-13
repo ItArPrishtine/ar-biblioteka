@@ -93,7 +93,7 @@ public class BookService {
                 loggedUser.getRole().getName().equals(UserRolesEnum.ADMIN.label) && 
                 organization != 0)        
         ) {
-            organizationId = organization;
+            organizationId = organization != 0 ? organization : 2;
         } else {
             organizationId = loggedUser.getOrganization().getId().intValue();
         }

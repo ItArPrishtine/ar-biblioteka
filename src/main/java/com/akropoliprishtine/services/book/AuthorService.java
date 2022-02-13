@@ -78,7 +78,7 @@ public class AuthorService {
                 loggedUser.getRole().getName().equals(UserRolesEnum.ADMIN.label) &&
                         organization != 0)
         ) {
-            org = organizationService.getOrganizationById(organization);
+            org = organizationService.getOrganizationById(organization != 0 ? organization : 2);
         } else {
             org = loggedUser.getOrganization();
         }
