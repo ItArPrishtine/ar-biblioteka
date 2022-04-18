@@ -1,11 +1,13 @@
 package com.akropoliprishtine.services.book;
 
+import com.akropoliprishtine.dto.BorrowsEmailDTO;
 import com.akropoliprishtine.entities.ApplicationUser;
 import com.akropoliprishtine.entities.Organization;
 import com.akropoliprishtine.entities.Role;
 import com.akropoliprishtine.entities.book.Book;
 import com.akropoliprishtine.entities.book.Borrow;
 import com.akropoliprishtine.enums.BorrowStatus;
+import com.akropoliprishtine.enums.OrganizationEnum;
 import com.akropoliprishtine.enums.UserRolesEnum;
 import com.akropoliprishtine.repositories.RoleRepository;
 import com.akropoliprishtine.repositories.UserRepository;
@@ -116,8 +118,8 @@ public class BorrowService {
         Role pg = roleRepository.findByName(UserRolesEnum.PG_BIBLIOTEKA.label);
         Role helper = roleRepository.findByName(UserRolesEnum.ND_BIBLIOTEKA.label);
 
-        List<ApplicationUser> pgUsers = userRepository.findAllByRole(pg);
-        List<ApplicationUser> helperUsers = userRepository.findAllByRole(helper);
+        List<ApplicationUser> pgUsers = userRepository.findAllByRoleAndOrganization(pg, borrowUser.getOrganization());
+        List<ApplicationUser> helperUsers = userRepository.findAllByRoleAndOrganization(helper, borrowUser.getOrganization());
 
         pgUsers.forEach(user -> {
             emailService.sendBorrowEmailToLibrary(user.getEmail(), borrowed);
@@ -155,6 +157,51 @@ public class BorrowService {
         borrow.setReturnedDate(new Date());
         return borrowRepository.save(borrow);
     }
+    
+    @Scheduled(cron = "0 0 12 1/2 * *")
+    public void scheduleLateBorrows() {
+        long now = System.currentTimeMillis() / 1000;
+        System.out.println(
+                "scheduleLateBorrows using cron jobs - " + now);
+
+        Organization organization = organizationService.getOrganization(OrganizationEnum.PRISHTINE.label);
+        List<Borrow> currentBorrowed = borrowRepository.findBorrowByBorrowStatusAndOrganization(BorrowStatus.BORROWED, organization);
+
+        List<BorrowsEmailDTO> lateBorrows = new ArrayList();
+
+        currentBorrowed.forEach(item -> {
+            Date currentDate = new Date();
+            Date borrowedUntil = item.getBorrowUntil();
+
+            long milli = borrowedUntil.getTime() - currentDate.getTime();
+            long daysLeft = (milli / (60 * 60 * 24 * 1000));
+            
+            if (daysLeft < 0) {
+                BorrowsEmailDTO borrowsEmailDTO = new BorrowsEmailDTO();
+                borrowsEmailDTO.setApplicationUser(item.getApplicationUser());
+                borrowsEmailDTO.setBorrowFrom(item.getBorrowFrom());
+                borrowsEmailDTO.setBook(item.getBook());
+                borrowsEmailDTO.setBorrowUntil(item.getBorrowUntil());
+                borrowsEmailDTO.setDaysLeft(Math.abs(daysLeft));
+                lateBorrows.add(borrowsEmailDTO);
+            }
+        });
+
+        Role pg = roleRepository.findByName(UserRolesEnum.PG_BIBLIOTEKA.label);
+        Role helper = roleRepository.findByName(UserRolesEnum.ND_BIBLIOTEKA.label);
+        
+        List<ApplicationUser> pgUsers = userRepository.findAllByRoleAndOrganization(pg, organization);
+        List<ApplicationUser> helperUsers = userRepository.findAllByRoleAndOrganization(helper, organization);
+
+        pgUsers.forEach(user -> {
+            this.emailService.sendEmailForLateBorrows(user.getEmail(), lateBorrows);
+        });
+
+        helperUsers.forEach(user -> {
+            this.emailService.sendEmailForLateBorrows(user.getEmail(), lateBorrows);
+        });
+
+    }
 
     @Scheduled(cron = "0 0 12 * * *")
     public void scheduleTaskUsingCronExpression() {
@@ -164,6 +211,7 @@ public class BorrowService {
                 "schedule tasks using cron jobs - " + now);
 
         List<Borrow> currentBorrowed = borrowRepository.findBorrowByBorrowStatus(BorrowStatus.BORROWED);
+        
         currentBorrowed.forEach(item -> {
             Date currentDate = new Date();
             Date borrowedUntil = item.getBorrowUntil();
@@ -171,10 +219,8 @@ public class BorrowService {
             long milli = borrowedUntil.getTime() - currentDate.getTime();
             long daysLeft = (milli / (60*60*24*1000));
 
-            this.emailService.sendEmailForBorrowDeadline(item, daysLeft, true);
-
-            if (daysLeft == 2 || daysLeft == 0) {
-                this.emailService.sendEmailForBorrowDeadline(item, daysLeft, false);
+            if (daysLeft == 2 || daysLeft <= 0) {
+                this.emailService.sendEmailForBorrowDeadline(item, daysLeft);
             }
         });
     }
