@@ -108,6 +108,12 @@ public class ApplicationUserService {
         return this.userRepository.findById(id);
     }
 
+    public Optional<ApplicationUser> getPersonalData() {
+        ApplicationUser user = this.getLoggedUser();
+        System.out.println(user.getId());
+        return this.getUserById(user.getId());
+    }
+
     public List<ApplicationUser> getUsersByRole(Role role) {
         return this.userRepository.findAllByRole(role);
     }

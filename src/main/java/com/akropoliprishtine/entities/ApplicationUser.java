@@ -1,6 +1,7 @@
 package com.akropoliprishtine.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.SQLDelete;
@@ -55,4 +56,10 @@ public class ApplicationUser extends Auditable<String> {
     @OneToOne
     @JoinColumn(name = "organizationId", nullable = true)
     private Organization organization;
+
+    @Column(name = "professionalLabels", nullable = true)
+    private String professionalLabels;
+
+    @Column(name = "allowProfessionalEmail", nullable = false, columnDefinition = "boolean default false")
+    private Boolean allowProfessionalEmail = false;
 }

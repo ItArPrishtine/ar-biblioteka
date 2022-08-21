@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.StringWriter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -19,9 +20,7 @@ public class SendGridService {
     private final String CONFIG_VERSION = "2.3.23";
     private final Email from = new Email("it.arprishtine@gmail.com");
 
-    public void sendEmailWithSendGrid(String subject, String emailTo, Map<String, Object> templateData, String templateUrl) {
-        Email to = new Email(emailTo);
-
+    public void sendEmailWithSendGrid(String subject, List<String> emailTo , Map<String, Object> templateData, String templateUrl) {
         try {
             Configuration cfg = new Configuration(new Version(CONFIG_VERSION));
 
@@ -40,7 +39,18 @@ public class SendGridService {
 
             Content content = new Content("text/html", templateContent);
 
-            Mail mail = new Mail(from, subject, to, content);
+            Mail mail = new Mail();
+
+            mail.setFrom(from);
+            mail.setSubject(subject);
+            Personalization personalization = new Personalization();
+
+            emailTo.forEach(item -> {
+                Email to = new Email(item);
+                personalization.addTo(to);
+            });
+            mail.addPersonalization(personalization);
+            mail.addContent(content);
 
             Request request = new Request();
 

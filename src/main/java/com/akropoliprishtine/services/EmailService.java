@@ -1,5 +1,6 @@
 package com.akropoliprishtine.services;
 
+import com.akropoliprishtine.crawler.JobType;
 import com.akropoliprishtine.dto.BorrowsEmailDTO;
 import com.akropoliprishtine.entities.ApplicationUser;
 import com.akropoliprishtine.entities.book.Borrow;
@@ -11,9 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class EmailService {
@@ -37,10 +36,10 @@ public class EmailService {
         Map<String, Object> templateData = new HashMap<>();
         templateData.put("username", username);
 
-        sendGridService.sendEmailWithSendGrid(subject, email, templateData, templateUrl);
+        sendGridService.sendEmailWithSendGrid(subject, Collections.singletonList(email), templateData, templateUrl);
     }
 
-    public void sendBorrowEmailToLibrary(String email, Borrow borrow) {
+    public void sendBorrowEmailToLibrary(List<String> emails, Borrow borrow) {
         final String subject = "Nje liber i ri huazimi";
         final String templateUrl = "templates/mail/newBorrowLibrary.ftl";
 
@@ -58,48 +57,42 @@ public class EmailService {
         templateData.put("bookLink", bookDetailsUrl + borrow.getBook().getId());
 
 
-        sendGridService.sendEmailWithSendGrid(subject, email, templateData, templateUrl);
+        sendGridService.sendEmailWithSendGrid(subject, emails, templateData, templateUrl);
     }
 
-    public void sendBorrowEmailToClient(Borrow borrow) {
-        final String subject = "Ju sapo huazuat nje liber te ri";
-        final String templateUrl = "templates/mail/newBorrowClient.ftl";
-
-        Map<String, Object> templateData = new HashMap<>();
-        templateData.put("username", borrow.getApplicationUser().getFirstName());
-
-        templateData.put("authorName", borrow.getBook().getAuthor().getFirstName() + " " +
-                borrow.getBook().getAuthor().getLastName());
-
-        templateData.put("bookTitle", borrow.getBook().getName());
-        templateData.put("category", borrow.getBook().getCategory());
-        templateData.put("borrowDate", dateFormat.format(borrow.getBorrowFrom()));
-        templateData.put("dateToReturn", dateFormat.format(borrow.getBorrowUntil()));
-
-        sendGridService.sendEmailWithSendGrid(subject, borrow.getApplicationUser().getEmail(), templateData, templateUrl);
-    }
-
-    public void sendEmailForBorrowDeadline(Borrow borrow, long daysLeft) {
-        final String subject = "Deadline-i per kthimin e librit";
-        final String templateUrl = "templates/mail/deadline-reminders.ftl";
-
-        Map<String, Object> templateData = new HashMap<>();
-        templateData.put("username", borrow.getApplicationUser().getFirstName());
-        templateData.put("bookName", borrow.getBook().getName());
-        templateData.put("days", daysLeft);
-        templateData.put("url", "https://arsekretarite.com/account/biblioteka/extend-deadline/" + borrow.getId());
-        
-        // TODO GRUPOJ NE BAZE TE FILIALIT
-        sendGridService.sendEmailWithSendGrid(subject, borrow.getApplicationUser().getEmail(), templateData, templateUrl);
-        sendGridService.sendEmailWithSendGrid(subject, "agonhaxhani83@gmail.com", templateData, templateUrl);
-    }
-
-    public void sendEmailForLateBorrows(String email, List<BorrowsEmailDTO> borrows) {
+    public void sendEmailForLateBorrows(List<String> emails, List<BorrowsEmailDTO> borrows) {
         final String subject = "Lista e librave te vonuar";
         final String templateUrl = "templates/mail/lateBorrows.ftl";
 
         Map<String, Object> templateData = new HashMap<>();
         templateData.put("borrows", borrows);
-        sendGridService.sendEmailWithSendGrid(subject, email, templateData, templateUrl);
+        sendGridService.sendEmailWithSendGrid(subject, emails, templateData, templateUrl);
+    }
+
+    public void sendEmailForJobs(String email, List<JobType> jobs) {
+        final String subject = "Pozita pune per ju";
+        final String templateUrl = "templates/mail/jobs.ftl";
+
+        Map<String, Object> templateData = new HashMap<>();
+        templateData.put("jobs", jobs);
+
+        List<String> receivers = new ArrayList<>();
+        receivers.add("agonhaxhani83@gmail.com");
+
+        sendGridService.sendEmailWithSendGrid(subject, receivers, templateData, templateUrl);
+    }
+
+    public void sendEmailToPostJobs(String email, List<JobType> jobs) {
+        final String subject = "Pozita e punes per t'u postuar sot";
+        final String templateUrl = "templates/mail/jobsToPost.ftl";
+
+        Map<String, Object> templateData = new HashMap<>();
+        templateData.put("jobs", jobs);
+
+        List<String> receivers = new ArrayList<>();
+        receivers.add("agonhaxhani83@gmail.com");
+        receivers.add("ah35454@ubt-uni.net");
+
+        sendGridService.sendEmailWithSendGrid(subject, receivers, templateData, templateUrl);
     }
 }

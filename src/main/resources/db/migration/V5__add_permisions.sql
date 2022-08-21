@@ -4,6 +4,7 @@ INSERT INTO account_permissions(description, endpoint, permission_code) VALUES (
 INSERT INTO account_permissions(description, endpoint, permission_code) VALUES ('Ndryshoje perdorues',  '/api/account_user/update', 'UPDATE_USERS') ON CONFLICT DO NOTHING;
 INSERT INTO account_permissions(description, endpoint, permission_code) VALUES ('Fshij perdorues',  '/api/account_user/delete', 'DELETE_USERS') ON CONFLICT DO NOTHING;
 INSERT INTO account_permissions(description, endpoint, permission_code) VALUES ('Ndryshoj fjalekalim',  '/api/account_user/change_password', 'CHANGE_PASSWORD') ON CONFLICT DO NOTHING;
+INSERT INTO account_permissions(description, endpoint, permission_code) VALUES ('Lexoje te dhenat personale',  '/api/account_user/me', 'READ_PERSONAL_DATA') ON CONFLICT DO NOTHING;
 
 -- PAYMENT
 INSERT INTO account_permissions(description, endpoint, permission_code) VALUES ('Shtoje te ardhura ekonomike',  '/api/economy_payment/read', 'READ_PAYMENTS') ON CONFLICT DO NOTHING;
