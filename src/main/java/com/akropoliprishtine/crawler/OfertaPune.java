@@ -10,7 +10,7 @@ public class OfertaPune implements ICrawler {
         List<JobType> jobTypes = new ArrayList<JobType>();
 
         try (Playwright playwright = Playwright.create()) {
-            Browser browser = playwright.webkit().launch();
+            Browser browser = playwright.chromium().launch((new BrowserType.LaunchOptions().setChromiumSandbox(false)));
             Page page = browser.newPage();
             page.navigate("https://ofertapune.net/");
             page.waitForLoadState();

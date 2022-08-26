@@ -1,9 +1,6 @@
 package com.akropoliprishtine.crawler;
 
-import com.microsoft.playwright.Browser;
-import com.microsoft.playwright.ElementHandle;
-import com.microsoft.playwright.Page;
-import com.microsoft.playwright.Playwright;
+import com.microsoft.playwright.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,18 +11,18 @@ public class Kastori implements ICrawler{
         List<JobType> jobTypes = new ArrayList<JobType>();
 
         try (Playwright playwright = Playwright.create()) {
-            Browser browser = playwright.webkit().launch();
+            Browser browser = playwright.chromium().launch((new BrowserType.LaunchOptions().setChromiumSandbox(false)));
             Page page = browser.newPage();
             page.navigate("https://kastori.net/");
             page.waitForLoadState();
 
-            List<ElementHandle> lists = page.querySelectorAll(".wpjb-type-pune");
+            List<ElementHandle> lists = page.querySelectorAll(".listing-item listing-item__jobs");
 
             lists.forEach(job -> {
                 String jobTitle = null;
                 String jobLink = null;
 
-                ElementHandle title = job.querySelector(".wpjb-job_title");
+                ElementHandle title = job.querySelector(".listing-item__title");
                 ElementHandle position = job.querySelector("a");
 
                 if (title != null) {

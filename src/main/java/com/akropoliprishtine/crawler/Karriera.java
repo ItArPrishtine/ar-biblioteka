@@ -1,9 +1,6 @@
 package com.akropoliprishtine.crawler;
 
-import com.microsoft.playwright.Browser;
-import com.microsoft.playwright.ElementHandle;
-import com.microsoft.playwright.Page;
-import com.microsoft.playwright.Playwright;
+import com.microsoft.playwright.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +11,7 @@ public class Karriera implements ICrawler {
         List<JobType> jobTypes = new ArrayList<JobType>();
 
         try (Playwright playwright = Playwright.create()) {
-            Browser browser = playwright.webkit().launch();
+            Browser browser = playwright.chromium().launch((new BrowserType.LaunchOptions().setChromiumSandbox(false)));
             Page page = browser.newPage();
             page.navigate("https://karriera.al/al/result");
             page.waitForLoadState();
