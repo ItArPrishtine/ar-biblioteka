@@ -17,7 +17,7 @@ public class Scheduler {
     EmailService emailService;
 
     //    sSXxWw2
-    @Scheduled(cron = "0 16 23 * * *")
+    @Scheduled(cron = "0 22 21 * * *")
     public void runScheduler() {
         DayOfWeek dayOfWeek = LocalDate.now().getDayOfWeek();
         List<JobType> jobs = new ArrayList<>();
