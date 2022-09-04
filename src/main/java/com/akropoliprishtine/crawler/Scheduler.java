@@ -2,6 +2,7 @@ package com.akropoliprishtine.crawler;
 
 import com.akropoliprishtine.services.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
@@ -16,7 +17,7 @@ public class Scheduler {
     EmailService emailService;
 
     //    sSXxWw2
-//    @Scheduled(cron = "0 00 12 * * *")
+    @Scheduled(cron = "0 16 23 * * *")
     public void runScheduler() {
         DayOfWeek dayOfWeek = LocalDate.now().getDayOfWeek();
         List<JobType> jobs = new ArrayList<>();
