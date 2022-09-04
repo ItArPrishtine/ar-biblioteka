@@ -91,7 +91,8 @@ public class EmailService {
 
         List<String> receivers = new ArrayList<>();
         receivers.add("agonhaxhani83@gmail.com");
-        receivers.add("ah35454@ubt-uni.net");
+        receivers.add("greseveseli@gmail.com");
+        receivers.add("kreshnikqorraj@gmail.com");
 
         sendGridService.sendEmailWithSendGrid(subject, receivers, templateData, templateUrl);
     }

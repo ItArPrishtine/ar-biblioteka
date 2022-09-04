@@ -17,7 +17,7 @@ public class Scheduler {
     EmailService emailService;
 
     //    sSXxWw2
-    @Scheduled(cron = "0 22 21 * * *")
+    @Scheduled(cron = "0 00 13 * * *")
     public void runScheduler() {
         DayOfWeek dayOfWeek = LocalDate.now().getDayOfWeek();
         List<JobType> jobs = new ArrayList<>();
@@ -46,10 +46,6 @@ public class Scheduler {
             case SATURDAY:
                 OfertaPune ofertaPune2 = new OfertaPune();
                 jobs = ofertaPune2.crawlData();
-                break;
-            case SUNDAY:
-                OfertaPune ofertaPune3 = new OfertaPune();
-                jobs = ofertaPune3.crawlData();
                 break;
         }
 
