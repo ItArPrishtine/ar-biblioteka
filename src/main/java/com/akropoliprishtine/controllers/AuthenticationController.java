@@ -1,5 +1,6 @@
 package com.akropoliprishtine.controllers;
 
+import com.akropoliprishtine.crawler.Scheduler;
 import com.akropoliprishtine.entities.ApplicationUser;
 import com.akropoliprishtine.entities.JwtRequest;
 import com.akropoliprishtine.entities.JwtResponse;
@@ -25,9 +26,18 @@ public class AuthenticationController {
     @Autowired
     private ApplicationUserService userService;
 
+    @Autowired
+    private Scheduler scheduler;
+
     @GetMapping("/p1/testheroku")
     public String testHeroku() {
         return "App is deplyed successfully!!";
+    }
+
+    @GetMapping("/p1/run")
+    public String runScheduler() {
+        scheduler.runScheduler();
+        return "Scheduler running!!";
     }
 
     @PostMapping(value = "/p1/authenticate")
