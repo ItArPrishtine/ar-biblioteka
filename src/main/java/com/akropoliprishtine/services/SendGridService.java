@@ -4,6 +4,7 @@ import com.sendgrid.*;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.Version;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @Service
 public class SendGridService {
 
@@ -58,8 +60,11 @@ public class SendGridService {
             request.setEndpoint("mail/send");
             request.setBody(mail.build());
 
+            log.info("Email sent");
+
             sendGrid.api(request);
         } catch (Exception ex) {
+            log.error("Email failed to be sent", ex);
             ex.printStackTrace();
         }
     }

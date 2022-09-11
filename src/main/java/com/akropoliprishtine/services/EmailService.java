@@ -80,7 +80,7 @@ public class EmailService {
         sendGridService.sendEmailWithSendGrid(subject, receivers, templateData, templateUrl);
     }
 
-    public void sendEmailToPostJobs(String email, List<DailyJob> jobs) {
+    public void sendEmailToPostJobs(List<DailyJob> jobs) {
         final String subject = "Pozita e punes per t'u postuar sot";
         final String templateUrl = "templates/mail/jobsToPost.ftl";
 
