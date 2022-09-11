@@ -21,7 +21,7 @@ public class Scheduler {
     @Autowired
     DailyJobService dailyJobService;
 
-    @Scheduled(cron = "0 00 22 * * *")
+    @Scheduled(cron = "0 10 22 * * *")
     public void runScheduler() {
         DayOfWeek dayOfWeek = LocalDate.now().getDayOfWeek();
         List<DailyJob> jobs = new ArrayList<>();
