@@ -1,5 +1,7 @@
 package com.akropoliprishtine.crawler;
 
+import com.akropoliprishtine.entities.DailyJob;
+import com.akropoliprishtine.services.DailyJobService;
 import com.akropoliprishtine.services.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -16,11 +18,13 @@ public class Scheduler {
     @Autowired
     EmailService emailService;
 
-    //    sSXxWw2
-    @Scheduled(cron = "0 00 13 * * *")
+    @Autowired
+    DailyJobService dailyJobService;
+
+    @Scheduled(cron = "0 50 21 * * *")
     public void runScheduler() {
         DayOfWeek dayOfWeek = LocalDate.now().getDayOfWeek();
-        List<JobType> jobs = new ArrayList<>();
+        List<DailyJob> jobs = new ArrayList<>();
 
         switch (dayOfWeek) {
             case MONDAY:
@@ -49,6 +53,9 @@ public class Scheduler {
                 break;
         }
 
-        emailService.sendEmailToPostJobs(null, jobs);
+
+
+//        emailService.sendEmailToPostJobs(null, jobs);
+        dailyJobService.saveAll(jobs);
     }
 }

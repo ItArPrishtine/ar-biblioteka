@@ -1,5 +1,6 @@
 package com.akropoliprishtine.crawler;
 
+import com.akropoliprishtine.entities.DailyJob;
 import com.microsoft.playwright.*;
 
 import java.util.ArrayList;
@@ -7,8 +8,8 @@ import java.util.List;
 
 public class Karriera implements ICrawler {
 
-    public List<JobType> crawlData() {
-        List<JobType> jobTypes = new ArrayList<JobType>();
+    public List<DailyJob> crawlData() {
+        List<DailyJob> dailyJobs = new ArrayList();
 
         try (Playwright playwright = Playwright.create()) {
             Browser browser = playwright.chromium().launch((new BrowserType.LaunchOptions().setChromiumSandbox(false)));
@@ -37,18 +38,18 @@ public class Karriera implements ICrawler {
                     return;
                 }
 
-                JobType jobType = new JobType();
-                jobType.setLink(jobLink);
-                jobType.setTitle(jobTitle);
+                DailyJob dailyJob = new DailyJob();
+                dailyJob.setLink(jobLink);
+                dailyJob.setTitle(jobTitle);
 
-                System.out.println(jobType.toString());
+                System.out.println(dailyJob.toString());
 
-                jobTypes.add(jobType);
+                dailyJobs.add(dailyJob);
             });
 
         }
 
 
-        return jobTypes;
+        return dailyJobs;
     }
 }

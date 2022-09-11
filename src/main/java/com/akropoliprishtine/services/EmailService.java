@@ -1,10 +1,8 @@
 package com.akropoliprishtine.services;
 
-import com.akropoliprishtine.crawler.JobType;
 import com.akropoliprishtine.dto.BorrowsEmailDTO;
-import com.akropoliprishtine.entities.ApplicationUser;
+import com.akropoliprishtine.entities.DailyJob;
 import com.akropoliprishtine.entities.book.Borrow;
-import com.akropoliprishtine.entities.economy.Payment;
 import com.akropoliprishtine.utils.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -69,7 +67,7 @@ public class EmailService {
         sendGridService.sendEmailWithSendGrid(subject, emails, templateData, templateUrl);
     }
 
-    public void sendEmailForJobs(String email, List<JobType> jobs) {
+    public void sendEmailForJobs(String email, List<DailyJob> jobs) {
         final String subject = "Pozita pune per ju";
         final String templateUrl = "templates/mail/jobs.ftl";
 
@@ -82,7 +80,7 @@ public class EmailService {
         sendGridService.sendEmailWithSendGrid(subject, receivers, templateData, templateUrl);
     }
 
-    public void sendEmailToPostJobs(String email, List<JobType> jobs) {
+    public void sendEmailToPostJobs(String email, List<DailyJob> jobs) {
         final String subject = "Pozita e punes per t'u postuar sot";
         final String templateUrl = "templates/mail/jobsToPost.ftl";
 
