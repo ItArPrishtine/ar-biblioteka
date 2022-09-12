@@ -33,7 +33,7 @@ public class Scheduler {
         this.restTemplate = restTemplateBuilder.build();
     }
 
-    @Scheduled(cron = "0 13 21 * * *")
+    @Scheduled(cron = "0 0 10 * * *")
     public void runScheduler() {
         List<DailyJob> jobs = new ArrayList<>();
 
