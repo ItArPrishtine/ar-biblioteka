@@ -20,7 +20,7 @@ public class SchedulersWakeUp {
         this.restTemplate = restTemplateBuilder.build();
     }
 
-    @Scheduled(cron = "0 7 20 * * *")
+    @Scheduled(cron = "0 10 21 * * *")
     public void runScheduler() {
         List<DailyJob> jobs = new ArrayList<>();
 
