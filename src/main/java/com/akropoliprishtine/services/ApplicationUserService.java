@@ -164,6 +164,8 @@ public class ApplicationUserService {
         userToUpdate.setLastName(applicationUser.getLastName());
         userToUpdate.setRole(applicationUser.getRole());
         userToUpdate.setDateOfBirth(applicationUser.getDateOfBirth());
+        userToUpdate.setAllowProfessionalEmail(applicationUser.getAllowProfessionalEmail());
+        userToUpdate.setProfessionalLabels(applicationUser.getProfessionalLabels());
 
 
         ApplicationUser loggedUser = this.userService.getLoggedUser();
