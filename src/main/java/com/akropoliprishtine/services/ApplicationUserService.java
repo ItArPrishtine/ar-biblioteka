@@ -180,6 +180,10 @@ public class ApplicationUserService {
         return this.userRepository.save(userToUpdate);
     }
 
+    public List<ApplicationUser> getUsersWithAllowedEmail() {
+        return this.userRepository.findAllByAllowProfessionalEmail(true);
+    }
+
     public Optional<ApplicationUser> uploadESign(Long id, MultipartFile multipartFile) {
         String uploadedFileUrl = null;
 

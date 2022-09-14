@@ -1,7 +1,6 @@
 package com.akropoliprishtine.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.SQLDelete;

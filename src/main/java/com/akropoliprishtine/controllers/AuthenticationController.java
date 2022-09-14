@@ -34,6 +34,12 @@ public class AuthenticationController {
         return "App is deplyed successfully!!";
     }
 
+    @GetMapping("/p1/getJobs")
+    public String getJobs() {
+        scheduler.runScheduler();
+        return "Get Jobzz";
+    }
+
     @GetMapping("/p1/run")
     public String runScheduler() {
         scheduler.runScheduler();

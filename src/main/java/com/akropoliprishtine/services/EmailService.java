@@ -67,21 +67,8 @@ public class EmailService {
         sendGridService.sendEmailWithSendGrid(subject, emails, templateData, templateUrl);
     }
 
-    public void sendEmailForJobs(String email, List<DailyJob> jobs) {
-        final String subject = "Pozita pune per ju";
-        final String templateUrl = "templates/mail/jobs.ftl";
-
-        Map<String, Object> templateData = new HashMap<>();
-        templateData.put("jobs", jobs);
-
-        List<String> receivers = new ArrayList<>();
-        receivers.add("agonhaxhani83@gmail.com");
-
-        sendGridService.sendEmailWithSendGrid(subject, receivers, templateData, templateUrl);
-    }
-
     public void sendEmailToPostJobs(List<DailyJob> jobs) {
-        final String subject = "Pozita e punes per t'u postuar sot";
+        final String subject = "Pozita te punes per t'u postuar sot";
         final String templateUrl = "templates/mail/jobsToPost.ftl";
 
         Map<String, Object> templateData = new HashMap<>();
@@ -91,6 +78,19 @@ public class EmailService {
         receivers.add("agonhaxhani83@gmail.com");
         receivers.add("greseveseli@gmail.com");
         receivers.add("kreshnikqorraj@gmail.com");
+
+        sendGridService.sendEmailWithSendGrid(subject, receivers, templateData, templateUrl);
+    }
+
+    public void sendEmailForJobsPersonally(List<DailyJob> jobs, String userEmail) {
+        final String subject = "Pozita te punes per ju";
+        final String templateUrl = "templates/mail/jobsToPostPerUser.ftl";
+
+        Map<String, Object> templateData = new HashMap<>();
+        templateData.put("jobs", jobs);
+
+        List<String> receivers = new ArrayList<>();
+        receivers.add(userEmail);
 
         sendGridService.sendEmailWithSendGrid(subject, receivers, templateData, templateUrl);
     }
