@@ -156,6 +156,18 @@ public class ApplicationUserService {
         }
     }
 
+    public ApplicationUser updateMyUser(ApplicationUser applicationUser) {
+        ApplicationUser user = this.jwtUserDetailsService.getUserFromToken();
+
+        if (user.getId() != applicationUser.getId()) {
+            return null;
+        }
+
+        updateUser(applicationUser);
+
+        return applicationUser;
+    }
+
     public ApplicationUser updateUser(ApplicationUser applicationUser) {
         ApplicationUser userToUpdate = userRepository.findById(applicationUser.getId()).get();
 

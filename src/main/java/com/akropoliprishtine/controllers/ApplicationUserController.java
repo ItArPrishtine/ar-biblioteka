@@ -46,6 +46,11 @@ public class ApplicationUserController {
         return this.applicationUserService.getPersonalData();
     }
 
+    @PutMapping("/update/me")
+    public ApplicationUser updateMyUser(@RequestBody ApplicationUser applicationUser) {
+        return this.applicationUserService.updateMyUser(applicationUser);
+    }
+
     @PutMapping("/update")
     public ApplicationUser updateUser(@RequestBody ApplicationUser applicationUser) {
         return this.applicationUserService.updateUser(applicationUser);
