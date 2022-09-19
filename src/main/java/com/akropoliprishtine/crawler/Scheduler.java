@@ -73,7 +73,7 @@ public class Scheduler {
     }
 
     public JsonNode getPostsPlainJSON() {
-        String url = "https://jobs-facebook.herokuapp.com/postemails";
+        String url = "http://localhost:3000/postemails";
         return this.restTemplate.getForObject(url, JsonNode.class);
     }
 

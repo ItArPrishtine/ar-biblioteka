@@ -12,10 +12,12 @@
 
 </head>
 <body style="margin: 0; padding: 0">
-    <#list jobs as job>
-        <p style="width: 100%; display: inline-block">
-            ${job.title} - ${job.link}
-        </p>
-    </#list>
+    <#if jobs??>
+        <#list jobs as job>
+            <p style="width: 100%; display: inline-block">
+                ${job?index + 1}. ${job.title} - ${job.link}
+            </p>
+        </#list>
+    </#if>
 </body>
 </html>
