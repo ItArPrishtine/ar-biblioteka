@@ -1,11 +1,8 @@
 package com.akropoliprishtine;
 
-import com.akropoliprishtine.crawler.Scheduler;
-import com.akropoliprishtine.entities.SpringSecurityAuditorAware;
 import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -23,7 +20,7 @@ import java.io.IOException;
 @EnableConfigurationProperties
 @EnableScheduling
 @EntityScan({"com.akropoliprishtine.entities"})
-@EnableJpaAuditing(auditorAwareRef="auditorAware")
+//@EnableJpaAuditing(auditorAwareRef="auditorAware")
 public class AkropoliPrishtineApplication {
 
 	public static void main(String[] args) throws IOException {
@@ -33,20 +30,6 @@ public class AkropoliPrishtineApplication {
 	@Bean
 	public PasswordEncoder encoder () {
 		return new BCryptPasswordEncoder();
-	}
-
-	@Bean
-	public AmazonS3 amazonS3Client(AWSCredentialsProvider credentialsProvider) {
-		return AmazonS3ClientBuilder
-				.standard()
-				.withCredentials(credentialsProvider)
-				.withRegion("eu-central-1")
-				.build();
-	}
-
-	@Bean
-	public AuditorAware<String> auditorAware() {
-		return new SpringSecurityAuditorAware();
 	}
 
 }

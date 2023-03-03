@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-import com.akropoliprishtine.entities.ApplicationUser;
-import com.akropoliprishtine.entities.book.Borrow;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -47,20 +45,6 @@ public class JwtTokenUtil implements Serializable {
     public Boolean isTokenExpired(String token) {
         final Date expiration = getExpirationDateFromToken(token);
         return expiration.before(new Date());
-    }
-
-    public String generateToken(ApplicationUser user) {
-        Map<String, Object> claims = new HashMap<>();
-        claims.put("username", user.getUsername());
-        claims.put("id", user.getId());
-        claims.put("role", user.getRole());
-        return doGenerateToken(claims, user.getUsername());
-    }
-
-    public String generateTokenForEmail(ApplicationUser user) {
-        Map<String, Object> claims = new HashMap<>();
-        claims.put("id", user.getId());
-        return doGenerateToken(claims, user.getUsername());
     }
 
     private String doGenerateToken(Map<String, Object> claims, String subject) {

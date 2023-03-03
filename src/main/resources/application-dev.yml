@@ -2,9 +2,9 @@ spring:
   sendgrid:
     api-key: SG.7kYqpyobR5GWd75-ooXWrQ.yQg7jJ7YN5-xgIkBYicSEhobErpYdmYdJQkzEDitp3Q
   datasource:
-    url: "jdbc:postgresql://ec2-54-220-14-54.eu-west-1.compute.amazonaws.com/d3mruoemrltoeg"
-    username: "liubxnbibgnawf"
-    password: "7a40ecf3e349ca393f3b06205c12999675a68ac22095f62f43874fccd4efc918"
+    url: "jdbc:postgresql://ec2-54-158-247-210.compute-1.amazonaws.com/daa54gokh4p01m"
+    username: "zukhhgcdiznaca"
+    password: "83b009625a5ec34ee4b265a46cb697d95b1c5917d73c8a164672e5e517ed931e"
     driverClassName: org.postgresql.Driver
     initialization-mode: always
   flyway:
